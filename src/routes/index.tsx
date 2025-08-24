@@ -1,3 +1,94 @@
+// import App from "@/App";
+// import DashboardLayout from "@/components/layout/DashboardLayout";
+// import About from "@/pages/About";
+// import Login from "@/pages/Login";
+// import Register from "@/pages/Register";
+// import Verify from "@/pages/Verify";
+// import { generateRoutes } from "@/utils/generateRoutes";
+// import { createBrowserRouter, Navigate } from "react-router";
+// import { adminSidebarItems } from "./adminSidebarItems";
+// import { userSidebarItems } from "./userSidebarItems";
+// import { withAuth } from "@/utils/withAuth";
+// import Unauthorized from "@/pages/Unauthorized";
+// import { role } from "@/constants/role";
+// import { TRole } from "@/types";
+// import Tours from "@/pages/Tours";
+// import TourDetails from "@/pages/TourDetails";
+// import Booking from "@/pages/Booking";
+// import Homepage from "@/pages/Homepage";
+// import Success from "@/pages/Payment/Success";
+// import Fail from "@/pages/Payment/Fail";
+
+// export const router = createBrowserRouter([
+//   {
+//     Component: App,
+//     path: "/",
+//     children: [
+//       {
+//         Component: Homepage,
+//         index: true,
+//       },
+//       {
+//         Component: About,
+//         path: "about",
+//       },
+//       {
+//         Component: Tours,
+//         path: "tours",
+//       },
+//       {
+//         Component: TourDetails,
+//         path: "tours/:id",
+//       },
+//       {
+//         Component: withAuth(Booking),
+//         path: "booking/:id",
+//       },
+//     ],
+//   },
+//   {
+//     Component: withAuth(DashboardLayout, role.admin as TRole),
+//     path: "/admin",
+//     children: [
+//       { index: true, element: <Navigate to="/admin/analytics" /> },
+//       ...generateRoutes(adminSidebarItems),
+//     ],
+//   },
+//   {
+//     Component: withAuth(DashboardLayout, role.rider as TRole),
+//     path: "/user",
+//     children: [
+//       { index: true, element: <Navigate to="/user/bookings" /> },
+//       ...generateRoutes(userSidebarItems),
+//     ],
+//   },
+//   {
+//     Component: Login,
+//     path: "/login",
+//   },
+//   {
+//     Component: Register,
+//     path: "/register",
+//   },
+//   {
+//     Component: Verify,
+//     path: "/verify",
+//   },
+//   {
+//     Component: Unauthorized,
+//     path: "/unauthorized",
+//   },
+//   {
+//     Component: Success,
+//     path: "/payment/success",
+//   },
+//   {
+//     Component: Fail,
+//     path: "/payment/fail",
+//   },
+// ]);
+
+
 import App from "@/App";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import About from "@/pages/About";
@@ -7,17 +98,22 @@ import Verify from "@/pages/Verify";
 import { generateRoutes } from "@/utils/generateRoutes";
 import { createBrowserRouter, Navigate } from "react-router";
 import { adminSidebarItems } from "./adminSidebarItems";
-import { userSidebarItems } from "./userSidebarItems";
+// import { riderSidebarItems } from "./riderSidebarItems";
+// import { driverSidebarItems } from "./driverSidebarItems";
 import { withAuth } from "@/utils/withAuth";
 import Unauthorized from "@/pages/Unauthorized";
 import { role } from "@/constants/role";
 import { TRole } from "@/types";
-import Tours from "@/pages/Tours";
-import TourDetails from "@/pages/TourDetails";
-import Booking from "@/pages/Booking";
 import Homepage from "@/pages/Homepage";
+
+
+import Booking from "@/pages/Booking";
+// import RideDetails from "@/pages/RideDetails";
 import Success from "@/pages/Payment/Success";
 import Fail from "@/pages/Payment/Fail";
+import Features from "@/pages/Features";
+import Contact from "@/pages/Contact";
+import FAQ from "@/pages/FAQ";
 
 export const router = createBrowserRouter([
   {
@@ -33,19 +129,29 @@ export const router = createBrowserRouter([
         path: "about",
       },
       {
-        Component: Tours,
-        path: "tours",
+        Component: Features,
+        path: "features",
       },
       {
-        Component: TourDetails,
-        path: "tours/:id",
+        Component: Contact,
+        path: "contact",
       },
+      {
+        Component: FAQ,
+        path: "faq",
+      },
+      // {
+      //   Component: RideDetails,
+      //   path: "rides/:id",
+      // },
       {
         Component: withAuth(Booking),
         path: "booking/:id",
       },
     ],
   },
+
+  // Admin Dashboard
   {
     Component: withAuth(DashboardLayout, role.admin as TRole),
     path: "/admin",
@@ -54,14 +160,28 @@ export const router = createBrowserRouter([
       ...generateRoutes(adminSidebarItems),
     ],
   },
+
+  // Rider Dashboard
   {
     Component: withAuth(DashboardLayout, role.rider as TRole),
-    path: "/user",
+    path: "/rider",
     children: [
-      { index: true, element: <Navigate to="/user/bookings" /> },
-      ...generateRoutes(userSidebarItems),
+      { index: true, element: <Navigate to="/rider/bookings" /> },
+      // ...generateRoutes(riderSidebarItems),
     ],
   },
+
+  // Driver Dashboard
+  {
+    Component: withAuth(DashboardLayout, role.driver as TRole),
+    path: "/driver",
+    children: [
+      { index: true, element: <Navigate to="/driver/rides" /> },
+      // ...generateRoutes(driverSidebarItems),
+    ],
+  },
+
+  // Auth Pages
   {
     Component: Login,
     path: "/login",
@@ -74,6 +194,8 @@ export const router = createBrowserRouter([
     Component: Verify,
     path: "/verify",
   },
+
+  // Others
   {
     Component: Unauthorized,
     path: "/unauthorized",

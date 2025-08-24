@@ -24,12 +24,21 @@ import React from "react";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
+  // 🌍 Public Routes
   { href: "/", label: "Home", role: "PUBLIC" },
   { href: "/about", label: "About", role: "PUBLIC" },
-  { href: "/tours", label: "Tours", role: "PUBLIC" },
-  { href: "/admin", label: "Dashboard", role: role.rider },
+  { href: "/features", label: "Features", role: "PUBLIC" },
+  { href: "/contact", label: "Contact", role: "PUBLIC" },
+  { href: "/faq", label: "FAQ", role: "PUBLIC" },
+
+  // 👤 Rider Dashboard
+  { href: "/rider", label: "Dashboard", role: role.rider },
+
+  // 🚖 Driver Dashboard
+  { href: "/driver", label: "Dashboard", role: role.driver },
+
+  // 🛠 Admin Dashboard
   { href: "/admin", label: "Dashboard", role: role.admin },
-  { href: "/user", label: "Dashboard", role: role.driver },
 ];
 
 export default function Navbar() {
