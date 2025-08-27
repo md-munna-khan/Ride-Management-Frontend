@@ -1,69 +1,67 @@
-import Logo from "@/assets/icons/Logo";
-import { Button } from "@/components/ui/button";
+
+import Logo from "@/assets/icons/Logo"
+import { Button } from "@/components/ui/button"
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "@/components/ui/navigation-menu";
+} from "@/components/ui/navigation-menu"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { ModeToggle } from "./ModeToggler";
-import { Link } from "react-router";
-import {
-  authApi,
-  useLogoutMutation,
-  useUserInfoQuery,
-} from "@/redux/features/auth/auth.api";
-import { useAppDispatch } from "@/redux/hook";
-import { role } from "@/constants/role";
-import React from "react";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { ModeToggle } from "./ModeToggler"
+import { Link } from "react-router"
+import { authApi, useLogoutMutation, useUserInfoQuery } from "@/redux/features/auth/auth.api"
+import { useAppDispatch } from "@/redux/hook"
+import { role } from "@/constants/role"
+import React from "react"
+import { User, LogOut } from "lucide-react"
 
-// Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
-  // 🌍 Public Routes
   { href: "/", label: "Home", role: "PUBLIC" },
   { href: "/about", label: "About", role: "PUBLIC" },
   { href: "/features", label: "Features", role: "PUBLIC" },
   { href: "/contact", label: "Contact", role: "PUBLIC" },
   { href: "/faq", label: "FAQ", role: "PUBLIC" },
-
-  // 👤 Rider Dashboard
   { href: "/rider", label: "Dashboard", role: role.rider },
-
-  // 🚖 Driver Dashboard
   { href: "/driver", label: "Dashboard", role: role.driver },
-
-  // 🛠 Admin Dashboard
   { href: "/admin", label: "Dashboard", role: role.admin },
-];
+]
 
 export default function Navbar() {
-  const { data } = useUserInfoQuery(undefined);
-  const [logout] = useLogoutMutation();
-  const dispatch = useAppDispatch();
+  const { data } = useUserInfoQuery(undefined)
+  const [logout] = useLogoutMutation()
+  const dispatch = useAppDispatch()
 
   const handleLogout = async () => {
-    await logout(undefined);
-    dispatch(authApi.util.resetApiState());
-  };
+    await logout(undefined)
+    dispatch(authApi.util.resetApiState())
+  }
+
+  const getUserInitials = (email: string) => {
+    return email
+      .split("@")[0]
+      .split(".")
+      .map((name) => name.charAt(0).toUpperCase())
+      .join("")
+      .slice(0, 2)
+  }
 
   return (
     <header className="border-b">
       <div className="container mx-auto px-4 flex h-16 items-center justify-between gap-4">
-        {/* Left side */}
         <div className="flex items-center gap-2">
-          {/* Mobile menu trigger */}
           <Popover>
             <PopoverTrigger asChild>
-              <Button
-                className="group size-8 md:hidden"
-                variant="ghost"
-                size="icon"
-              >
+              <Button className="group size-8 md:hidden" variant="ghost" size="icon">
                 <svg
                   className="pointer-events-none"
                   width={16}
@@ -105,12 +103,10 @@ export default function Navbar() {
               </NavigationMenu>
             </PopoverContent>
           </Popover>
-          {/* Main nav */}
           <div className="flex items-center gap-6">
             <a href="#" className="text-primary hover:text-primary/90">
               <Logo />
             </a>
-            {/* Navigation menu */}
             <NavigationMenu className="max-md:hidden">
               <NavigationMenuList className="gap-2">
                 {navigationLinks.map((link, index) => (
@@ -141,19 +137,51 @@ export default function Navbar() {
             </NavigationMenu>
           </div>
         </div>
-        {/* Right side */}
         <div className="flex items-center gap-2">
           <ModeToggle />
-          {data?.data?.email && (
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              className="text-sm"
-            >
-              Logout
-            </Button>
-          )}
-          {!data?.data?.email && (
+          {data?.data?.email ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                  <Avatar className="h-9 w-9">
+                    <AvatarImage
+                      src={
+                         data?.data?.profileImage ||
+                        data?.data?.picture ||
+                        `/placeholder.svg?height=36&width=36&query=professional-${data?.data?.role}-avatar`
+                      }
+                      alt={data?.data?.name || data?.data?.email}
+                    />
+                    <AvatarFallback className="bg-primary text-primary-foreground">
+                      {getUserInitials(data?.data?.email)}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-64" align="end" forceMount>
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">{data?.data?.name || "User"}</p>
+                    <p className="text-xs leading-none text-muted-foreground">{data?.data?.email}</p>
+                    <p className="text-xs leading-none text-muted-foreground capitalize">{data?.data?.role} Account</p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/profile" className="cursor-pointer">
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+              
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-600" onClick={handleLogout}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
             <Button asChild className="text-sm">
               <Link to="/login">Login</Link>
             </Button>
@@ -161,5 +189,5 @@ export default function Navbar() {
         </div>
       </div>
     </header>
-  );
+  )
 }

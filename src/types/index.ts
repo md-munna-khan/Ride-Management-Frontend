@@ -1,3 +1,4 @@
+import { LucideIcon } from "lucide-react";
 import { ComponentType } from "react";
 
 export type { ISendOtp, IVerifyOtp, ILogin } from "./auth.type";
@@ -10,16 +11,27 @@ export interface IResponse<T> {
   data: T;
 }
 
-export interface ISidebarItem {
+export interface SidebarItem {
   title: string;
-  items: {
+  path: string;
+  icon: LucideIcon;
+   items: {
     title: string;
     url: string;
     component: ComponentType;
   }[];
 }
 
-export type TRole = "SUPER_ADMIN" | "ADMIN" | "USER";
+// export interface ISidebarItem {
+//   title: string;
+//   items: {
+//     title: string;
+//     url: string;
+//     component: ComponentType;
+//   }[];
+}
+
+export type TRole =  "ADMIN"  | "RIDER" | "DRIVER";
 
 type ZodIssue = {
   code: string;

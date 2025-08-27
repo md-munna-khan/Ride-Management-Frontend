@@ -94,7 +94,7 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import About from "@/pages/About";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
-import Verify from "@/pages/Verify";
+// import Verify from "@/pages/Verify";
 import { generateRoutes } from "@/utils/generateRoutes";
 import { createBrowserRouter, Navigate } from "react-router";
 import { adminSidebarItems } from "./adminSidebarItems";
@@ -114,6 +114,9 @@ import Fail from "@/pages/Payment/Fail";
 import Features from "@/pages/Features";
 import Contact from "@/pages/Contact";
 import FAQ from "@/pages/FAQ";
+import AccountStatus from "@/pages/AccountStatus";
+import { riderSidebarItems } from "./riderSidebarItems";
+import { driverSidebarItems } from "./driverSidebarItems";
 
 export const router = createBrowserRouter([
   {
@@ -166,8 +169,8 @@ export const router = createBrowserRouter([
     Component: withAuth(DashboardLayout, role.rider as TRole),
     path: "/rider",
     children: [
-      { index: true, element: <Navigate to="/rider/bookings" /> },
-      // ...generateRoutes(riderSidebarItems),
+      { index: true, element: <Navigate to="/rider/request" /> },
+      ...generateRoutes(riderSidebarItems),
     ],
   },
 
@@ -177,7 +180,7 @@ export const router = createBrowserRouter([
     path: "/driver",
     children: [
       { index: true, element: <Navigate to="/driver/rides" /> },
-      // ...generateRoutes(driverSidebarItems),
+      ...generateRoutes(driverSidebarItems),
     ],
   },
 
@@ -190,10 +193,10 @@ export const router = createBrowserRouter([
     Component: Register,
     path: "/register",
   },
-  {
-    Component: Verify,
-    path: "/verify",
-  },
+  // {
+  //   Component: Verify,
+  //   path: "/verify",
+  // },
 
   // Others
   {
@@ -207,5 +210,9 @@ export const router = createBrowserRouter([
   {
     Component: Fail,
     path: "/payment/fail",
+  },
+  {
+    Component:AccountStatus ,
+    path: "/status",
   },
 ]);
