@@ -29,7 +29,7 @@ export interface SidebarItem {
 //     url: string;
 //     component: ComponentType;
 //   }[];
-}
+// }
 
 export type TRole =  "ADMIN"  | "RIDER" | "DRIVER";
 

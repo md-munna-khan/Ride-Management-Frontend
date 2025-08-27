@@ -1,38 +1,42 @@
+import { useState } from "react";
 import { useGetRideHistoryQuery } from "@/redux/features/rideApi/rideApi";
-import  { useState } from "react";
 
-
-
-
-export default function RiderHistoryPage() {
- 
-
+export default function RideHistoryPage() {
   const [page, setPage] = useState(1);
-  const { data, isLoading, error } = useGetRideHistoryQuery({ page, limit: 10 });
+  const [status, setStatus] = useState("");
+  const { data, isLoading } = useGetRideHistoryQuery({ page, limit: 5, status });
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading rides</p>;
 
   return (
-    <div className="space-y-2">
-      {data?.rides.map((ride: any) => (
-        <div key={ride._id} className="p-4 border rounded">
-          <p>Pickup: {ride.pickup}</p>
-          <p>Destination: {ride.destination}</p>
-          <p>Status: {ride.status}</p>
-          <p>Fare: {ride.fare}</p>
-        </div>
-      ))}
+    <div className="max-w-3xl mx-auto p-6">
+      <h2 className="text-xl font-semibold mb-4">Ride History</h2>
+
+      <select
+        value={status}
+        onChange={(e) => setStatus(e.target.value)}
+        className="border p-2 rounded mb-4"
+      >
+        <option value="">All</option>
+        <option value="COMPLETED">Completed</option>
+        <option value="CANCELLED">Cancelled</option>
+      </select>
+
+      <ul className="space-y-2">
+        {data?.rides?.map((ride: any) => (
+          <li key={ride._id} className="border p-3 rounded">
+            <p><strong>From:</strong> {ride.pickup}</p>
+            <p><strong>To:</strong> {ride.destination}</p>
+            <p><strong>Status:</strong> {ride.status}</p>
+            <p><strong>Fare:</strong> ${ride.fare}</p>
+          </li>
+        ))}
+      </ul>
+
       <div className="flex justify-between mt-4">
-        <button disabled={page === 1} onClick={() => setPage(page - 1)}>
-          Previous
-        </button>
-        <button disabled={data?.rides.length < 10} onClick={() => setPage(page + 1)}>
-          Next
-        </button>
+        <button disabled={page === 1} onClick={() => setPage(page - 1)}>Prev</button>
+        <button onClick={() => setPage(page + 1)}>Next</button>
       </div>
     </div>
   );
 }
-
-

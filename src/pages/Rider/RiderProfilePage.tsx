@@ -1,85 +1,76 @@
-import { useChangePasswordMutation, useUpdateProfileMutation } from "@/redux/features/rideApi/rideApi";
-import React, { useState } from "react";
-import toast from "react-hot-toast";
+import { useState, useEffect } from "react";
+import { useUpdateProfileMutation, useChangePasswordMutation } from "@/redux/features/rideApi/rideApi";
+import { useAppSelector } from "@/redux/hook";
 
-interface RiderProfilePageProps {
-  user: {
-    _id: string;
-    name: string;
-    phone: string;
-  };
-}
 
-export default function RiderProfilePage({ user }: RiderProfilePageProps) {
-  const [name, setName] = useState(user.name);
-  const [phone, setPhone] = useState(user.phone);
+export default function RiderProfilePage() {
+  // Redux state থেকে logged in user আনছি
+  const user = useAppSelector((state) => state.auth.user);
+
+  const [name, setName] = useState(user?.name || "");
+  const [phone, setPhone] = useState(user?.phone || "");
 
   const [updateProfile] = useUpdateProfileMutation();
   const [changePassword] = useChangePasswordMutation();
 
-  const handleUpdateProfile = async () => {
+  // যখন user state change হবে, তখন input এ update হবে
+  useEffect(() => {
+    if (user) {
+      setName(user.name || "");
+      setPhone(user.phone || "");
+    }
+  }, [user]);
+
+  const handleUpdate = async () => {
     try {
       await updateProfile({ id: user._id, data: { name, phone } }).unwrap();
-      toast.success("Profile updated!");
-    } catch (err: any) {
-      toast.error(err.data?.message || "Update failed");
+      alert("Profile updated successfully!");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to update profile!");
     }
   };
 
-  const handleChangePassword = async (oldPass: string, newPass: string) => {
+  const handlePasswordChange = async () => {
     try {
-      await changePassword({ oldPassword: oldPass, newPassword: newPass }).unwrap();
-      toast.success("Password changed!");
-    } catch (err: any) {
-      toast.error(err.data?.message || "Password change failed");
+      await changePassword({ oldPassword: "123456", newPassword: "654321" }).unwrap();
+      alert("Password changed successfully!");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to change password!");
     }
   };
 
   return (
-    <div className="space-y-4 max-w-md mx-auto">
-      <h2 className="text-2xl font-bold">Profile</h2>
+    <div className="max-w-md mx-auto bg-white shadow p-6 rounded">
+      <h2 className="text-xl font-semibold mb-4">Profile</h2>
+
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="input w-full"
-        placeholder="Name"
+        className="border p-2 w-full mb-2"
+        placeholder="Your Name"
       />
       <input
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
-        className="input w-full"
-        placeholder="Phone"
+        className="border p-2 w-full mb-2"
+        placeholder="Phone Number"
       />
-      <button onClick={handleUpdateProfile} className="btn w-full">
+
+      <button
+        onClick={handleUpdate}
+        className="bg-green-500 text-white px-4 py-2 rounded w-full mb-3"
+      >
         Update Profile
       </button>
 
-      {/* Change Password Section */}
-      <div className="mt-6">
-        <h3 className="text-xl font-semibold">Change Password</h3>
-        <input
-          type="password"
-          placeholder="Old Password"
-          id="oldPass"
-          className="input w-full mt-2"
-        />
-        <input
-          type="password"
-          placeholder="New Password"
-          id="newPass"
-          className="input w-full mt-2"
-        />
-        <button
-          onClick={() => {
-            const oldPass = (document.getElementById("oldPass") as HTMLInputElement).value;
-            const newPass = (document.getElementById("newPass") as HTMLInputElement).value;
-            handleChangePassword(oldPass, newPass);
-          }}
-          className="btn w-full mt-2"
-        >
-          Change Password
-        </button>
-      </div>
+      <button
+        onClick={handlePasswordChange}
+        className="bg-red-500 text-white px-4 py-2 rounded w-full"
+      >
+        Change Password
+      </button>
     </div>
   );
 }

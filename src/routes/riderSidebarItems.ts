@@ -1,4 +1,4 @@
-import RideDetails from "@/pages/Rider/RideDetails";
+import RideDetailsPage from "@/pages/Rider/RideDetailsPage";
 import RideRequestPage from "@/pages/Rider/RideRequestPage";
 import RiderHistoryPage from "@/pages/Rider/RiderHistoryPage";
 import RiderProfilePage from "@/pages/Rider/RiderProfilePage";
@@ -6,8 +6,6 @@ import { SidebarItem } from "@/types";
 import { Car, History, User } from "lucide-react";
 
 // Page Components
-
-
 export const riderSidebarItems: SidebarItem[] = [
   {
     title: "Ride Request",
@@ -41,7 +39,7 @@ export const riderSidebarItems: SidebarItem[] = [
       {
         title: "Details",
         url: "/rider/details",
-        component: RideDetails,
+        component: RideDetailsPage,
       },
     ],
   },
@@ -53,7 +51,7 @@ export const riderSidebarItems: SidebarItem[] = [
       {
         title: "My Profile",
         url: "/rider/profile",
-        component: RiderProfilePage,
+       component:RiderProfilePage
       },
     ],
   },
