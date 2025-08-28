@@ -1,7 +1,8 @@
-import ActiveRidesPage from "@/pages/Driver/ActiveRidesPage";
-import DriverProfilePage from "@/pages/Driver/DriverProfilePage";
-import EarningsPage from "@/pages/Driver/EarningsPage";
-import RideHistoryPage from "@/pages/Driver/RideHistoryPage";
+
+import ActiveRides from "@/pages/Driver/ActiveRides";
+import Earnings from "@/pages/Driver/Earnings";
+import Profile from "@/pages/Driver/DriverProfile";
+import RideHistory from "@/pages/Driver/RideHistory";
 import { SidebarItem } from "@/types";
 import { Car, CreditCard, History, User } from "lucide-react";
 
@@ -15,9 +16,9 @@ export const driverSidebarItems: SidebarItem[] = [
     icon: Car,
     items: [
       {
-        title: "All Rides",
+        title: "Active Rides",
         url: "/driver/rides",
-        component: ActiveRidesPage,
+        component: ActiveRides,
       },
     ],
   },
@@ -29,10 +30,11 @@ export const driverSidebarItems: SidebarItem[] = [
       {
         title: "History",
         url: "/driver/history",
-        component: RideHistoryPage,
+        component: RideHistory,
       },
     ],
   },
+  
   {
     title: "Earnings",
     path: "/driver/earnings",
@@ -41,7 +43,7 @@ export const driverSidebarItems: SidebarItem[] = [
       {
         title: "My Earnings",
         url: "/driver/earnings",
-        component: EarningsPage,
+        component: Earnings,
       },
     ],
   },
@@ -53,7 +55,7 @@ export const driverSidebarItems: SidebarItem[] = [
       {
         title: "Driver Profile",
         url: "/driver/profile",
-        component: DriverProfilePage,
+        component: Profile,
       },
     ],
   },
