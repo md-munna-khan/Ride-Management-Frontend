@@ -39,7 +39,7 @@ export default function RideHistory() {
       {/* Ride List */}
       <div className="space-y-3">
         {rides.length === 0 ? (
-          <p className="text-center text-gray-500">No rides found.</p>
+          <p className="text-center text-gray-500">No rides found. here</p>
         ) : (
           rides.map((ride: any) => (
             <div key={ride._id} className="p-4 border rounded shadow">
