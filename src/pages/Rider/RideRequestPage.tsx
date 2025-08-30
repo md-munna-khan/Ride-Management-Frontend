@@ -25,6 +25,7 @@ export default function RideRequestPage() {
 
   const [requestRide] = useRequestRideMutation();
 
+
   // Estimate fare
   const estimateFare = () => {
     if (pickupCoords && destinationCoords) {

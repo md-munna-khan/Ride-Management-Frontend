@@ -13,7 +13,16 @@ export const driverApi = baseApi.injectEndpoints({
         params: { status, page, limit },
       }),
       providesTags: ["DRIVER", "RIDE"],
-    }),
+    }),         
+    // ✅ Get all requested
+    getRequestedRides: builder.query({
+      query: () => ({
+        url: "/rides/requested",
+        method: "GET",
+       
+      }),
+      providesTags: ["DRIVER", "RIDE"],
+    }),         
 
     // ✅ Get logged-in driver profile
     getDriverProfile: builder.query({
@@ -80,6 +89,7 @@ export const driverApi = baseApi.injectEndpoints({
       providesTags: ["DRIVER", "RIDE"],
     }),
 
+
     // ✅ Update driver profile
     updateDriverProfile: builder.mutation({
       query: ({ driverId, data }) => ({
@@ -89,6 +99,15 @@ export const driverApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["DRIVER"],
     }),
+
+    updateLocation: builder.mutation({
+  query: ({ driverId, coordinates }: { driverId: string; coordinates: [number, number] }) => ({
+    url: `/drivers/location/${driverId}`,
+    method: "PATCH",
+    data: { coordinates },
+  }),
+  invalidatesTags: ["DRIVER", "RIDE"],
+}),
   }),
 });
 
@@ -102,4 +121,7 @@ export const {
   useCompleteRideMutation,
   useGetEarningsQuery,
   useUpdateDriverProfileMutation,
+  useUpdateLocationMutation,
+  useGetRequestedRidesQuery,
+
 } = driverApi;
