@@ -1,9 +1,11 @@
-import { baseApi } from "@/redux/baseApi";
 
+
+
+import { baseApi } from "@/redux/baseApi";
 
 export const driverApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // Get all rides assigned to logged-in driver
+    // ✅ Get all rides assigned to logged-in driver
     getDriverRides: builder.query({
       query: ({ status, page = 1, limit = 10 }) => ({
         url: "/rides/driver",
@@ -13,27 +15,36 @@ export const driverApi = baseApi.injectEndpoints({
       providesTags: ["DRIVER", "RIDE"],
     }),
 
-    // Update online/offline status
+    // ✅ Get logged-in driver profile
+    getDriverProfile: builder.query({
+      query: () => ({
+        url: "/drivers/me", 
+        method: "GET",
+      }),
+      providesTags: ["DRIVER"],
+    }),
+
+    // ✅ Update online/offline status
     updateOnlineStatus: builder.mutation({
-      query: ({ driverId, status }) => ({
+      query: ({ driverId, onlineStatus }) => ({
         url: `/drivers/online-status/${driverId}`,
         method: "PATCH",
-        data: { status },
+      data: { onlineStatus },
       }),
       invalidatesTags: ["DRIVER", "RIDE"],
     }),
 
-    // Update riding status (idle/on ride)
+    // ✅ Update driver riding status
     updateRidingStatus: builder.mutation({
       query: ({ driverId, status }) => ({
-        url: `/drivers/riding-status/${driverId}`,
+        url: `/drivers/riding-status/${driverId}`, // fixed (driver API)
         method: "PATCH",
         data: { status },
       }),
       invalidatesTags: ["DRIVER", "RIDE"],
     }),
 
-    // Accept a ride
+    // ✅ Accept a ride
     acceptRide: builder.mutation({
       query: (rideId) => ({
         url: `/rides/${rideId}/accept`,
@@ -42,7 +53,7 @@ export const driverApi = baseApi.injectEndpoints({
       invalidatesTags: ["DRIVER", "RIDE"],
     }),
 
-    // Reject a ride
+    // ✅ Reject a ride
     rejectRide: builder.mutation({
       query: (rideId) => ({
         url: `/rides/${rideId}/reject`,
@@ -51,7 +62,7 @@ export const driverApi = baseApi.injectEndpoints({
       invalidatesTags: ["DRIVER", "RIDE"],
     }),
 
-    // Complete a ride
+    // ✅ Complete a ride
     completeRide: builder.mutation({
       query: (rideId) => ({
         url: `/rides/${rideId}/complete`,
@@ -60,7 +71,7 @@ export const driverApi = baseApi.injectEndpoints({
       invalidatesTags: ["DRIVER", "RIDE"],
     }),
 
-    // Get earnings summary
+    // ✅ Get earnings summary
     getEarnings: builder.query({
       query: () => ({
         url: "/rides/earnings/me",
@@ -69,12 +80,12 @@ export const driverApi = baseApi.injectEndpoints({
       providesTags: ["DRIVER", "RIDE"],
     }),
 
-    // Update driver profile
+    // ✅ Update driver profile
     updateDriverProfile: builder.mutation({
       query: ({ driverId, data }) => ({
         url: `/drivers/${driverId}`,
         method: "PATCH",
-        data,
+        data: data, // fixed
       }),
       invalidatesTags: ["DRIVER"],
     }),
@@ -83,11 +94,12 @@ export const driverApi = baseApi.injectEndpoints({
 
 export const {
   useGetDriverRidesQuery,
+  useGetDriverProfileQuery,
   useUpdateOnlineStatusMutation,
   useUpdateRidingStatusMutation,
   useAcceptRideMutation,
   useRejectRideMutation,
   useCompleteRideMutation,
-useGetEarningsQuery,
+  useGetEarningsQuery,
   useUpdateDriverProfileMutation,
 } = driverApi;
