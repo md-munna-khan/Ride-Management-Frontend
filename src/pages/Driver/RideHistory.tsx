@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useGetDriverRidesQuery } from "@/redux/features/driverApi/driverApi";
+
 import React, { useState } from "react";
 
 export default function RideHistory() {

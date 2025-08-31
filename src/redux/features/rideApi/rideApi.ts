@@ -21,6 +21,15 @@ export const rideApi = baseApi.injectEndpoints({
       providesTags: ["RIDE"],
     }),
 
+    updateRideStatus: builder.mutation({
+  query: ({ rideId, status }) => ({
+    url: `/rides/${rideId}/status`,
+    method: "PATCH",
+    data: { status },
+  }),
+  invalidatesTags: ["RIDE"],
+}),
+
     // Get ride history (with pagination and status)
     getRideHistory: builder.query({
       query: ({ page = 1, limit = 10, status }) => ({
@@ -68,5 +77,6 @@ export const {
   useGetRideHistoryQuery,
   useGetRideDetailsQuery,
   useChangePasswordMutation,
-  useUpdateProfileMutation
+  useUpdateProfileMutation, 
+  useUpdateRideStatusMutation
 } = rideApi;
