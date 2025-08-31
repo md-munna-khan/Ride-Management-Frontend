@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 
 import { useEffect, useState } from "react";
@@ -42,6 +43,8 @@ export default function ActiveRides() {
   const { data: activeRidesData, isLoading: activeLoading } = useGetActiveRidesQuery({});
   const { data: requestedRidesData, isLoading: requestedLoading } = useGetRequestedRidesQuery({});
 
+
+
   const [updateOnlineStatus] = useUpdateOnlineStatusMutation();
   const [updateLocation] = useUpdateLocationMutation();
   const [updateRidingStatus] = useUpdateRidingStatusMutation();
@@ -57,6 +60,7 @@ export default function ActiveRides() {
 
   const activeRides = activeRidesData?.data || [];
   const requestedRides = requestedRidesData?.data || [];
+
 
   // ==== Track Driver Location ====
   useEffect(() => {
@@ -154,6 +158,7 @@ export default function ActiveRides() {
   ];
 
   // ==== Render ====
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderRideCard = (ride: any) => {
     const actions = nextActions[ride.rideStatus] || [];
     return (
