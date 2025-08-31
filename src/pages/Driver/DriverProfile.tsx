@@ -1,69 +1,125 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
+import {
+  useGetDriverProfileQuery,
+  useUpdateDriverProfileMutation,
 
+ 
+} from "@/redux/features/driverApi/driverApi";
 
-import React, { useState } from "react";
+interface DriverProfileType {
+  name?: string;
+  email?: string;
+  phoneNumber?: string;
+  vehicleNumber?: string;
+  vehicleType?: "Bike" | "Car";
+  password?: string;
+}
 
+const DriverProfile: React.FC = () => {
+  const { data: profileData, isLoading, refetch } = useGetDriverProfileQuery({});
+  const [updateDriverProfile, { isLoading: isUpdating }] =
+    useUpdateDriverProfileMutation({});
 
-export default function DriverProfile({ driver }: { driver: any }) {
-  const [formData, setFormData] = useState({
-    name: driver.name || "",
-    phone: driver.phone || "",
-    vehicleNumber: driver.vehicle?.vehicleNumber || "",
-    vehicleType: driver.vehicle?.vehicleType || "",
-  });
+  const [profile, setProfile] = useState<DriverProfileType>({});
 
-  const [updateProfile, { isLoading }] = useUpdateDriverProfileMutation();
+  useEffect(() => {
+    if (profileData) {
+      setProfile({
+        name: profileData.name,
+        email: profileData.email,
+        phoneNumber: profileData.phoneNumber,
+        vehicleNumber: profileData.vehicle?.vehicleNumber,
+        vehicleType: profileData.vehicle?.vehicleType,
+      });
+    }
+  }, [profileData]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await updateProfile({ driverId: driver._id, data: formData }).unwrap();
-    alert("Profile updated successfully!");
+    try {
+      // Send profile data under `data` key
+      await updateDriverProfile({ data: profile }).unwrap();
+      toast.success("Profile updated successfully");
+      refetch(); // Refresh profile
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Update failed");
+    }
   };
 
+  if (isLoading) return <p>Loading profile...</p>;
+
   return (
-    <div className="p-6 bg-white shadow rounded-xl mt-6">
+    <div className="max-w-md mx-auto p-4 shadow rounded">
       <h2 className="text-xl font-semibold mb-4">Driver Profile</h2>
-      <form onSubmit={handleSubmit} className="space-y-3">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
+          type="text"
           name="name"
-          value={formData.name}
+          value={profile.name || ""}
           onChange={handleChange}
-          className="border p-2 w-full rounded"
           placeholder="Name"
+          className="w-full border p-2 rounded"
         />
         <input
-          name="phone"
-          value={formData.phone}
+          type="email"
+          name="email"
+          value={profile.email || ""}
           onChange={handleChange}
-          className="border p-2 w-full rounded"
-          placeholder="Phone"
+          placeholder="Email"
+          className="w-full border p-2 rounded"
         />
         <input
+          type="text"
+          name="phoneNumber"
+          value={profile.phoneNumber || ""}
+          onChange={handleChange}
+          placeholder="Phone Number"
+          className="w-full border p-2 rounded"
+        />
+        <input
+          type="text"
           name="vehicleNumber"
-          value={formData.vehicleNumber}
+          value={profile.vehicleNumber || ""}
           onChange={handleChange}
-          className="border p-2 w-full rounded"
           placeholder="Vehicle Number"
+          className="w-full border p-2 rounded"
         />
-        <input
+        <select
           name="vehicleType"
-          value={formData.vehicleType}
+          value={profile.vehicleType || ""}
           onChange={handleChange}
-          className="border p-2 w-full rounded"
-          placeholder="Vehicle Type"
+          className="w-full border p-2 rounded"
+        >
+          <option value="">Select Vehicle Type</option>
+          <option value="Car">Car</option>
+          <option value="Bike">Bike</option>
+        </select>
+        <input
+          type="password"
+          name="password"
+          value={profile.password || ""}
+          onChange={handleChange}
+          placeholder="New Password"
+          className="w-full border p-2 rounded"
         />
         <button
           type="submit"
-          disabled={isLoading}
-          className="bg-blue-500 text-white px-4 py-2 rounded w-full"
+          disabled={isUpdating}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
         >
-          {isLoading ? "Updating..." : "Update Profile"}
+          {isUpdating ? "Updating..." : "Update Profile"}
         </button>
       </form>
     </div>
   );
-}
+};
+
+export default DriverProfile;

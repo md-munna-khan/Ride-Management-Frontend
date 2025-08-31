@@ -1,88 +1,76 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
+import { useGetDriverRidesQuery } from "@/redux/features/driverApi/driverApi";
 
-import React, { useState } from "react";
-
-export default function RideHistory() {
+const RideHistory = () => {
+  const [status, setStatus] = useState<string | undefined>(undefined);
   const [page, setPage] = useState(1);
-  const [status, setStatus] = useState("COMPLETED");
 
-  const { data, isLoading } = useGetDriverRidesQuery({
+  const { data, isLoading, isError } = useGetDriverRidesQuery({
     status,
     page,
     limit: 5,
   });
 
-  if (isLoading) return <p>Loading ride history...</p>;
+  if (isLoading) return <p className="text-center">Loading rides...</p>;
+  if (isError) return <p className="text-red-500 text-center">Failed to load rides.</p>;
 
-  const rides = data?.data || [];
+  const rides = data?.data?.rides || [];
+  const pagination = data?.data?.pagination || {};
 
   return (
-    <div className="p-6 bg-white shadow rounded-xl mt-6">
-      <h2 className="text-xl font-semibold mb-4">Ride History</h2>
+    <div className="p-6">
+      <h2 className="text-xl font-bold mb-4">Ride History</h2>
 
-      {/* Status Filter */}
-      <div className="mb-4">
+      {/* Filter */}
+      <div className="flex gap-3 mb-4">
         <select
-          value={status}
-          onChange={(e) => {
-            setStatus(e.target.value);
-            setPage(1); // Reset page when status changes
-          }}
           className="border p-2 rounded"
+          value={status || ""}
+          onChange={(e) =>
+            setStatus(e.target.value || undefined)
+          }
         >
+          <option value="">All</option>
+          <option value="REQUESTED">Requested</option>
+          <option value="ACCEPTED">Accepted</option>
+          <option value="IN_TRANSIT">In Transit</option>
           <option value="COMPLETED">Completed</option>
           <option value="CANCELLED">Cancelled</option>
-          <option value="ACCEPTED">Accepted</option>
         </select>
       </div>
 
-      {/* Ride List */}
-      <div className="space-y-3">
-        {rides.length === 0 ? (
-          <p className="text-center text-gray-500">No rides found. here is too</p>
-        ) : (
-          rides.map((ride: any) => (
-            <div key={ride._id} className="p-4 border rounded shadow">
-              <p>
-                <strong>Pickup:</strong> {ride.pickupLocation?.address || "N/A"}
-              </p>
-              <p>
-                <strong>Destination:</strong>{" "}
-                {ride.destination?.address || "N/A"}
-              </p>
-              <p>
-                <strong>Fare:</strong> ${ride.fare || 0}
-              </p>
-              <p>
-                <strong>Status:</strong> {ride.rideStatus}
-              </p>
-            </div>
-          ))
-        )}
+      {/* Rides List */}
+      <div className="space-y-4">
+        {rides.map((ride: any) => (
+          <div key={ride._id} className="border p-4 rounded shadow">
+            <p><span className="font-semibold">Rider:</span> {ride.riderId?.name || "N/A"}</p>
+            <p><span className="font-semibold">Status:</span> {ride.rideStatus}</p>
+            <p><span className="font-semibold">Requested:</span> {ride.timestamps?.requestedAt ? new Date(ride.timestamps.requestedAt).toLocaleString() : "N/A"}</p>
+          </div>
+        ))}
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-between mt-4">
+      <div className="flex justify-center mt-6 gap-4">
         <button
-          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-          disabled={page === 1}
-          className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+          onClick={() => setPage((prev) => prev - 1)}
+          disabled={page <= 1}
         >
-          Previous
+          Prev
         </button>
-
-        <span>Page {page}</span>
-
+        <span>Page {pagination.page} of {pagination.totalPages}</span>
         <button
-          onClick={() => {
-            if (rides.length > 0) setPage((prev) => prev + 1);
-          }}
-          disabled={rides.length === 0}
-          className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+          onClick={() => setPage((prev) => prev + 1)}
+          disabled={page >= pagination.totalPages}
         >
           Next
         </button>
       </div>
     </div>
   );
-}
+};
+
+export default RideHistory;
