@@ -32,22 +32,24 @@ export const rideApi = baseApi.injectEndpoints({
 
     // Get ride history (with pagination and status)
     getRideHistory: builder.query({
-      query: ({ page = 1, limit = 10, status }) => ({
-        url: "/rides/me",
-        method: "GET",
-        params: { page, limit, status },
-      }),
-      providesTags: ["RIDE"],
-    }),
+  query: ({ page = 1, limit = 10, status, startDate, endDate, minFare, maxFare }) => ({
+    url: "/rides/me",
+    method: "GET",
+    params: { page, limit, status, startDate, endDate, minFare, maxFare },
+  }),
+  providesTags: ["RIDE"],
+}),
+
 
     // Get single ride details
-    getRideDetails: builder.query({
-      query: (rideId) => ({
-        url: `/rides/${rideId}`,
-        method: "GET",
-      }),
-      providesTags: ["RIDE"],
-    }),
+   // Ride API
+getRideDetails: builder.query({
+  query: (rideId: string) => ({
+    url: `/rides/${rideId}`, 
+    method: "GET",
+  }),
+  providesTags: ["RIDE"],
+}),
 // update Profile 
 updateProfile: builder.mutation({
   query: ({ id, data }) => ({

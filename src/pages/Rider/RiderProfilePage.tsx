@@ -1,76 +1,95 @@
-import { useState, useEffect } from "react";
-import { useUpdateProfileMutation, useChangePasswordMutation } from "@/redux/features/rideApi/rideApi";
-import { useAppSelector } from "@/redux/hook";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState, useEffect } from "react";
+import { toast } from "sonner";
+import UpdatePassword from "../User/UpdatePassword";
+import { useGetMeQuery, useUpdateProfileMutation } from "@/redux/features/userProfileApi/userApi";
 
+const RiderProfilePage = () => {
+  const { data, isLoading: loadingUser } = useGetMeQuery({});
+  const [updateProfile, { isLoading: updating }] = useUpdateProfileMutation();
 
-export default function RiderProfilePage() {
-  // Redux state থেকে logged in user আনছি
-  const user = useAppSelector((state) => state.auth.user);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
 
-  const [name, setName] = useState(user?.name || "");
-  const [phone, setPhone] = useState(user?.phone || "");
-
-  const [updateProfile] = useUpdateProfileMutation();
-  const [changePassword] = useChangePasswordMutation();
-
-  // যখন user state change হবে, তখন input এ update হবে
   useEffect(() => {
-    if (user) {
-      setName(user.name || "");
-      setPhone(user.phone || "");
+    if (data?.data) {
+      setName(data.data.name || "");
+      setPhone(data.data.phone || "");
     }
-  }, [user]);
+  }, [data]);
 
-  const handleUpdate = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Basic frontend validation
+    if (!name.trim() || !phone.trim()) {
+      toast.error("Name and Phone are required");
+      return;
+    }
+
+    // Validate phone format for Bangladesh
+    const phoneRegex = /^(?:\+8801\d{9}|01\d{9})$/;
+    if (!phoneRegex.test(phone)) {
+      toast.error("Phone number must be valid: +8801XXXXXXXXX or 01XXXXXXXXX");
+      return;
+    }
+
     try {
-      await updateProfile({ id: user._id, data: { name, phone } }).unwrap();
-      alert("Profile updated successfully!");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to update profile!");
+      await updateProfile({ id: data.data._id, name: name.trim(), phone: phone.trim() }).unwrap();
+      toast.success("Profile updated successfully!");
+    } catch (err: any) {
+      // Display backend error if available
+      const message = err?.data?.message || err?.error || "Failed to update profile";
+      toast.error(message);
     }
   };
 
-  const handlePasswordChange = async () => {
-    try {
-      await changePassword({ oldPassword: "123456", newPassword: "654321" }).unwrap();
-      alert("Password changed successfully!");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to change password!");
-    }
-  };
+  if (loadingUser) return <p className="text-center mt-6">Loading profile...</p>;
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow p-6 rounded">
-      <h2 className="text-xl font-semibold mb-4">Profile</h2>
+    <div className="max-w-md mx-auto p-6 bg-white shadow rounded mt-6">
+      <h2 className="text-2xl font-bold mb-4">Edit Profile</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Name */}
+        <div>
+          <label className="block font-semibold mb-1">Name</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full border p-2 rounded"
+            required
+          />
+        </div>
 
-      <input
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="border p-2 w-full mb-2"
-        placeholder="Your Name"
-      />
-      <input
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        className="border p-2 w-full mb-2"
-        placeholder="Phone Number"
-      />
+        {/* Phone Number */}
+        <div>
+          <label className="block font-semibold mb-1">Phone Number</label>
+          <input
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="w-full border p-2 rounded"
+            placeholder="+8801XXXXXXXXX"
+            required
+          />
+        </div>
 
-      <button
-        onClick={handleUpdate}
-        className="bg-green-500 text-white px-4 py-2 rounded w-full mb-3"
-      >
-        Update Profile
-      </button>
+        <button
+          type="submit"
+          disabled={updating}
+          className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 disabled:opacity-50"
+        >
+          {updating ? "Updating..." : "Update Profile"}
+        </button>
+      </form>
 
-      <button
-        onClick={handlePasswordChange}
-        className="bg-red-500 text-white px-4 py-2 rounded w-full"
-      >
-        Change Password
-      </button>
+      {/* Update password section */}
+      <div className="mt-6">
+        <UpdatePassword />
+      </div>
     </div>
   );
-}
+};
+
+export default RiderProfilePage;
