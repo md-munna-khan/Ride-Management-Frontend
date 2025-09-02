@@ -21,7 +21,7 @@ const UserManagement: React.FC = () => {
   if (statusFilter) params.status = statusFilter;
 
   const { data, isLoading, refetch } = useGetAllUsersQuery(params);
-  // const { data, isLoading, refetch } = useGetAllUsersQuery(undefined);
+console.log(data)
 
   const [blockUnblockUser] = useBlockUnblockUserMutation();
   const [approveDriver] = useApproveDriverMutation();
@@ -42,9 +42,9 @@ const handleBlockToggle = async (id: string, status: string) => {
 
 
 
-  const handleApproveDriver = async (id: string) => {
+  const handleApproveDriver = async (driverId: string) => {
     try {
-      await approveDriver(id);
+      await approveDriver(driverId);
       toast.success("Driver approved successfully");
       refetch();
     } catch {
@@ -52,9 +52,9 @@ const handleBlockToggle = async (id: string, status: string) => {
     }
   };
 
-  const handleSuspendDriver = async (id: string) => {
+  const handleSuspendDriver = async (driverId: string) => {
     try {
-      await suspendDriver(id);
+      await suspendDriver(driverId);
       toast.success("Driver suspended successfully");
       refetch();
     } catch {
@@ -143,7 +143,7 @@ const handleBlockToggle = async (id: string, status: string) => {
                     <>
                       {user.status !== "Approved" && (
                         <button
-                          onClick={() => handleApproveDriver(user._id)}
+                          onClick={() => handleApproveDriver(user.driverId)}
                           className="px-2 py-1 bg-blue-600 text-white rounded"
                         >
                           Approve
@@ -151,7 +151,7 @@ const handleBlockToggle = async (id: string, status: string) => {
                       )}
                       {user.status !== "Suspended" && (
                         <button
-                          onClick={() => handleSuspendDriver(user._id)}
+                          onClick={() => handleSuspendDriver(user.driverId)}
                           className="px-2 py-1 bg-red-600 text-white rounded"
                         >
                           Suspend

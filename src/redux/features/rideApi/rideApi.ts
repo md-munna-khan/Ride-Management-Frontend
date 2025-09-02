@@ -68,12 +68,23 @@ changePassword: builder.mutation({
     data,
   }),
 }),
+
+
+getRidesOversight: builder.query({
+  query: ({ rideStatus, driverId, riderId, startDate, endDate, page = 1, limit = 20 }) => ({
+    url: "/rides/oversight",
+    method: "GET",
+    params: { rideStatus, driverId, riderId, startDate, endDate, page, limit },
+  }),
+  providesTags: ["RIDE_OVERSIGHT"],
+}),
   }),
 });
 
 
 // hooks export
 export const {
+  useGetRidesOversightQuery,
   useRequestRideMutation,
   useGetMyRidesQuery,
   useGetRideHistoryQuery,

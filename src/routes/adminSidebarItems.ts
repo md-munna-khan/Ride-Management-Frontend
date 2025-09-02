@@ -3,8 +3,9 @@
 
 import AdminProfilePage from "@/pages/Admin/AdminProfilePage";
 import Analytics from "@/pages/Admin/Analytics";
-import DriversPage from "@/pages/Admin/DriversPage";
-import RidesPage from "@/pages/Admin/RidesPage";
+import { RidesManagement } from "@/pages/Admin/RidesManagement";
+
+
 import UserManagement from "@/pages/Admin/UserManagement";
 
 import { SidebarItem } from "@/types";
@@ -39,26 +40,14 @@ export const adminSidebarItems: SidebarItem[] = [
     ],
   },
   {
-    title: "Drivers",
-    path: "/admin/drivers",
-    icon: Car,
-    items: [
-      {
-        title: "All Drivers",
-        url: "/admin/drivers",
-        component: DriversPage,
-      },
-    ],
-  },
-  {
-    title: "Rides",
+    title: "Rides Management",
     path: "/admin/rides",
     icon: Car,
     items: [
       {
-        title: "All Rides",
+        title: "Rides Management",
         url: "/admin/rides",
-        component: RidesPage,
+        component: RidesManagement,
       },
     ],
   },
