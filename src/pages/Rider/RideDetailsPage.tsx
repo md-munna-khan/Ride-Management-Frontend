@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 
 const RideDetailsPage = () => {
   const { rideId } = useParams<{ rideId: string }>();
+console.log("Ride ID from params:", rideId);
 
   const { data: ride, isLoading, isError } = useGetRideDetailsQuery(rideId || "");
   console.log(rideId,ride)

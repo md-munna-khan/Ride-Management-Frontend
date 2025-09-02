@@ -28,6 +28,7 @@ import FAQ from "@/pages/FAQ";
 import AccountStatus from "@/pages/AccountStatus";
 import { riderSidebarItems } from "./riderSidebarItems";
 import { driverSidebarItems } from "./driverSidebarItems";
+import RideDetailsPage from "@/pages/Rider/RideDetailsPage";
 
 export const router = createBrowserRouter([
   {
@@ -54,10 +55,7 @@ export const router = createBrowserRouter([
         Component: FAQ,
         path: "faq",
       },
-      // {
-      //   Component: RideDetails,
-      //   path: "rides/:id",
-      // },
+   
      
     ],
   },
@@ -102,8 +100,8 @@ export const router = createBrowserRouter([
     path: "/register",
   },
   // {
-  //   Component: Verify,
-  //   path: "/verify",
+  //   Component: RideDetailsPage,
+  //   path: "/ride/deta",
   // },
 
   // Others
@@ -111,6 +109,7 @@ export const router = createBrowserRouter([
     Component: Unauthorized,
     path: "/unauthorized",
   },
+  
   {
     Component: Success,
     path: "/payment/success",

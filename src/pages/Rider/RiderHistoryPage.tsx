@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { useGetRideHistoryQuery } from "@/redux/features/rideApi/rideApi";
 
+
+
 const RideHistoryPage = () => {
   const [page, setPage] = useState(1);
   const [limit] = useState(5);
@@ -89,6 +91,7 @@ const RideHistoryPage = () => {
         >
           Search
         </button>
+        
       </div>
 
       {/* Ride History Table */}

@@ -5,7 +5,8 @@ import UpdatePassword from "../User/UpdatePassword";
 import { useGetMeQuery, useUpdateProfileMutation } from "@/redux/features/userProfileApi/userApi";
 
 const RiderProfilePage = () => {
-  const { data, isLoading: loadingUser } = useGetMeQuery({});
+  const { data, isLoading: loadingUser } = useGetMeQuery(undefined);
+  console.log(data)
   const [updateProfile, { isLoading: updating }] = useUpdateProfileMutation();
 
   const [name, setName] = useState("");
@@ -35,11 +36,19 @@ const RiderProfilePage = () => {
     }
 
     try {
-      await updateProfile({ id: data.data._id, name: name.trim(), phone: phone.trim() }).unwrap();
+      const id = data.data._id
+      const userData = {
+        name: name,
+        phone: phone
+      }
+      console.log(userData, id)
+      const res = await updateProfile({id, userData});
+      console.log(res)
       toast.success("Profile updated successfully!");
     } catch (err: any) {
       // Display backend error if available
       const message = err?.data?.message || err?.error || "Failed to update profile";
+      console.log(err)
       toast.error(message);
     }
   };
