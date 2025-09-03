@@ -1,4 +1,4 @@
-import RideDetailsPage from "@/pages/Rider/RideDetailsPage";
+// import RideDetailsPage from "@/pages/Rider/RideDetailsPage";
 import RideRequestPage from "@/pages/Rider/RideRequestPage";
 import RiderHistoryPage from "@/pages/Rider/RiderHistoryPage";
 import RiderProfilePage from "@/pages/Rider/RiderProfilePage";
@@ -31,18 +31,18 @@ export const riderSidebarItems: SidebarItem[] = [
       },
     ],
   },
-  {
-    title: "Ride Details",
-    path: "/rider/details",
-    icon: History,
-    items: [
-      {
-        title: "Details",
-        url: "/rider/details",
-        component: RideDetailsPage,
-      },
-    ],
-  },
+  // {
+  //   title: "Ride Details",
+  //   path: "/rider/details",
+  //   icon: History,
+  //   items: [
+  //     {
+  //       title: "Details",
+  //       url: "/rider/details",
+  //       component: RideDetailsPage,
+  //     },
+  //   ],
+  // },
   {
     title: "Profile",
     path: "/rider/profile",

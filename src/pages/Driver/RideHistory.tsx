@@ -11,7 +11,7 @@ const RideHistory = () => {
     page,
     limit: 5,
   });
-
+console.log(data)
   if (isLoading) return <p className="text-center">Loading rides...</p>;
   if (isError) return <p className="text-red-500 text-center">Failed to load rides.</p>;
 
@@ -37,6 +37,8 @@ const RideHistory = () => {
           <option value="IN_TRANSIT">In Transit</option>
           <option value="COMPLETED">Completed</option>
           <option value="CANCELLED">Cancelled</option>
+          <option value="PICKED_UP">Picked Up</option>
+          <option value="REJECTED">Rejected</option>
         </select>
       </div>
 
@@ -44,7 +46,8 @@ const RideHistory = () => {
       <div className="space-y-4">
         {rides.map((ride: any) => (
           <div key={ride._id} className="border p-4 rounded shadow">
-            <p><span className="font-semibold">Rider:</span> {ride.riderId?.name || "N/A"}</p>
+            <p><span className="font-semibold">RiderId:</span> {ride.riderId || "N/A"}</p>
+            <p><span className="font-semibold">Rider Name:</span> {ride.riderId?.name || "N/A"}</p>
             <p><span className="font-semibold">Status:</span> {ride.rideStatus}</p>
             <p><span className="font-semibold">Requested:</span> {ride.timestamps?.requestedAt ? new Date(ride.timestamps.requestedAt).toLocaleString() : "N/A"}</p>
           </div>
