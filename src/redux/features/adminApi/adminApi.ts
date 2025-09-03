@@ -54,7 +54,13 @@ export const adminApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["ADMIN_DRIVERS"],
     }),
-
+getAnalytics: builder.query({
+  query: () => ({
+    url: "/users/admin", 
+    method: "GET",
+  }),
+  providesTags: ["ADMIN_ANALYTICS"],
+}),
     // // 3️⃣ Ride Oversight
     // getAllRides: builder.query({
     //   query: ({
@@ -119,6 +125,7 @@ export const {
 //   useGetAllDriversQuery,
   useApproveDriverMutation,
   useSuspendDriverMutation,
+  useGetAnalyticsQuery,
 //   useGetAllRidesQuery,
 //   useUpdateRideStatusMutation,
 //   useGetAnalyticsQuery,

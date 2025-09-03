@@ -16,6 +16,7 @@ import {
 
 const Earnings = () => {
   const { data, isLoading } = useGetDriverEarningsQuery({});
+  console.log(data)
 
 
   if (isLoading) {

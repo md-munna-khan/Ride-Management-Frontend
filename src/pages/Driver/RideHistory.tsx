@@ -47,7 +47,7 @@ console.log(data)
         {rides.map((ride: any) => (
           <div key={ride._id} className="border p-4 rounded shadow">
             <p><span className="font-semibold">RiderId:</span> {ride.riderId || "N/A"}</p>
-            <p><span className="font-semibold">Rider Name:</span> {ride.riderId?.name || "N/A"}</p>
+         
             <p><span className="font-semibold">Status:</span> {ride.rideStatus}</p>
             <p><span className="font-semibold">Requested:</span> {ride.timestamps?.requestedAt ? new Date(ride.timestamps.requestedAt).toLocaleString() : "N/A"}</p>
           </div>
