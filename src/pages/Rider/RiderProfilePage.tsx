@@ -14,8 +14,8 @@ const RiderProfilePage = () => {
 
   useEffect(() => {
     if (data?.data) {
-      setName(data.data.name || "");
-      setPhone(data.data.phone || "");
+      setName(data?.data?.name || "");
+      setPhone(data?.data?.phone || "");
     }
   }, [data]);
 
@@ -37,13 +37,14 @@ const RiderProfilePage = () => {
 
     try {
       const id = data.data._id
-      const userData = {
-        name: name,
-        phone: phone
-      }
+     const userData: any = {};
+if (name.trim()) userData.name = name.trim();
+if (phone.trim()) userData.phone = phone.trim();  
+ 
+
       console.log(userData, id)
-      const res = await updateProfile({id, userData});
-      console.log(res)
+      const res = await updateProfile({id, userData}).unwrap();
+     console.log("Updated User:", res);
       toast.success("Profile updated successfully!");
     } catch (err: any) {
       // Display backend error if available

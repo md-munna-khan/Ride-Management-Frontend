@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // /* eslint-disable @typescript-eslint/no-explicit-any */
 // // /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -286,6 +287,7 @@ import {
   useMarkInTransitMutation,
   useCompleteRideMutation,
   useUpdateRidingStatusMutation,
+  useCancelRideMutation,
 } from "@/redux/features/driverApi/driverApi";
 import { useMap } from "react-leaflet";
 import { Card, CardContent } from "@/components/ui/card";
@@ -318,6 +320,7 @@ export default function ActiveRides() {
   const [pickUpRide] = usePickUpRideMutation();
   const [markInTransit] = useMarkInTransitMutation();
   const [completeRide] = useCompleteRideMutation();
+  const [cancelRide] = useCancelRideMutation();
 
   const [driverCoords, setDriverCoords] = useState<[number, number] | null>(null);
   const [userCoords, setUserCoords] = useState<[number, number] | null>(null);
@@ -368,33 +371,35 @@ export default function ActiveRides() {
     }
   };
 
-  const nextActions: Record<string, { label: string; status: string }[]> = {
-    REQUESTED: [{ label: "Accept", status: "ACCEPTED" }, { label: "Reject", status: "REJECTED" }],
-    ACCEPTED: [{ label: "Picked Up", status: "PICKED_UP" }, { label: "Cancel", status: "CANCELLED" }],
-    PICKED_UP: [{ label: "In Transit", status: "IN_TRANSIT" }, { label: "Cancel", status: "CANCELLED" }],
-    IN_TRANSIT: [{ label: "Complete", status: "COMPLETED" }, { label: "Cancel", status: "CANCELLED" }],
-  };
+ const nextActions: Record<string, { label: string; status: string }[]> = {
+  REQUESTED: [{ label: "Accept", status: "ACCEPTED" }, { label: "Reject", status: "REJECTED" }],
+  ACCEPTED: [{ label: "Picked Up", status: "PICKED_UP" }, { label: "Cancel", status: "CANCELLED" }],
+  PICKED_UP: [{ label: "In Transit", status: "IN_TRANSIT" }, { label: "Cancel", status: "CANCELLED" }],
+  IN_TRANSIT: [{ label: "Complete", status: "COMPLETED" }, { label: "Cancel", status: "CANCELLED" }],
+};
+
 
   const handleRideAction = async (rideId: string, actionStatus: string, label: string) => {
-    try {
-      toast.loading(`${label}...`);
-      switch (actionStatus) {
-        case "ACCEPTED": await acceptRide(rideId).unwrap(); break;
-        case "REJECTED": await rejectRide(rideId).unwrap(); break;
-        case "PICKED_UP": await pickUpRide(rideId).unwrap(); break;
-        case "IN_TRANSIT": await markInTransit(rideId).unwrap(); break;
-        case "COMPLETED": await completeRide(rideId).unwrap(); break;
-        case "CANCELLED": break;
-      }
-      await refetch();
-      toast.dismiss();
-      toast.success(`${label} successful`);
-    } catch (err) {
-      toast.dismiss();
-      toast.error(`Failed to ${label}`);
-      console.error(err);
+  try {
+    toast.loading(`${label}...`);
+    switch (actionStatus) {
+      case "ACCEPTED": await acceptRide(rideId).unwrap(); break;
+      case "REJECTED": await rejectRide(rideId).unwrap(); break;
+      case "PICKED_UP": await pickUpRide(rideId).unwrap(); break;
+      case "IN_TRANSIT": await markInTransit(rideId).unwrap(); break;
+      case "COMPLETED": await completeRide(rideId).unwrap(); break;
+      case "CANCELLED": await cancelRide(rideId).unwrap();
     }
-  };
+    await refetch();
+    toast.dismiss();
+    toast.success(`${label} successful`);
+  } catch (err) {
+    toast.dismiss();
+    toast.error(`Failed to ${label}`);
+    console.error(err);
+  }
+};
+
 
   const ridingStatusOptions: ('idle' | 'waiting_for_pickup' | 'in_transit' | 'unavailable')[] = ["idle","waiting_for_pickup","in_transit","unavailable"];
 

@@ -123,6 +123,14 @@ export const driverApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["DRIVER", "RIDE"],
     }),
+    // ✅ Complete a ride
+    cancelRide: builder.mutation({
+      query: (rideId) => ({
+        url: `/rides/${rideId}/cancel`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["DRIVER", "RIDE"],
+    }),
 
       // 🔹 Get Driver Earnings
     getDriverEarnings: builder.query({
@@ -142,6 +150,7 @@ export const {
   useGetRequestedRidesQuery,
   useGetDriverProfileQuery,
  useUpdateDriverProfileMutation,
+ useCancelRideMutation,
   useUpdateOnlineStatusMutation,
   useUpdateLocationMutation,
   useAcceptRideMutation,

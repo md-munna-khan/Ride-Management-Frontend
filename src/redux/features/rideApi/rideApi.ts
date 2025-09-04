@@ -50,15 +50,7 @@ getRideDetails: builder.query({
   }),
   providesTags: ["RIDE"],
 }),
-// update Profile 
-updateProfile: builder.mutation({
-  query: ({ id, data }) => ({
-    url: `/users/${id}`,
-    method: "PATCH",
-    data,
-  }),
-  invalidatesTags: ["RIDER"],
-}),
+
 
 // change Password
 changePassword: builder.mutation({
@@ -90,6 +82,6 @@ export const {
   useGetRideHistoryQuery,
   useGetRideDetailsQuery,
   useChangePasswordMutation,
-  useUpdateProfileMutation, 
+
   useUpdateRideStatusMutation
 } = rideApi;
