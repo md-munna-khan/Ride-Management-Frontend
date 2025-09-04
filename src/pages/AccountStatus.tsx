@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate, useLocation } from "react-router";
 
 interface LocationState {
-  status?: "BLOCKED" | "SUSPENDED" | string;
+  status?: "BLOCKED" | "Suspended" | string;
   message?: string;
 }
 
@@ -22,7 +22,7 @@ export default function AccountStatus() {
         <h1 className="text-3xl font-bold mb-4">
           {status === "BLOCKED"
             ? "Account Blocked"
-            : status === "SUSPENDED"
+            : status === "Suspended"
             ? "Account Suspended"
             : "Account Status"}
         </h1>

@@ -10,21 +10,13 @@ export const userApi = baseApi.injectEndpoints({
       }),
       providesTags: ["USER", "RIDER"],
     }),
-    // Update profile (name & phoneNumber only)
-    // updateProfile: builder.mutation({
-    //   query: ({ id, payload }) => ({
-    //     url: `/users/${id}`,
-    //     method: "PATCH",
-    //     data: payload,
-    //   }),
-    //   invalidatesTags: ["USER", "RIDER"], // Refetch user data after update
-    // }),
+
 
     updateProfile: builder.mutation({
       query: ({ id, userData }) => ({
         url: `/users/${id}`,
         method: "PATCH",
-        body: userData,
+        data: userData,
       }),
       invalidatesTags: ["USER","RIDER"],
     }),

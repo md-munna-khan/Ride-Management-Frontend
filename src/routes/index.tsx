@@ -28,7 +28,7 @@ import FAQ from "@/pages/FAQ";
 import AccountStatus from "@/pages/AccountStatus";
 import { riderSidebarItems } from "./riderSidebarItems";
 import { driverSidebarItems } from "./driverSidebarItems";
-import RideDetailsPage from "@/pages/Rider/RideDetailsPage";
+
 
 export const router = createBrowserRouter([
   {
