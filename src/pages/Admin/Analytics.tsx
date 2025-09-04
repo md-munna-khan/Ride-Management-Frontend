@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import LoadingSpinner from "@/components/LoadingSpinner";
 import {
   Card,
   CardHeader,
@@ -15,7 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useGetAnalyticsQuery } from "@/redux/features/adminApi/adminApi";
-import { Loader2 } from "lucide-react";
+
 import {
   BarChart,
   Bar,
@@ -35,12 +36,12 @@ const COLORS = ["#6366f1", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
 
 const Analytics = () => {
   const { data, isLoading, isError } = useGetAnalyticsQuery({});
-  const analytics = data?.data; // আসল ডেটা
+  const analytics = data?.data; 
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-80">
-        <Loader2 className="animate-spin w-8 h-8 text-gray-500" />
+<LoadingSpinner/>
       </div>
     );
   }
