@@ -1,7 +1,13 @@
 import { Button } from "@/components/ui/button"
 import { Car, MapPin, Clock } from "lucide-react"
+import { useNavigate } from "react-router";
 
 export function HeroSection() {
+    const navigate = useNavigate();
+
+  const handleBookRide = () => {
+    navigate("/rider/request");
+  };
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 to-accent/5">
       <div className="absolute inset-0 bg-[url('/modern-city-skyline-with-cars-and-people.png')] bg-cover bg-center opacity-10" />
@@ -24,7 +30,7 @@ export function HeroSection() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <Button size="lg" className="text-lg px-8 py-6">
+          <Button size="lg" className="text-lg px-8 py-6" onClick={handleBookRide}>
             Book a Ride Now
           </Button>
           <Button variant="outline" size="lg" className="text-lg px-8 py-6 bg-transparent">

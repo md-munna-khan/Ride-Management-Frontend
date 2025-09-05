@@ -22,11 +22,11 @@ export function ContactInfo() {
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Office Address</h3>
                 <p className="text-muted-foreground">
-                  123 Tech Street, Innovation District
+                  Dhaka
                   <br />
-                  San Francisco, CA 94105
+                Badda Gulshan
                   <br />
-                  United States
+                  Bangladesh
                 </p>
               </div>
             </div>
@@ -42,11 +42,11 @@ export function ContactInfo() {
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Phone Numbers</h3>
                 <p className="text-muted-foreground">
-                  General Inquiries: +1 (555) 123-4567
+                  General Inquiries: 01954288782
                   <br />
-                  Driver Support: +1 (555) 123-4568
+                  Driver Support:  01954288782
                   <br />
-                  Rider Support: +1 (555) 123-4569
+                  Rider Support:  01954288782
                 </p>
               </div>
             </div>
@@ -62,9 +62,9 @@ export function ContactInfo() {
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Email Addresses</h3>
                 <p className="text-muted-foreground">
-                  General: info@rideflow.com
+                  General: 
                   <br />
-                  Support: support@rideflow.com
+                  Support: munnamia0200@gmail.com
                   <br />
                   Business: business@rideflow.com
                 </p>

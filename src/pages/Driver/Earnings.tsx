@@ -3,7 +3,7 @@
 
 import { useGetDriverEarningsQuery } from "@/redux/features/driverApi/driverApi";
 import { Card, CardContent } from "@/components/ui/card";
-import { Loader2 } from "lucide-react";
+
 import {
   LineChart,
   Line,
@@ -13,6 +13,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const Earnings = () => {
   const { data, isLoading } = useGetDriverEarningsQuery({});
@@ -22,7 +23,7 @@ const Earnings = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader2 className="animate-spin w-8 h-8 text-blue-500" />
+       <LoadingSpinner/>
       </div>
     );
   }

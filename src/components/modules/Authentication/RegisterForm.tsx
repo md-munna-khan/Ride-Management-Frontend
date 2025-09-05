@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import { Button } from "@/components/ui/button";
 // import {
 //   Form,
@@ -261,7 +262,7 @@ export function RegisterForm({
 
     toast.success("User registered successfully");
 
-      navigate("/"); // redirect based on role later
+      navigate("/login"); // redirect based on role later
     } catch (error: any) {
       console.error(error);
       toast.error(error?.data?.message || "Registration failed");

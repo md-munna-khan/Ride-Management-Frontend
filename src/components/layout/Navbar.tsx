@@ -57,7 +57,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="border-b">
+    <header className="border-b sticky top-0 bg-white  shadow-sm ">
       <div className="container mx-auto px-4 flex h-16 items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <Popover>
