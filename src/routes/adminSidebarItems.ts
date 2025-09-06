@@ -3,6 +3,7 @@
 
 import AdminProfilePage from "@/pages/Admin/AdminProfilePage";
 import Analytics from "@/pages/Admin/Analytics";
+import DriverManagement from "@/pages/Admin/DriverManagement";
 import { RidesManagement } from "@/pages/Admin/RidesManagement";
 
 
@@ -28,24 +29,36 @@ export const adminSidebarItems: SidebarItem[] = [
     ],
   },
   {
-    title: "Users",
+    title: "User Management",
     path: "/admin/users",
     icon: Users,
     items: [
       {
-        title: "All Users",
+        title: "User Management",
         url: "/admin/users",
         component: UserManagement,
       },
     ],
   },
   {
-    title: "Rides Management",
+    title: "Driver Management",
+    path: "/admin/drivers",
+    icon: Users,
+    items: [
+      {
+        title: "Driver Management",
+        url: "/admin/drivers",
+        component: DriverManagement,
+      },
+    ],
+  },
+  {
+    title: "Rides Oversight",
     path: "/admin/rides",
     icon: Car,
     items: [
       {
-        title: "Rides Management",
+        title: "Rides Oversight",
         url: "/admin/rides",
         component: RidesManagement,
       },
