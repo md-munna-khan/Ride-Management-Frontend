@@ -164,11 +164,11 @@ const RiderProfilePage: React.FC = () => {
   if (loadingUser) return <p className="text-center mt-6"><LoadingSpinner/></p>;
 
   return (
-    <Card className="max-w-md mx-auto mt-6">
-      <CardContent>
+    <Card className=" mx-auto mt-6 p-4 ">
+      <CardContent className="p-10">
         <h2 className="text-2xl font-bold mb-6">Edit Profile</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name */}
           <div>
             <Label htmlFor="name">Name</Label>

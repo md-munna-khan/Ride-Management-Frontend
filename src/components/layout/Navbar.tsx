@@ -1,14 +1,17 @@
-
-import Logo from "@/assets/icons/Logo"
-import { Button } from "@/components/ui/button"
+import Logo from "@/assets/icons/Logo";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "@/components/ui/navigation-menu"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+} from "@/components/ui/navigation-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,14 +19,18 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { ModeToggle } from "./ModeToggler"
-import { Link } from "react-router"
-import { authApi, useLogoutMutation, useUserInfoQuery } from "@/redux/features/auth/auth.api"
-import { useAppDispatch } from "@/redux/hook"
-import { role } from "@/constants/role"
-import React from "react"
-import { User, LogOut } from "lucide-react"
+} from "@/components/ui/dropdown-menu";
+import { ModeToggle } from "./ModeToggler";
+import { Link } from "react-router";
+import {
+  authApi,
+  useLogoutMutation,
+  useUserInfoQuery,
+} from "@/redux/features/auth/auth.api";
+import { useAppDispatch } from "@/redux/hook";
+import { role } from "@/constants/role";
+import React from "react";
+import { User, LogOut } from "lucide-react";
 
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
@@ -35,17 +42,17 @@ const navigationLinks = [
   { href: "/rider/request", label: "Book A Ride", role: role.rider },
   { href: "/driver", label: "Dashboard", role: role.driver },
   { href: "/admin", label: "Dashboard", role: role.admin },
-]
+];
 
 export default function Navbar() {
-  const { data } = useUserInfoQuery(undefined)
-  const [logout] = useLogoutMutation()
-  const dispatch = useAppDispatch()
+  const { data } = useUserInfoQuery(undefined);
+  const [logout] = useLogoutMutation();
+  const dispatch = useAppDispatch();
 
   const handleLogout = async () => {
-    await logout(undefined)
-    dispatch(authApi.util.resetApiState())
-  }
+    await logout(undefined);
+    dispatch(authApi.util.resetApiState());
+  };
 
   const getUserInitials = (email: string) => {
     return email
@@ -53,8 +60,8 @@ export default function Navbar() {
       .split(".")
       .map((name) => name.charAt(0).toUpperCase())
       .join("")
-      .slice(0, 2)
-  }
+      .slice(0, 2);
+  };
 
   return (
     <header className="border-b sticky top-0 bg-white  shadow-sm ">
@@ -62,7 +69,11 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <Popover>
             <PopoverTrigger asChild>
-              <Button className="group size-8 md:hidden" variant="ghost" size="icon">
+              <Button
+                className="group size-8 md:hidden"
+                variant="ghost"
+                size="icon"
+              >
                 <svg
                   className="pointer-events-none"
                   width={16}
@@ -93,13 +104,24 @@ export default function Navbar() {
             <PopoverContent align="start" className="w-36 p-1 md:hidden">
               <NavigationMenu className="max-w-none *:w-full">
                 <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
-                  {navigationLinks.map((link, index) => (
-                    <NavigationMenuItem key={index} className="w-full">
-                      <NavigationMenuLink asChild className="py-1.5">
-                        <Link to={link.href}>{link.label} </Link>
-                      </NavigationMenuLink>
-                    </NavigationMenuItem>
-                  ))}
+                  {navigationLinks.map((link, index) => {
+                    if (
+                      link.role === "PUBLIC" ||
+                      link.role === data?.data?.role
+                    ) {
+                      return (
+                        <NavigationMenuItem key={index}>
+                          <NavigationMenuLink
+                            asChild
+                            className="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                          >
+                            <Link to={link.href}>{link.label}</Link>
+                          </NavigationMenuLink>
+                        </NavigationMenuItem>
+                      );
+                    }
+                    return null;
+                  })}
                 </NavigationMenuList>
               </NavigationMenu>
             </PopoverContent>
@@ -143,11 +165,14 @@ export default function Navbar() {
           {data?.data?.email ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                <Button
+                  variant="ghost"
+                  className="relative h-10 w-10 rounded-full"
+                >
                   <Avatar className="h-9 w-9">
                     <AvatarImage
                       src={
-                         data?.data?.profileImage ||
+                        data?.data?.profileImage ||
                         data?.data?.picture ||
                         `/placeholder.svg?height=36&width=36&query=professional-${data?.data?.role}-avatar`
                       }
@@ -162,9 +187,15 @@ export default function Navbar() {
               <DropdownMenuContent className="w-64" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">{data?.data?.name || "User"}</p>
-                    <p className="text-xs leading-none text-muted-foreground">{data?.data?.email}</p>
-                    <p className="text-xs leading-none text-muted-foreground capitalize">{data?.data?.role} Account</p>
+                    <p className="text-sm font-medium leading-none">
+                      {data?.data?.name || "User"}
+                    </p>
+                    <p className="text-xs leading-none text-muted-foreground">
+                      {data?.data?.email}
+                    </p>
+                    <p className="text-xs leading-none text-muted-foreground capitalize">
+                      {data?.data?.role} Account
+                    </p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
@@ -174,9 +205,12 @@ export default function Navbar() {
                     <span>Profile</span>
                   </Link>
                 </DropdownMenuItem>
-              
+
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-600" onClick={handleLogout}>
+                <DropdownMenuItem
+                  className="cursor-pointer text-red-600 focus:text-red-600"
+                  onClick={handleLogout}
+                >
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Log out</span>
                 </DropdownMenuItem>
@@ -190,5 +224,5 @@ export default function Navbar() {
         </div>
       </div>
     </header>
-  )
+  );
 }

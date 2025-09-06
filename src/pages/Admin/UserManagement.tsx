@@ -277,6 +277,7 @@ const UserManagement: React.FC = () => {
               <SelectItem value="all">All Status</SelectItem>
               <SelectItem value="UNBLOCKED">Unblocked</SelectItem>
               <SelectItem value="BLOCKED">Blocked</SelectItem>
+              <SelectItem value="Pending">Pending</SelectItem>
               <SelectItem value="Suspended">Suspended</SelectItem>
               <SelectItem value="Approved">Approved</SelectItem>
             </SelectContent>

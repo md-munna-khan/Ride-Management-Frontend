@@ -1,4 +1,6 @@
 // import RideDetailsPage from "@/pages/Rider/RideDetailsPage";
+
+import { ApplyAsDriver } from "@/pages/Rider/ApplyAsDriver";
 import RideRequestPage from "@/pages/Rider/RideRequestPage";
 import RiderHistoryPage from "@/pages/Rider/RiderHistoryPage";
 import RiderProfilePage from "@/pages/Rider/RiderProfilePage";
@@ -31,18 +33,18 @@ export const riderSidebarItems: SidebarItem[] = [
       },
     ],
   },
-  // {
-  //   title: "Ride Details",
-  //   path: "/rider/details",
-  //   icon: History,
-  //   items: [
-  //     {
-  //       title: "Details",
-  //       url: "/rider/details",
-  //       component: RideDetailsPage,
-  //     },
-  //   ],
-  // },
+  {
+    title: "Apply Driver",
+    path: "/rider/apply",
+    icon: History,
+    items: [
+      {
+        title: "Apply As Driver",
+        url: "/rider/apply",
+        component: ApplyAsDriver,
+      },
+    ],
+  },
   {
     title: "Profile",
     path: "/rider/profile",

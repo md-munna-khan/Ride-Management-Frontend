@@ -293,6 +293,7 @@ import { useMap } from "react-leaflet";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 // Lazy load components
 const MapComponent = lazy(() => import("../MapComponent"));
@@ -465,24 +466,24 @@ export default function ActiveRides() {
 
       {/* Requested Rides */}
       <h2 className="text-lg font-semibold">Requested Rides</h2>
-      {requestedLoading ? <p>Loading rides...</p> : requestedRides.length === 0 ? <p>No requested rides.</p> : requestedRides.map(renderRideCard)}
+      {requestedLoading ? <p><LoadingSpinner/></p> : requestedRides.length === 0 ? <p>No requested rides.</p> : requestedRides.map(renderRideCard)}
 
       {/* Active Rides */}
       <h2 className="text-lg font-semibold">Active Rides</h2>
-      {activeLoading ? <p>Loading rides...</p> : activeRides.length === 0 ? <p>No active rides.</p> : activeRides.map(renderRideCard)}
+      {activeLoading ? <p><LoadingSpinner/></p> : activeRides.length === 0 ? <p>No active rides.</p> : activeRides.map(renderRideCard)}
 
       
 
       {/* Live Map */}
       <h2 className="text-lg font-semibold">Live Map</h2>
       {userCoords && driverCoords && (
-        <div className="w-full h-[500px] relative">
+        <div className="w-full h-[500px] z-0 ">
           <Suspense fallback={<p>Loading map...</p>}>
             <MapComponent userCoords={userCoords} driverCoords={driverCoords} />
           </Suspense>
           {/* SOS Button - fixed */}
       <Suspense fallback={null}>
-        <div className="fixed top-4 right-4 z-50 md:top-6 md:right-6 lg:top-8 lg:right-8">
+        <div className="fixed top-4 right-4 z-100 md:top-6 md:right-6 lg:top-8 lg:right-8">
           <SOSButton />
         </div>
       </Suspense>

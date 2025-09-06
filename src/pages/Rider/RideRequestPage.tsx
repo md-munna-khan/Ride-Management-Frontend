@@ -281,7 +281,7 @@ export default function RideRequestPage() {
             <MapContainer
               center={[23.777524, 90.428047]}
               zoom={13}
-              style={{ height: 300, width: "100%", borderRadius: "12px" }}
+              style={{ height: 300, width: "100%", zIndex:0, borderRadius: "12px" }}
             >
               <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
               {pickupCoords && <Marker position={pickupCoords} />}

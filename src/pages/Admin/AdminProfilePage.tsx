@@ -161,7 +161,7 @@ const AdminProfilePage: React.FC = () => {
     }
   };
 
-  if (loadingUser) return <p className="text-center mt-6"><LoadingSpinner/></p>;
+  if (loadingUser) return <div className="text-center mt-6"><LoadingSpinner/></div>;
 
   return (
     <Card className="max-w-md mx-auto mt-6">

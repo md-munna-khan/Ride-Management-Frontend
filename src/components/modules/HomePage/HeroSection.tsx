@@ -8,6 +8,9 @@ export function HeroSection() {
   const handleBookRide = () => {
     navigate("/rider/request");
   };
+  const handleApplyDriver = () => {
+    navigate("/rider/apply");
+  };
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 to-accent/5">
       <div className="absolute inset-0 bg-[url('/modern-city-skyline-with-cars-and-people.png')] bg-cover bg-center opacity-10" />
@@ -33,7 +36,7 @@ export function HeroSection() {
           <Button size="lg" className="text-lg px-8 py-6" onClick={handleBookRide}>
             Book a Ride Now
           </Button>
-          <Button variant="outline" size="lg" className="text-lg px-8 py-6 bg-transparent">
+          <Button variant="outline" size="lg" className="text-lg px-8 py-6 bg-transparent" onClick={handleApplyDriver}>
             Become a Driver
           </Button>
         </div>
