@@ -49,7 +49,7 @@ console.log(data)
       if (name.trim()) userData.name = name.trim();
       if (phone.trim()) userData.phone = phone.trim();
 
-      const res = await updateProfile({ id, userData }).unwrap();
+      await updateProfile({ id, userData }).unwrap();
       toast.success("Profile updated successfully!");
     } catch (err: any) {
       const message = err?.data?.message || err?.error || "Failed to update profile";

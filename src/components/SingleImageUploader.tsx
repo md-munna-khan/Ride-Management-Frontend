@@ -2,8 +2,10 @@ import { AlertCircleIcon, ImageUpIcon, XIcon } from "lucide-react";
 
 import { useFileUpload } from "@/hooks/use-file-upload";
 import { useEffect } from "react";
-
-export default function SingleImageUploader({ onChange }) {
+interface SingleImageUploaderProps {
+  onChange: (file: File | null) => void; 
+}
+export default function SingleImageUploader({ onChange}:SingleImageUploaderProps) {
   const maxSizeMB = 5;
   const maxSize = maxSizeMB * 1024 * 1024; // 5MB default
 
@@ -25,13 +27,35 @@ export default function SingleImageUploader({ onChange }) {
 
   console.log("Inside image uploader", files);
 
-  useEffect(() => {
-    if (files.length > 0) {
-      onChange(files[0].file);
+  // useEffect(() => {
+  //   if (files.length > 0) {
+  //     onChange(files[0].file);
+  //   } else {
+  //     onChange(null);
+  //   }
+  // }, [files]);
+useEffect(() => {
+  if (files.length > 0) {
+    const fileOrMeta = files[0].file;
+
+    // type guard: check if it's FileMetadata
+    let file: File;
+    if (fileOrMeta && typeof fileOrMeta === "object" && "file" in fileOrMeta) {
+      // It's FileMetadata
+      file = fileOrMeta.file as File;
     } else {
-      onChange(null);
+      // It's already a File
+      file = fileOrMeta as File;
     }
-  }, [files]);
+
+    onChange(file);
+  } else {
+    onChange(null);
+  }
+}, [files, onChange]);
+
+
+
 
   const previewUrl = files[0]?.preview || null;
 

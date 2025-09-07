@@ -36,19 +36,23 @@ export function LoginForm({
         toast.success("Logged in successfully");
         navigate("/");
       }
-    } catch (err) {
-      console.error(err);
+    } catch (err: unknown) {
+  const e = err as { data?: { message?: string }; message?: string };
+  
+  if (e.data?.message === "Password does not match") {
+    toast.error("Invalid credentials");
+  }
 
-      if (err.data.message === "Password does not match") {
-        toast.error("Invalid credentials");
-      }
+  if (e.data?.message === "User is not verified") {
+    toast.error("Your account is not verified");
+    navigate("/verify", { state: data.email });
+  }
 
-      if (err.data.message === "User is not verified") {
-        toast.error("Your account is not verified");
-        navigate("/verify", { state: data.email });
-      }
-    }
-  };
+  // fallback for other errors
+  if (!e.data?.message) {
+    toast.error(e.message || "Something went wrong");
+  }
+}}
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>

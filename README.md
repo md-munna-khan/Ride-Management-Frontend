@@ -1,17 +1,18 @@
 # 🚖 Ride Booking & Management System (Frontend)
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-blue)](https://your-frontend-live-link.com)
-[![Backend API](https://img.shields.io/badge/Backend-API-green)](https://your-backend-live-link.com)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-blue)](https://ride-management-system-frontend-one.vercel.app)
+[![Backend API](https://img.shields.io/badge/Backend-API-green)](https://assigment-b5-a5-munna.vercel.app)
 
 A **production-grade ride booking platform** (similar to Uber/Pathao) built with **React.js, Redux Toolkit, and RTK Query**.  
 The platform provides **role-based dashboards** for Riders, Drivers, and Admins with real-time ride management, analytics, and earnings features.
 
 ---
 
-##  Live Deployment
-- **Frontend**: [Live App](https://your-frontend-live-link.com)  
+## 🌍 Live Deployment
+- **Frontend**: [Live App](https://ride-management-system-frontend-one.vercel.app)  
 - **Backend API**: [API Server](https://assigment-b5-a5-munna.vercel.app)  
-- **Demo Video**: [YouTube Link](https://youtube.com/your-demo-video)  
+- **Frontend Repo**: [GitHub Link](https://github.com/md-munna-khan/Ride-Management-Frontend)  
+- **Backend Repo**: [GitHub Link](https://github.com/md-munna-khan/B5A5-BACKEND)  
 
 ---
 
@@ -26,10 +27,10 @@ The project emphasizes:
 
 ---
 
-##  Key Features
+## ✨ Key Features
 
 ### 🔑 Authentication & Authorization
-- JWT-based authentication with refresh tokens
+- Google OAuth + JWT authentication with refresh tokens
 - Role-based route protection (`Rider`, `Driver`, `Admin`)
 - Blocked/Suspended users redirected to `Unauthorized` page
 - Persistent login using `localStorage`
@@ -37,7 +38,7 @@ The project emphasizes:
 ### 🧑‍🤝‍🧑 Rider Features
 - Request rides (pickup, destination, fare estimate)
 - Real-time ride tracking
-- Ride history with pagination, filters (status/date/fare)
+- Ride history with pagination & filters (status/date/fare)
 - Profile management (update info, change password)
 - Cancel ride before driver accepts
 
@@ -47,7 +48,7 @@ The project emphasizes:
 - Update ride status (`Pickup → In Transit → Completed → Cancelled`)
 - Earnings dashboard with daily/weekly/monthly charts
 - Vehicle info & profile update
-- Location sharing (optional)
+- Location sharing
 
 ### 🛠 Admin Features
 - Manage users (approve, suspend, block/unblock)
@@ -87,8 +88,8 @@ The project emphasizes:
 - ☁️ Cloudinary (image uploads)
 
 ### Deployment
-- 🚀 Frontend: Vercel / Netlify
-- ⚙️ Backend: Render / Railway / Heroku
+- 🚀 Frontend: Vercel
+- ⚙️ Backend: Vercel
 - 🗄 Database: MongoDB Atlas
 
 ---
@@ -97,8 +98,15 @@ The project emphasizes:
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/your-username/ride-booking-frontend.git
-cd ride-booking-frontend
+git clone https://github.com/md-munna-khan/Ride-Management-Frontend.git
+cd Ride-Management-Frontend
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/md-munna-khan/Ride-Management-Frontend.git
+cd Ride-Management-Frontend
 ```
 ####  Install Dependencies
 ```bash
@@ -106,7 +114,8 @@ npm install
 ```
 #### Setup Environment Variables
 ```bash
-VITE_API_BASE_URL=https://your-backend-api.com
+VITE_API_BASE_URL=https://assigment-b5-a5-munna.vercel.app
+
 
 ```
 #### Run the Project

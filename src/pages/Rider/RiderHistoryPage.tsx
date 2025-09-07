@@ -1,5 +1,4 @@
 
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import {
@@ -32,6 +31,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const RideHistoryPage = () => {
   const [page, setPage] = useState(1);
@@ -54,7 +54,7 @@ const RideHistoryPage = () => {
     minFare,
     maxFare,
   });
-console.log(data)
+
   const {
     data: rideDetails,
     isLoading: detailsLoading,
@@ -65,18 +65,17 @@ console.log(data)
 
   const rides = data?.data?.rides || [];
   const pagination = data?.data?.pagination;
-  console.log(rides)
 
   if (isLoading) return <p className="text-center">Loading ride history...</p>;
   if (isError)
     return <p className="text-center text-red-500">Failed to load rides.</p>;
 
   return (
-    <div className="p-6 max-w-6xl mx-auto space-y-6">
-      <h2 className="text-2xl font-bold">Ride History</h2>
+    <div className="p-4 sm:p-6 max-w-6xl mx-auto space-y-6">
+      <h2 className="text-xl sm:text-2xl font-bold">Ride History</h2>
 
       {/* Filters */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         <Select value={status} onValueChange={setStatus}>
           <SelectTrigger>
             <SelectValue placeholder="Select Status" />
@@ -115,7 +114,9 @@ console.log(data)
           onChange={(e) => setMaxFare(e.target.value)}
         />
 
-        <Button onClick={() => setPage(1)}>Search</Button>
+        <Button className="w-full sm:w-auto" onClick={() => setPage(1)}>
+          Search
+        </Button>
       </div>
 
       {/* Ride History Table */}
@@ -124,68 +125,72 @@ console.log(data)
           <CardTitle>Rides</CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Driver</TableHead>
-                <TableHead>Destination</TableHead>
-                <TableHead>Fare</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Details</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {rides.length === 0 ? (
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center">
-                    No rides found
-                  </TableCell>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Driver</TableHead>
+                  <TableHead>Destination</TableHead>
+                  <TableHead>Fare</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Details</TableHead>
                 </TableRow>
-              ) : (
-                rides.map((ride: any) => (
-                  <TableRow key={ride._id}>
-                    <TableCell>
-                      {new Date(ride.createdAt).toLocaleDateString()}
-                    </TableCell>
-                    <TableCell>{ride.driverId?.name || "N/A"}</TableCell>
-                    <TableCell>{ride.destination?.address || "N/A"}</TableCell>
-                    <TableCell>${ride.fare}</TableCell>
-                    <TableCell>
-                      <Badge
-                        variant={
-                          ride.rideStatus === "COMPLETED"
-                            ? "secondary" 
-                            : ride.rideStatus === "CANCELLED" ||
-                              ride.rideStatus === "REJECTED"
-                            ? "destructive"
-                            : ride.rideStatus === "IN_TRANSIT"
-                            ? "default"
-                            : "outline"
-                        }
-                      >
-                        {ride.rideStatus}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Button
-                        size="sm"
-                        onClick={() => setSelectedRideId(ride._id)}
-                      >
-                        Details
-                      </Button>
+              </TableHeader>
+              <TableBody>
+                {rides.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={6} className="text-center">
+                      No rides found
                     </TableCell>
                   </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
+                ) : (
+                  rides.map((ride: any) => (
+                    <TableRow key={ride._id}>
+                      <TableCell>
+                        {new Date(ride.createdAt).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell>{ride.driverId?.name || "N/A"}</TableCell>
+                      <TableCell>
+                        {ride.destination?.address || "N/A"}
+                      </TableCell>
+                      <TableCell>${ride.fare}</TableCell>
+                      <TableCell>
+                        <Badge
+                          variant={
+                            ride.rideStatus === "COMPLETED"
+                              ? "secondary"
+                              : ride.rideStatus === "CANCELLED" ||
+                                ride.rideStatus === "REJECTED"
+                              ? "destructive"
+                              : ride.rideStatus === "IN_TRANSIT"
+                              ? "default"
+                              : "outline"
+                          }
+                        >
+                          {ride.rideStatus}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          size="sm"
+                          onClick={() => setSelectedRideId(ride._id)}
+                        >
+                          Details
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
 
       {/* Pagination */}
       {pagination && (
-        <div className="flex justify-center items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-3">
           <Button
             variant="outline"
             disabled={page === 1}
@@ -193,7 +198,7 @@ console.log(data)
           >
             Prev
           </Button>
-          <span>
+          <span className="text-sm sm:text-base">
             Page {pagination.page} of {pagination.totalPages}
           </span>
           <Button
@@ -211,16 +216,18 @@ console.log(data)
         open={!!selectedRideId}
         onOpenChange={() => setSelectedRideId(null)}
       >
-        <DialogContent>
+        <DialogContent className="max-w-lg w-full">
           <DialogHeader>
             <DialogTitle>Ride Details</DialogTitle>
           </DialogHeader>
           {detailsLoading ? (
-            <p>Loading ride details...</p>
+            <div>
+              <LoadingSpinner />
+            </div>
           ) : detailsError ? (
             <p className="text-red-500">Failed to load ride details.</p>
           ) : rideDetails ? (
-            <div className="space-y-2">
+            <div className="space-y-2 text-sm sm:text-base">
               <p>
                 <strong>Driver:</strong>{" "}
                 {rideDetails?.data?.driverId?.name || "N/A"}
@@ -250,3 +257,4 @@ console.log(data)
 };
 
 export default RideHistoryPage;
+
