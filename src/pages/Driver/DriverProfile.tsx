@@ -28,7 +28,7 @@ const DriverProfile: React.FC = () => {
       setPhone(data?.data?.phone || "");
     }
   }, [data]);
-
+console.log(data)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -60,8 +60,8 @@ const DriverProfile: React.FC = () => {
   if (loadingUser) return <div className="text-center mt-6"><LoadingSpinner/></div>;
 
   return (
-    <Card className="max-w-md mx-auto mt-6">
-      <CardContent>
+    <Card className="max-w-md mx-auto mt-6 p-10">
+      <CardContent className="p-4">
         <h2 className="text-2xl font-bold mb-6">Edit Profile</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">

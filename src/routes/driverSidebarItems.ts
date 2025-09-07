@@ -28,7 +28,7 @@ export const driverSidebarItems: SidebarItem[] = [
     icon: History,
     items: [
       {
-        title: "History",
+        title: "Ride History",
         url: "/driver/history",
         component: RideHistory,
       },

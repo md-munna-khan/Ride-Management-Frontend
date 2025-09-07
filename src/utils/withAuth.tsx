@@ -7,7 +7,7 @@ export const withAuth = (Component: ComponentType, requiredRole?: TRole) => {
   return function AuthWrapper() {
     const { data, isLoading } = useUserInfoQuery(undefined);
    const user = data?.data;
-   console.log(user)
+   
     if (!isLoading && !data?.data?.email) {
       return <Navigate to="/login" />;
     }
