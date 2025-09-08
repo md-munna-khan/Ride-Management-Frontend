@@ -32,15 +32,6 @@ export function LoginForm({
     try {
       const res = await login(data).unwrap();
       console.log(res)
-
-
-
-    // --- Check user status ---
-    // if (res.data.user.status === "BLOCKED" || res.data.user.status === "Suspended") {
-    //   navigate("/status", { state: { status: res.data.user.status } });
-    //   return;
-    // }
-
       if (res.success) {
         toast.success("Logged in successfully");
         navigate("/");
