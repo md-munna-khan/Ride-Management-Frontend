@@ -99,10 +99,6 @@ export const router = createBrowserRouter([
     Component: Register,
     path: "/register",
   },
-  // {
-  //   Component: RideDetailsPage,
-  //   path: "/ride/deta",
-  // },
 
   // Others
   {

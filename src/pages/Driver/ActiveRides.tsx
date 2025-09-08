@@ -211,7 +211,7 @@ export default function ActiveRides() {
           </Suspense>
           {/* SOS Button - fixed */}
       <Suspense fallback={null}>
-        <div className="fixed top-4 right-4 z-100 md:top-6 md:right-6 lg:top-8 lg:right-8">
+        <div className="fixed top-4 right-4 z-50 md:top-6 md:right-6 lg:top-8 lg:right-8">
           <SOSButton />
         </div>
       </Suspense>

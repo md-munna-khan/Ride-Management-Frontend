@@ -71,11 +71,12 @@ const RideHistoryPage = () => {
     return <p className="text-center text-red-500">Failed to load rides.</p>;
 
   return (
-    <div className="p-4 sm:p-6 max-w-6xl mx-auto space-y-6">
+    <div className="p-4 sm:p-6 mx-auto space-y-6">
       <h2 className="text-xl sm:text-2xl font-bold">Ride History</h2>
 
       {/* Filters */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {/* Status */}
         <Select value={status} onValueChange={setStatus}>
           <SelectTrigger>
             <SelectValue placeholder="Select Status" />
@@ -91,28 +92,35 @@ const RideHistoryPage = () => {
           </SelectContent>
         </Select>
 
-        <Input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-        <Input
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-        <Input
-          type="number"
-          placeholder="Min Fare"
-          value={minFare}
-          onChange={(e) => setMinFare(e.target.value)}
-        />
-        <Input
-          type="number"
-          placeholder="Max Fare"
-          value={maxFare}
-          onChange={(e) => setMaxFare(e.target.value)}
-        />
+        {/* Dates side by side */}
+        <div className="grid grid-cols-2 gap-2">
+          <Input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+          <Input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+        </div>
+
+        {/* Fares side by side */}
+        <div className="grid grid-cols-2 gap-2">
+          <Input
+            type="number"
+            placeholder="Min Fare"
+            value={minFare}
+            onChange={(e) => setMinFare(e.target.value)}
+          />
+          <Input
+            type="number"
+            placeholder="Max Fare"
+            value={maxFare}
+            onChange={(e) => setMaxFare(e.target.value)}
+          />
+        </div>
 
         <Button className="w-full sm:w-auto" onClick={() => setPage(1)}>
           Search

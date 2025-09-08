@@ -24,13 +24,22 @@ export function LoginForm({
     //! For development only
     defaultValues: {
       email: "super@gmail.com",
-      password: "12345678",
+      password: "Munna1234@",
     },
   });
   const [login] = useLoginMutation();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await login(data).unwrap();
+      console.log(res)
+
+
+
+    // --- Check user status ---
+    // if (res.data.user.status === "BLOCKED" || res.data.user.status === "Suspended") {
+    //   navigate("/status", { state: { status: res.data.user.status } });
+    //   return;
+    // }
 
       if (res.success) {
         toast.success("Logged in successfully");
@@ -43,16 +52,16 @@ export function LoginForm({
     toast.error("Invalid credentials");
   }
 
-  if (e.data?.message === "User is not verified") {
-    toast.error("Your account is not verified");
-    navigate("/verify", { state: data.email });
-  }
+
 
   // fallback for other errors
   if (!e.data?.message) {
     toast.error(e.message || "Something went wrong");
   }
 }}
+
+
+
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
