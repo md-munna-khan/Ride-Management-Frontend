@@ -30,7 +30,7 @@ import {
 import { useAppDispatch } from "@/redux/hook";
 import { role } from "@/constants/role";
 import React from "react";
-import { User, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import Logo from "@/assets/icons/Logo";
 
 const navigationLinks = [
@@ -65,7 +65,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="border-b sticky top-0   shadow-sm ">
+    <header className="border-b sticky top-0   shadow-sm bg-background z-50">
       <div className="max-w-6xl mx-auto px-4 flex h-16 items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <Popover>
@@ -90,7 +90,7 @@ export default function Navbar() {
                         <NavigationMenuItem key={index}>
                           <NavigationMenuLink
                             asChild
-                            className="text-primary-foreground hover:text-primary py-1.5 font-medium"
+                            className="text-primary-foreground hover:text-primary py-1.5  font-medium"
                           >
                             <Link to={link.href}>{link.label}</Link>
                           </NavigationMenuLink>
@@ -176,12 +176,12 @@ export default function Navbar() {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
+                {/* <DropdownMenuItem asChild>
                   <Link to="/profile" className="cursor-pointer">
                     <User className="mr-2 h-4 w-4" />
                     <span>Profile</span>
                   </Link>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
 
                 <DropdownMenuSeparator />
                 <DropdownMenuItem

@@ -36,7 +36,7 @@ export default function Login() {
         </div>
       </div>
 
-      <div className="relative hidden md:flex items-center justify-center bg-gradient-to-br from-primary/8 to-accent/8 p-8">
+      <div className="relative hidden md:flex items-center justify-center  to-accent/8 p-8">
         <div className="max-w-sm text-center">
           <img src="/ridesharing.jpg" alt="Ride illustration" className="mx-auto mb-6 rounded-md shadow-sm object-cover w-full h-48" />
           <h3 className="text-xl font-bold mb-2">Safe rides, every time</h3>

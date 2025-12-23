@@ -3,7 +3,7 @@ import { MapPin, Phone, Mail, Clock, MessageCircle, Headphones } from "lucide-re
 
 export function ContactInfo() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-10">
       <div>
         <h2 className="text-3xl font-bold text-foreground mb-4">Contact Information</h2>
         <p className="text-muted-foreground text-lg">

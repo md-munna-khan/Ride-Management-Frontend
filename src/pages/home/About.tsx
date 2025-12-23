@@ -5,7 +5,7 @@ import { TeamProfiles } from '@/components/modules/AboutPage/TeamProfiles'
 
 export default function About() {
   return (
-    <div>
+    <div className='max-w-6xl mx-auto px-4 py-8'>
       <CompanyBackground/>
       <Mission/>
       <TeamProfiles/>

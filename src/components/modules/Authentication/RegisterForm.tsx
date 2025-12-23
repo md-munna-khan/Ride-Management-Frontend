@@ -21,13 +21,19 @@ import Password from "@/components/ui/Password";
 import { useRegisterMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
 
-// ✅ Backend-compatible schema
+const passwordSchema = z
+  .string( )
+  .min(8, "Password must be at least 8 characters long")
+  .regex(/(?=.*[A-Z])/, "Must contain at least 1 uppercase letter")
+  .regex(/(?=.*\d)/, "Must contain at least 1 number")
+  .regex(/(?=.*[!@#$%^&*])/, "Must contain at least 1 special character");
+
 const registerSchema = z
   .object({
     name: z.string().min(3, { message: "Name is too short" }).max(50),
     email: z.string().email({ message: "Invalid email address" }),
-    password: z.string().min(8, { message: "Password is too short" }),
-    confirmPassword: z.string().min(8, { message: "Confirm Password is too short" }),
+    password: passwordSchema,
+     confirmPassword: z.string(),
     role: z.enum(["RIDER", "DRIVER"])
   })
   .refine((data) => data.password === data.confirmPassword, {
