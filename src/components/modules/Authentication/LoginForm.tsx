@@ -20,14 +20,20 @@ export function LoginForm({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const navigate = useNavigate();
-  const form = useForm({
-    //! For development only
-    defaultValues: {
-      email: "super@gmail.com",
-      password: "Munna1234@",
-    },
-  });
+  const form = useForm();
   const [login] = useLoginMutation();
+  
+  const testAccounts: Record<string, { email: string; password: string }> = {
+    admin: { email: "super@gmail.com", password: "Munna1234@" },
+    rider: { email: "rider@gmail.com", password: "Munna1234@" },
+    driver: { email: "driver@gmail.com", password: "Munna1234@" },
+  };
+
+  const fillTestAccount = (key: keyof typeof testAccounts) => {
+    const acc = testAccounts[key];
+    form.setValue("email", acc.email);
+    form.setValue("password", acc.password);
+  };
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await login(data).unwrap();
@@ -65,6 +71,12 @@ export function LoginForm({
       <div className="grid gap-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <div className="flex items-center justify-end gap-2">
+              <div className="text-sm text-muted-foreground mr-auto">Quick test accounts:</div>
+              <button type="button" onClick={() => fillTestAccount('admin')} className="text-xs px-3 py-1 rounded-md border border-border hover:bg-muted">Admin</button>
+              <button type="button" onClick={() => fillTestAccount('rider')} className="text-xs px-3 py-1 rounded-md border border-border hover:bg-muted">Rider</button>
+              <button type="button" onClick={() => fillTestAccount('driver')} className="text-xs px-3 py-1 rounded-md border border-border hover:bg-muted">Driver</button>
+            </div>
             <FormField
               control={form.control}
               name="email"

@@ -40,22 +40,22 @@ export function Testimonials() {
   return (
     <section className="py-20 bg-muted/30">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">What Our Users Say</h2>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">What Our Users Say</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Don't just take our word for it. Here's what riders and drivers have to say about their experience.
+            Real stories from riders and drivers who make our community great.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
-              <CardContent className="p-6">
+            <Card key={index} className="overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+              <CardContent className="p-6 bg-gradient-to-br ">
                 <div className="flex items-start gap-4 mb-4">
                   <img
                     src={testimonial.avatar || "/placeholder.svg"}
                     alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-14 h-14 rounded-full object-cover border-2 shadow-sm"
                   />
                   <div className="flex-1">
                     <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
@@ -66,11 +66,11 @@ export function Testimonials() {
 
                 <div className="flex items-center gap-1 mb-3">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="h-4 w-4 text-yellow-400" />
                   ))}
                 </div>
 
-                <p className="text-muted-foreground leading-relaxed">"{testimonial.content}"</p>
+                <p className="text-muted-foreground leading-relaxed italic">“{testimonial.content}”</p>
               </CardContent>
             </Card>
           ))}

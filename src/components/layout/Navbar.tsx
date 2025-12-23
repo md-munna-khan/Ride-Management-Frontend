@@ -1,4 +1,4 @@
-import Logo from "@/assets/icons/Logo";
+
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -31,6 +31,7 @@ import { useAppDispatch } from "@/redux/hook";
 import { role } from "@/constants/role";
 import React from "react";
 import { User, LogOut } from "lucide-react";
+import Logo from "@/assets/icons/Logo";
 
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
@@ -64,8 +65,8 @@ export default function Navbar() {
   };
 
   return (
-    <header className="border-b sticky top-0 bg-white  shadow-sm ">
-      <div className="container mx-auto px-4 flex h-16 items-center justify-between gap-4">
+    <header className="border-b sticky top-0   shadow-sm ">
+      <div className="max-w-6xl mx-auto px-4 flex h-16 items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <Popover>
             <PopoverTrigger asChild>
@@ -74,31 +75,7 @@ export default function Navbar() {
                 variant="ghost"
                 size="icon"
               >
-                <svg
-                  className="pointer-events-none"
-                  width={16}
-                  height={16}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4 12L20 12"
-                    className="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]"
-                  />
-                  <path
-                    d="M4 12H20"
-                    className="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45"
-                  />
-                  <path
-                    d="M4 12H20"
-                    className="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]"
-                  />
-                </svg>
+               
               </Button>
             </PopoverTrigger>
             <PopoverContent align="start" className="w-36 p-1 md:hidden">
@@ -113,7 +90,7 @@ export default function Navbar() {
                         <NavigationMenuItem key={index}>
                           <NavigationMenuLink
                             asChild
-                            className="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                            className="text-primary-foreground hover:text-primary py-1.5 font-medium"
                           >
                             <Link to={link.href}>{link.label}</Link>
                           </NavigationMenuLink>

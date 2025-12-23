@@ -36,31 +36,34 @@ export function Services() {
   return (
     <section className="py-20">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Our Services</h2>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">Our Services</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Choose from our range of services designed to meet all your transportation needs.
+            Choose from services designed for every need — daily commutes, groups, premium travel and deliveries.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
+            <Card key={index} className="transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
               <CardContent className="p-6">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <service.icon className="h-6 w-6 text-primary" />
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg flex items-center justify-center">
+                    <service.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="text-sm text-muted-foreground">{service.price}</div>
                 </div>
                 <h3 className="text-xl font-semibold text-foreground mb-2">{service.title}</h3>
-                <p className="text-muted-foreground mb-3">{service.description}</p>
-                <p className="text-primary font-semibold mb-4">{service.price}</p>
-                <ul className="space-y-1">
+                <p className="text-muted-foreground mb-4">{service.description}</p>
+                <ul className="space-y-2 mb-2">
                   {service.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="text-sm text-muted-foreground flex items-center">
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2" />
+                      <div className="w-2 h-2 bg-primary rounded-full mr-3" />
                       {feature}
                     </li>
                   ))}
                 </ul>
+                <div className="text-sm text-primary font-medium">Book now →</div>
               </CardContent>
             </Card>
           ))}

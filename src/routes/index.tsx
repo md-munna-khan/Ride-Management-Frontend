@@ -2,29 +2,28 @@
 
 import App from "@/App";
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import About from "@/pages/About";
+import About from "@/pages/home/About";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
-// import Verify from "@/pages/Verify";
+
 import { generateRoutes } from "@/utils/generateRoutes";
 import { createBrowserRouter, Navigate } from "react-router";
 import { adminSidebarItems } from "./adminSidebarItems";
-// import { riderSidebarItems } from "./riderSidebarItems";
-// import { driverSidebarItems } from "./driverSidebarItems";
+
 import { withAuth } from "@/utils/withAuth";
 import Unauthorized from "@/pages/Unauthorized";
 import { role } from "@/constants/role";
 import { TRole } from "@/types";
-import Homepage from "@/pages/Homepage";
+import Homepage from "@/pages/home/Homepage";
 
 
 
 // import RideDetails from "@/pages/RideDetails";
 import Success from "@/pages/Payment/Success";
 import Fail from "@/pages/Payment/Fail";
-import Features from "@/pages/Features";
-import Contact from "@/pages/Contact";
-import FAQ from "@/pages/FAQ";
+import Features from "@/pages/home/Features";
+import Contact from "@/pages/home/Contact";
+import FAQ from "@/pages/home/FAQ";
 import AccountStatus from "@/pages/AccountStatus";
 import { riderSidebarItems } from "./riderSidebarItems";
 import { driverSidebarItems } from "./driverSidebarItems";

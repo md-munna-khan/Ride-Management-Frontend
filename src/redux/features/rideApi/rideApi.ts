@@ -56,16 +56,7 @@ export const rideApi = baseApi.injectEndpoints({
       }),
       providesTags: ["RIDE"],
     }),
-    // getRideHistory: builder.query({
-    //   query: () => ({
-    //     url: "/rides/me",
-    //     method: "GET",
-       
-    //   }),
-    //   providesTags: ["RIDE"],
-    // }),
-
-    // Get single ride details
+    
     // Ride API
     getRideDetails: builder.query({
       query: (rideId: string) => ({
