@@ -168,7 +168,7 @@ export function RegisterForm({
             />
 
             {/* ✅ Role Selection */}
-            <FormField
+            {/* <FormField
               control={form.control}
               name="role"
               render={({ field }) => (
@@ -186,7 +186,7 @@ export function RegisterForm({
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
 
             <Button type="submit" className="w-full">
               Register

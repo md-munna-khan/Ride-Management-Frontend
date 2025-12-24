@@ -1,23 +1,16 @@
 
-import { Spinner, type SpinnerProps } from '@/components/ui/shadcn-io/spinner';
-const variants: SpinnerProps['variant'][] = [
+import { Spinner } from '@/components/ui/shadcn-io/spinner';
 
-  'pinwheel',
-
-];
-const LoadingSpinner = () => (
-  <div className="grid h-screen w-full  items-center justify-center gap-8">
-    {variants.map((variant) => (
-      <div
-        className="flex flex-col items-center justify-center gap-4"
-        key={variant}
-      >
-        <Spinner key={variant} variant={variant} className='w-8 h-8' />
-        <span className="font-mono text-muted-foreground text-xl">
-          {variant}
-        </span>
+const LoadingSpinner = ({ label = 'Loading...' }: { label?: string }) => (
+  <div className="flex items-center justify-center w-full py-10">
+    <div className="flex items-center gap-4 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm px-6 py-4 rounded-lg shadow-lg">
+      <Spinner className="w-8 h-8 text-primary" />
+      <div className="flex flex-col">
+        <span className="font-medium text-sm">{label}</span>
+        <span className="text-xs text-muted-foreground">Please wait a moment</span>
       </div>
-    ))}
+    </div>
   </div>
 );
+
 export default LoadingSpinner;

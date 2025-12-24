@@ -178,47 +178,75 @@ export default function ActiveRides() {
   };
 
   return (
-    <div className="space-y-6 p-4">
-      {/* Online status */}
-      <Card>
-        <CardContent className="flex justify-between items-center">
-          <div>
-            <strong>Status:</strong>{" "}
-            <span className={driverProfile?.data?.onlineStatus === "Active" ? "text-green-600" : "text-red-600"}>
-              {driverProfile?.data?.onlineStatus || "Offline"}
-            </span>
+    <div className="space-y-6 p-4 max-w-6xl mx-auto">
+      {/* Header & quick stats */}
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-extrabold">Active Rides</h1>
+          <p className="text-sm text-muted-foreground">Manage current rides and respond to requests.</p>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <div className="text-sm text-center">
+            <div className="text-xs text-muted-foreground">Requested</div>
+            <div className="font-semibold text-lg">{requestedRides.length}</div>
           </div>
-          <Button onClick={handleToggleStatus}>{driverProfile?.data?.onlineStatus === "Active" ? "Go Offline" : "Go Online"}</Button>
+          <div className="text-sm text-center">
+            <div className="text-xs text-muted-foreground">Active</div>
+            <div className="font-semibold text-lg">{activeRides.length}</div>
+          </div>
+          <Button onClick={handleToggleStatus} variant={driverProfile?.data?.onlineStatus === "Active" ? "destructive" : "secondary"}>
+            {driverProfile?.data?.onlineStatus === "Active" ? "Go Offline" : "Go Online"}
+          </Button>
+        </div>
+      </div>
+
+      {/* Driver card */}
+      <Card>
+        <CardContent className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center text-lg font-bold text-slate-700">
+              {driverProfile?.data?.name ? driverProfile.data.name.split(' ').map((n:string)=>n[0]).slice(0,2).join('') : 'D'}
+            </div>
+            <div>
+              <div className="font-semibold">{driverProfile?.data?.name || 'Driver'}</div>
+              <div className="text-sm text-muted-foreground">{driverProfile?.data?.vehicle?.vehicleType || 'Vehicle not set'} • {driverProfile?.data?.vehicle?.vehicleNumber || ''}</div>
+            </div>
+          </div>
+          <div className="text-sm text-muted-foreground">Online Status: <span className={driverProfile?.data?.onlineStatus === 'Active' ? 'text-green-600' : 'text-red-600'}>{driverProfile?.data?.onlineStatus || 'Offline'}</span></div>
         </CardContent>
       </Card>
 
       {/* Requested Rides */}
-      <h2 className="text-lg font-semibold">Requested Rides</h2>
-      {requestedLoading ? <p><LoadingSpinner/></p> : requestedRides.length === 0 ? <p>No requested rides.</p> : requestedRides.map(renderRideCard)}
+      <div>
+        <h2 className="text-lg font-semibold">Requested Rides</h2>
+        {requestedLoading ? <div className="py-8"><LoadingSpinner label="Loading requests..."/></div> : requestedRides.length === 0 ? <p className="text-muted-foreground">No requested rides at the moment.</p> : requestedRides.map(renderRideCard)}
+      </div>
 
       {/* Active Rides */}
-      <h2 className="text-lg font-semibold">Active Rides</h2>
-      {activeLoading ? <p><LoadingSpinner/></p> : activeRides.length === 0 ? <p>No active rides.</p> : activeRides.map(renderRideCard)}
-
-      
+      <div>
+        <h2 className="text-lg font-semibold">Active Rides</h2>
+        {activeLoading ? <div className="py-8"><LoadingSpinner label="Loading active rides..."/></div> : activeRides.length === 0 ? <p className="text-muted-foreground">No active rides at the moment.</p> : activeRides.map(renderRideCard)}
+      </div>
 
       {/* Live Map */}
-      <h2 className="text-lg font-semibold">Live Map</h2>
-      {userCoords && driverCoords && (
-        <div className="w-full h-[500px] z-0 ">
-          <Suspense fallback={<p>Loading map...</p>}>
-            <MapComponent userCoords={userCoords} driverCoords={driverCoords} />
-          </Suspense>
-          {/* SOS Button - fixed */}
-      <Suspense fallback={null}>
-        <div className="fixed top-4 right-4 z-50 md:top-6 md:right-6 lg:top-8 lg:right-8">
-          <SOSButton />
-        </div>
-      </Suspense>
-        </div>
-        
-      )}
-      
+      <div>
+        <h2 className="text-lg font-semibold">Live Map</h2>
+        {userCoords && driverCoords ? (
+          <div className="w-full h-[520px] rounded-lg overflow-hidden border mt-3">
+            <Suspense fallback={<div className="p-6">Loading map...</div>}>
+              <MapComponent userCoords={userCoords} driverCoords={driverCoords} />
+            </Suspense>
+            <Suspense fallback={null}>
+              <div className="absolute top-6 right-6 z-50">
+                <SOSButton />
+              </div>
+            </Suspense>
+          </div>
+        ) : (
+          <p className="text-muted-foreground">Map will appear once location permission is granted.</p>
+        )}
+      </div>
     </div>
   );
 }

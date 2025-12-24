@@ -119,7 +119,7 @@ export default function RideRequestPage() {
   }
 
   return (
-    <Card className="w-full mx-auto shadow-lg relative">
+    <Card className="w-full mx-auto shadow-lg relative max-w-4xl">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">Request a Ride</CardTitle>
       </CardHeader>
@@ -127,42 +127,54 @@ export default function RideRequestPage() {
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
           {/* Map Section */}
-          <div className="relative">
+          <div>
             <Label className="mb-2 block">Select Pickup & Destination</Label>
-            <MapContainer
-              center={[23.777524, 90.428047]}
-              zoom={13}
-              style={{ height: 300, width: "100%", zIndex: 0, borderRadius: "12px" }}
-            >
-              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-              {pickupCoords && <Marker position={pickupCoords} />}
-              {destinationCoords && <Marker position={destinationCoords} />}
-              <LocationMarker
-                onSelect={(coords) => {
-                  if (!pickupCoords) setPickupCoords(coords);
-                  else if (!destinationCoords) setDestinationCoords(coords);
-                }}
-              />
-            </MapContainer>
+            <div className="overflow-hidden rounded-lg shadow-sm border">
+              <MapContainer
+                center={[23.777524, 90.428047]}
+                zoom={13}
+                style={{ height: 360, width: "100%" }}
+              >
+                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                {pickupCoords && <Marker position={pickupCoords} />}
+                {destinationCoords && <Marker position={destinationCoords} />}
+                <LocationMarker
+                  onSelect={(coords) => {
+                    if (!pickupCoords) setPickupCoords(coords);
+                    else if (!destinationCoords) setDestinationCoords(coords);
+                  }}
+                />
+              </MapContainer>
+            </div>
 
-            {/* ✅ SOS Button fixed at top-right */}
+            {/* SOS Button */}
             <Suspense fallback={null}>
-              <div className="fixed top-4 right-4 z-50 md:top-6 md:right-6 lg:top-8 lg:right-8">
+              <div className="absolute top-6 right-6 z-50">
                 <SOSButton />
               </div>
             </Suspense>
 
-            <p className="text-sm text-gray-500 mt-2">
-              Pickup:{" "}
-              {pickupCoords
-                ? `${pickupCoords[0]}, ${pickupCoords[1]}`
-                : "Click on map"}{" "}
-              <br />
-              Destination:{" "}
-              {destinationCoords
-                ? `${destinationCoords[0]}, ${destinationCoords[1]}`
-                : "Click on map"}
-            </p>
+            <div className="mt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div className="text-sm text-muted-foreground">
+                <div>
+                  <strong>Pickup:</strong>{' '}
+                  {pickupCoords ? `${pickupCoords[0].toFixed(5)}, ${pickupCoords[1].toFixed(5)}` : 'Click on map'}
+                </div>
+                <div>
+                  <strong>Destination:</strong>{' '}
+                  {destinationCoords ? `${destinationCoords[0].toFixed(5)}, ${destinationCoords[1].toFixed(5)}` : 'Click on map'}
+                </div>
+              </div>
+
+              <div className="flex gap-2">
+                <Button size="sm" variant="ghost" onClick={() => { setPickupCoords(null); setDestinationCoords(null); }}>
+                  Clear
+                </Button>
+                <Button size="sm" variant="secondary" onClick={estimateFare}>
+                  Estimate Fare
+                </Button>
+              </div>
+            </div>
           </div>
 
           {/* Payment Method */}
@@ -184,17 +196,6 @@ export default function RideRequestPage() {
               </SelectContent>
             </Select>
           </div>
-
-          {/* Estimate Fare */}
-          <Button
-            type="button"
-            variant="secondary"
-            className="w-full"
-            onClick={estimateFare}
-          >
-            Estimate Fare
-          </Button>
-
           {fare && (
             <p className="text-green-600 font-medium">
               Estimated Fare: ${fare}

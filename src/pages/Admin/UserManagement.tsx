@@ -105,9 +105,9 @@ const UserManagement: React.FC = () => {
               <SelectItem value="all">All Status</SelectItem>
               <SelectItem value="UNBLOCKED">Unblocked</SelectItem>
               <SelectItem value="BLOCKED">Blocked</SelectItem>
-              <SelectItem value="Pending">Pending</SelectItem>
-              <SelectItem value="Suspended">Suspended</SelectItem>
-              <SelectItem value="Approved">Approved</SelectItem>
+              
+              <SelectItem value="SUSPENDED">Suspended</SelectItem>
+         
             </SelectContent>
           </Select>
 
@@ -199,7 +199,7 @@ const UserManagement: React.FC = () => {
   {/* DRIVER actions */}
   {user.role === "DRIVER" && (
     <>
-      {user.status !== "Approved" && (
+      {user.status !== "APPROVED" && (
         <Button
           size="sm"
           variant="default"
@@ -208,7 +208,7 @@ const UserManagement: React.FC = () => {
           Approve
         </Button>
       )}
-      {user.status !== "Suspended" && (
+      {user.status !== "SUSPENDED" && (
         <Button
           size="sm"
           variant="destructive"

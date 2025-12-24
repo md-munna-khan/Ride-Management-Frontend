@@ -27,7 +27,7 @@ export const adminApi = baseApi.injectEndpoints({
         url: `/drivers/approve/${id}`,
         method: "PATCH",
       }),
-      invalidatesTags: ["ADMIN_DRIVERS"],
+      invalidatesTags: ["ADMIN_DRIVERS", "DRIVER"],
     }),
 
     suspendDriver: builder.mutation({
@@ -35,7 +35,7 @@ export const adminApi = baseApi.injectEndpoints({
         url: `/drivers/suspend/${id}`,
         method: "PATCH",
       }),
-      invalidatesTags: ["ADMIN_DRIVERS"],
+      invalidatesTags: ["ADMIN_DRIVERS", "DRIVER"],
     }),
 getAnalytics: builder.query({
   query: () => ({
@@ -53,14 +53,10 @@ getAnalytics: builder.query({
 export const {
   useGetAllUsersQuery,
   useBlockUnblockUserMutation,
-//   useGetAllDriversQuery,
+
   useApproveDriverMutation,
   useSuspendDriverMutation,
   useGetAnalyticsQuery,
-//   useGetAllRidesQuery,
-//   useUpdateRideStatusMutation,
-//   useGetAnalyticsQuery,
-//   useGetAdminProfileQuery,
-//   useUpdateAdminProfileMutation,
+
 
 } = adminApi;

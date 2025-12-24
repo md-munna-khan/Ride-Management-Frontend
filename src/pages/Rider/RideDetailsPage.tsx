@@ -3,18 +3,20 @@
 
 import { useGetRideDetailsQuery } from "@/redux/features/rideApi/rideApi";
 import { useParams } from "react-router";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const RideDetailsPage = () => {
   const { rideId } = useParams<{ rideId: string }>();
 console.log("Ride ID from params:", rideId);
 
   const { data: ride, isLoading, isError } = useGetRideDetailsQuery(rideId || "");
-  console.log(rideId,ride)
-  if (isLoading) return <p className="text-center">Loading ride details...</p>;
+
+  if (isLoading) return <div className="text-center mt-6"><LoadingSpinner label="Loading ride details..."/></div>;
   if (isError || !ride) return <p className="text-center text-red-500">Ride not found.</p>;
 
-  const { driverId, riderId, pickupLocation, destination, fare, rideStatus, timestamps } = ride;
-  console.log(ride)
+  // Handle API shape: some endpoints wrap result in `data`
+  const rideData = (ride as any)?.data ? (ride as any).data : ride;
+  const { driverId, riderId, pickupLocation, destination, fare, rideStatus, timestamps } = rideData || {};
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
@@ -42,7 +44,7 @@ console.log("Ride ID from params:", rideId);
         <h3 className="font-semibold mb-2">Ride Info</h3>
         <p><strong>Pickup:</strong> {pickupLocation?.address || "N/A"}</p>
         <p><strong>Destination:</strong> {destination?.address || destination || "N/A"}</p>
-        <p><strong>Fare:</strong> ${fare}</p>
+        <p><strong>Fare:</strong> ${Number(fare || 0).toFixed(2)}</p>
         <p><strong>Status:</strong> 
           <span className={`font-semibold ${
             rideStatus === "COMPLETED"

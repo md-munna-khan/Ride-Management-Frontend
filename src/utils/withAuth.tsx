@@ -6,7 +6,8 @@ import { Navigate } from "react-router";
 
 export const withAuth = (Component: ComponentType, requiredRole?: TRole) => {
   return function AuthWrapper() {
-    const { data, isLoading } = useUserInfoQuery(undefined);
+    // Poll user info periodically so status changes (BLOCKED/SUSPENDED) are detected
+    const { data, isLoading } = useUserInfoQuery(undefined, { pollingInterval: 15000, refetchOnFocus: true });
     console.log(data)
    const user = data?.data;
    console.log(user)
@@ -14,7 +15,7 @@ export const withAuth = (Component: ComponentType, requiredRole?: TRole) => {
     if (!isLoading && !data?.data?.email) {
       return <Navigate to="/login" />;
     }
-       if (!isLoading && (user?.status === "BLOCKED" || user?.status === "Suspended")) {
+       if (!isLoading && (user?.status === "BLOCKED" || user?.status === "SUSPENDED")) {
       return (
         <Navigate
           to="/login"

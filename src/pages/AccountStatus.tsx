@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router";
 
 
 interface LocationState {
-  status?: "BLOCKED" | "Suspended" | string;
+  status?: "BLOCKED" | "SUSPENDED" | string;
   message?: string;
 }
 
@@ -13,7 +13,7 @@ export default function AccountStatus() {
   const location = useLocation();
   const state = location.state as LocationState;
 
-  const status = state?.status || "BLOCKED";
+  const status = state?.status || "BLOCKED" || "SUSPENDED";
   const message =
     state?.message ||
     "Your account is currently blocked. Please contact support to resolve this issue.";
@@ -24,7 +24,7 @@ export default function AccountStatus() {
         <h1 className="text-3xl font-bold mb-4">
           {status === "BLOCKED"
             ? "Account Blocked"
-            : status === "Suspended"
+            : status === "SUSPENDED"
             ? "Account Suspended"
             : "Account Status"}
         </h1>

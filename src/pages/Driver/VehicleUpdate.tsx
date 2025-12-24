@@ -53,11 +53,12 @@ export default function VehicleUpdate() {
         <LoadingSpinner />
       </p>
     );
-
   return (
     <Card className="max-w-md mx-auto mt-6 shadow-md">
       <CardContent>
-        <h2 className="text-xl font-bold mb-6 text-center">Update Vehicle Info</h2>
+        <h2 className="text-xl font-bold mb-4 text-center">Vehicle Information</h2>
+
+        <div className="text-sm text-muted-foreground mb-4">Keep your vehicle details current so riders know what to expect.</div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Vehicle Number */}
@@ -76,15 +77,10 @@ export default function VehicleUpdate() {
           {/* Vehicle Type */}
           <div>
             <Label htmlFor="vehicleType">Vehicle Type</Label>
-            <select
-              id="vehicleType"
-              value={vehicleType}
-              onChange={(e) => setVehicleType(e.target.value)}
-              className="w-full border rounded p-2"
-            >
-              <option value="Bike">Bike</option>
-              <option value="Car">Car</option>
-            </select>
+            <div className="flex gap-2">
+              <Button type="button" variant={vehicleType === 'Bike' ? 'secondary' : 'ghost'} onClick={() => setVehicleType('Bike')}>Bike</Button>
+              <Button type="button" variant={vehicleType === 'Car' ? 'secondary' : 'ghost'} onClick={() => setVehicleType('Car')}>Car</Button>
+            </div>
           </div>
 
           <Button type="submit" disabled={updating} className="w-full">

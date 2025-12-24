@@ -66,16 +66,19 @@ const RideHistoryPage = () => {
   const rides = data?.data?.rides || [];
   const pagination = data?.data?.pagination;
 
-  if (isLoading) return <p className="text-center">Loading ride history...</p>;
+  if (isLoading) return <p className="text-center"><LoadingSpinner /></p>;
   if (isError)
     return <p className="text-center text-red-500">Failed to load rides.</p>;
 
   return (
-    <div className="p-4 sm:p-6 mx-auto space-y-6">
-      <h2 className="text-xl sm:text-2xl font-bold">Ride History</h2>
+    <div className="p-4 sm:p-6 mx-auto space-y-6 max-w-6xl">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl sm:text-3xl font-extrabold">Ride History</h2>
+        <p className="text-sm text-muted-foreground">Review your recent rides and details</p>
+      </div>
 
       {/* Filters */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-end">
         {/* Status */}
         <Select value={status} onValueChange={setStatus}>
           <SelectTrigger>
@@ -155,21 +158,20 @@ const RideHistoryPage = () => {
                 ) : (
                   rides.map((ride: any) => (
                     <TableRow key={ride._id}>
-                      <TableCell>
-                        {new Date(ride.createdAt).toLocaleDateString()}
+                      <TableCell className="whitespace-nowrap">
+                        {new Date(ride.createdAt).toLocaleString()}
                       </TableCell>
-                      <TableCell>{ride.driverId?.name || "N/A"}</TableCell>
-                      <TableCell>
+                      <TableCell className="font-medium">{ride.driverId?.name || "N/A"}</TableCell>
+                      <TableCell className="truncate max-w-xs">
                         {ride.destination?.address || "N/A"}
                       </TableCell>
-                      <TableCell>${ride.fare}</TableCell>
+                      <TableCell>${Number(ride.fare || 0).toFixed(2)}</TableCell>
                       <TableCell>
                         <Badge
                           variant={
                             ride.rideStatus === "COMPLETED"
                               ? "secondary"
-                              : ride.rideStatus === "CANCELLED" ||
-                                ride.rideStatus === "REJECTED"
+                              : ride.rideStatus === "CANCELLED" || ride.rideStatus === "REJECTED"
                               ? "destructive"
                               : ride.rideStatus === "IN_TRANSIT"
                               ? "default"

@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import config from "@/config";
 import { cn } from "@/lib/utils";
+
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
@@ -22,18 +23,22 @@ export function LoginForm({
   const navigate = useNavigate();
   const form = useForm();
   const [login] = useLoginMutation();
-  
+   
   const testAccounts: Record<string, { email: string; password: string }> = {
     admin: { email: "super@gmail.com", password: "Munna1234@" },
     rider: { email: "rider@gmail.com", password: "Munna1234@" },
     driver: { email: "driver@gmail.com", password: "Munna1234@" },
   };
 
+
+
+
   const fillTestAccount = (key: keyof typeof testAccounts) => {
     const acc = testAccounts[key];
     form.setValue("email", acc.email);
     form.setValue("password", acc.password);
   };
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await login(data).unwrap();
@@ -85,7 +90,7 @@ export function LoginForm({
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="john@example.com"
+                      placeholder="munna@example.com"
                       {...field}
                       value={field.value || ""}
                     />

@@ -20,26 +20,36 @@ const DriverManagement: React.FC = () => {
   if (statusFilter !== "all") params.driverStatus = statusFilter;
 
   const { data, isLoading, refetch } = useGetAllUsersQuery(params);
+  console.log(data)
   const [approveDriver] = useApproveDriverMutation();
   const [suspendDriver] = useSuspendDriverMutation();
+  const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
 
   const handleApproveDriver = async (driverId: string) => {
+    setActionLoadingId(driverId);
     try {
       await approveDriver(driverId).unwrap();
       toast.success("Driver approved successfully");
       refetch();
-    } catch {
-      toast.error("Failed to approve driver");
+    } catch (err: any) {
+      const message = err?.data?.message || err?.error || err?.message || "Failed to approve driver";
+      toast.error(message);
+    } finally {
+      setActionLoadingId(null);
     }
   };
 
   const handleSuspendDriver = async (driverId: string) => {
+    setActionLoadingId(driverId);
     try {
       await suspendDriver(driverId).unwrap();
       toast.success("Driver suspended successfully");
       refetch();
-    } catch {
-      toast.error("Failed to suspend driver");
+    } catch (err: any) {
+      const message = err?.data?.message || err?.error || err?.message || "Failed to suspend driver";
+      toast.error(message);
+    } finally {
+      setActionLoadingId(null);
     }
   };
 
@@ -55,15 +65,15 @@ const DriverManagement: React.FC = () => {
             <SelectTrigger className="w-[150px]"><SelectValue placeholder="All Status" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Status</SelectItem>
-              <SelectItem value="Pending">Pending</SelectItem>
-              <SelectItem value="Approved">Approved</SelectItem>
-              <SelectItem value="Suspended">Suspended</SelectItem>
+              <SelectItem value="PENDING">Pending</SelectItem>
+              <SelectItem value="APPROVED">Approved</SelectItem>
+              <SelectItem value="SUSPENDED">Suspended</SelectItem>
             </SelectContent>
           </Select>
           <Button onClick={() => refetch()} className="bg-blue-600 text-white">Filter</Button>
         </div>
 
-        {/* Table */}
+        {/* Table */} 
         {isLoading ? (
           <div className="flex justify-center"><LoadingSpinner /></div>
         ) : (
@@ -84,8 +94,8 @@ const DriverManagement: React.FC = () => {
                     <td className="border px-4 py-2">{driver?.email}</td>
                     <td className="border px-4 py-2">
                       <Badge variant={
-                        driver.driverStatus === "Suspended" ? "destructive" :
-                        driver.driverStatus === "Pending" ? "secondary" :
+                        driver.driverStatus === "SUSPENDED" ? "destructive" :
+                        driver.driverStatus === "PENDING" ? "secondary" :
                         "default"
                       }>
                         {driver.driverStatus || "N/A"}
@@ -93,21 +103,29 @@ const DriverManagement: React.FC = () => {
                     </td>
                     <td className="border px-4 py-2 flex gap-2">
                       {/* Pending → Approve/Suspend */}
-                      {driver.driverStatus === "Pending" && driver.driverId && (
+                      {driver.driverStatus === "PENDING" && driver.driverId && (
                         <>
-                          <Button size="sm" variant="default" onClick={() => handleApproveDriver(driver.driverId)}>Approve</Button>
-                          <Button size="sm" variant="destructive" onClick={() => handleSuspendDriver(driver.driverId)}>Suspend</Button>
+                          <Button size="sm" variant="default" onClick={() => handleApproveDriver(driver.driverId)} disabled={actionLoadingId === driver.driverId}>
+                            {actionLoadingId === driver.driverId ? "Working..." : "Approve"}
+                          </Button>
+                          <Button size="sm" variant="destructive" onClick={() => handleSuspendDriver(driver.driverId)} disabled={actionLoadingId === driver.driverId}>
+                            {actionLoadingId === driver.driverId ? "Working..." : "Suspend"}
+                          </Button>
                         </>
                       )}
 
                       {/* Approved → Suspend */}
-                      {driver.driverStatus === "Approved" && driver.driverId && (
-                        <Button size="sm" variant="destructive" onClick={() => handleSuspendDriver(driver.driverId)}>Suspend</Button>
+                      {driver.driverStatus === "APPROVED" && driver.driverId && (
+                        <Button size="sm" variant="destructive" onClick={() => handleSuspendDriver(driver.driverId)} disabled={actionLoadingId === driver.driverId}>
+                          {actionLoadingId === driver.driverId ? "Working..." : "Suspend"}
+                        </Button>
                       )}
 
                       {/* Suspended → Approve */}
-                      {driver.driverStatus === "Suspended" && driver.driverId && (
-                        <Button size="sm" variant="default" onClick={() => handleApproveDriver(driver.driverId)}>Approve</Button>
+                      {driver.driverStatus === "SUSPENDED" && driver.driverId && (
+                        <Button size="sm" variant="default" onClick={() => handleApproveDriver(driver.driverId)} disabled={actionLoadingId === driver.driverId}>
+                          {actionLoadingId === driver.driverId ? "Working..." : "Approve"}
+                        </Button>
                       )}
                     </td>
                   </tr>

@@ -58,54 +58,47 @@ console.log(data)
   };
 
   if (loadingUser) return <div className="text-center mt-6"><LoadingSpinner/></div>;
-
   return (
-    <Card className="max-w-md mx-auto mt-6 p-10">
-      <CardContent className="p-4">
-        <h2 className="text-2xl font-bold mb-6">Edit Profile</h2>
+    <div className="max-w-3xl mx-auto p-6">
+      <div className="flex flex-col md:flex-row gap-6">
+        <Card className="flex-1">
+          <CardContent>
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center text-2xl font-bold text-slate-700">
+                {data?.data?.name ? data.data.name.split(' ').map((n:string)=>n[0]).slice(0,2).join('') : 'D'}
+              </div>
+              <div>
+                <h2 className="text-2xl font-semibold">{data?.data?.name || 'Your Name'}</h2>
+                <p className="text-sm text-muted-foreground">{data?.data?.email || 'No email'}</p>
+                <p className="text-xs text-muted-foreground">{data?.data?.vehicle ? `${data.data.vehicle.vehicleType} • ${data.data.vehicle.vehicleNumber}` : 'No vehicle information'}</p>
+              </div>
+            </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name */}
-          <div>
-            <Label htmlFor="name">Name</Label>
-            <Input
-              id="name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Enter your name"
-              required
-            />
-          </div>
+            <div className="mt-6">
+              <h3 className="text-lg font-medium mb-2">Profile Details</h3>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <Label htmlFor="name">Name</Label>
+                  <Input id="name" value={name} onChange={(e)=>setName(e.target.value)} />
+                </div>
+                <div>
+                  <Label htmlFor="phone">Phone</Label>
+                  <Input id="phone" value={phone} onChange={(e)=>setPhone(e.target.value)} />
+                </div>
+                <Button type="submit" disabled={updating} className="w-full">{updating ? 'Updating...' : 'Update Profile'}</Button>
+              </form>
+            </div>
+            <div className="mt-6">
+              <UpdatePassword />
+            </div>
+          </CardContent>
+        </Card>
 
-          {/* Phone Number */}
-          <div>
-            <Label htmlFor="phone">Phone Number</Label>
-            <Input
-              id="phone"
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="+8801XXXXXXXXX"
-              required
-            />
-          </div>
-
-          <Button type="submit" disabled={updating} className="w-full">
-            {updating ? "Updating..." : "Update Profile"}
-          </Button>
-        </form>
-
-        {/* Update password section */}
-        <div className="mt-6">
-          <UpdatePassword />
+        <div className="w-full md:w-80">
+          <VehicleUpdate />
         </div>
-        {/* Update vehicle section */}
-        <div className="mt-6">
-          <VehicleUpdate/>
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

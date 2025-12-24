@@ -8,6 +8,7 @@ import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
 import UpdatePassword from "../User/UpdatePassword";
 import { useGetMeQuery, useUpdateProfileMutation } from "@/redux/features/userProfileApi/userApi";
+import { ApplyAsDriver } from "./ApplyAsDriver";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -57,12 +58,27 @@ const RiderProfilePage: React.FC = () => {
     }
   };
 
-  if (loadingUser) return <div className="text-center mt-6"><LoadingSpinner/></div>;
+  if (loadingUser) return <div className="text-center mt-6"><LoadingSpinner label="Loading profile..."/></div>;
 
   return (
-    <Card className=" mx-auto mt-6 p-4 ">
-      <CardContent className="p-10">
-        <h2 className="text-2xl font-bold mb-6">Edit Profile</h2>
+    <Card className=" mx-auto mt-6 p-4 max-w-xl">
+      <CardContent className="p-8">
+        <div className="flex items-center justify-between gap-4 mb-6">
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center text-xl font-semibold text-slate-700">
+              {data?.data?.name ? data.data.name.split(' ').map((n:string)=>n[0]).slice(0,2).join('') : 'U'}
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold">{data?.data?.name || 'Your Profile'}</h2>
+              <p className="text-sm text-muted-foreground">{data?.data?.email || 'No email'}</p>
+              <p className="text-xs text-muted-foreground">{data?.data?.role ? `Role: ${data.data.role}` : ''} {data?.data?.createdAt ? ` • Member since ${new Date(data.data.createdAt).toLocaleDateString()}` : ''}</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <ApplyAsDriver />
+          </div>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name */}
