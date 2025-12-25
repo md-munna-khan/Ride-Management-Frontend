@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
+
 const RiderProfilePage: React.FC = () => {
   const { data, isLoading: loadingUser } = useGetMeQuery(undefined);
   const [updateProfile, { isLoading: updating }] = useUpdateProfileMutation();
@@ -23,10 +24,12 @@ const RiderProfilePage: React.FC = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
 
+
   useEffect(() => {
     if (data?.data) {
       setName(data?.data?.name || "");
       setPhone(data?.data?.phone || "");
+   
     }
   }, [data]);
 

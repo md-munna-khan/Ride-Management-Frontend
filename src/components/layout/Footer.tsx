@@ -65,8 +65,8 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-foreground mb-4">Company</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">About Us</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">Careers</a></li>
+              <li><a href="/about" className="text-muted-foreground hover:text-foreground">About Us</a></li>
+              <li><a href="/features" className="text-muted-foreground hover:text-foreground">Features</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-foreground">Press</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-foreground">Blog</a></li>
             </ul>
@@ -77,7 +77,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li><a href="#" className="text-muted-foreground hover:text-foreground">Help Center</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-foreground">Safety</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">Contact Us</a></li>
+              <li><a href="/contact" className="text-muted-foreground hover:text-foreground">Contact Us</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-foreground">Terms of Service</a></li>
             </ul>
           </div>

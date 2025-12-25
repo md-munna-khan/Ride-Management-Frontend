@@ -2,14 +2,20 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense, useEffect } from "react";
+import axios from "axios";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
-import { useRequestRideMutation } from "@/redux/features/rideApi/rideApi";
+import {
+  useRequestRideMutation,
+  useGetRideDetailsQuery,
+  useGiveRiderFeedbackMutation,
+} from "@/redux/features/rideApi/rideApi";
 import { toast } from "sonner";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardHeader,
@@ -45,11 +51,20 @@ export default function RideRequestPage() {
   const [destinationCoords, setDestinationCoords] = useState<
     [number, number] | null
   >(null);
+  const [pickupAddress, setPickupAddress] = useState<string | null>(null);
+  const [destinationAddress, setDestinationAddress] = useState<string | null>(null);
   const [paymentMethod, setPaymentMethod] = useState<
     "CASH" | "CARD" | "WALLET"
   >("CASH");
   const [fare, setFare] = useState<number | null>(null);
-
+  const [rideId, setRideId] = useState<string | null>(null);
+  const { data: rideDetails } = useGetRideDetailsQuery(rideId as string, {
+    skip: !rideId,
+    pollingInterval: 5000,
+  });
+  const currentRide = rideDetails?.data ?? rideDetails ?? null;
+  const [giveRiderFeedback, { isLoading: isSubmittingFeedback }] = useGiveRiderFeedbackMutation();
+console.log(giveRiderFeedback)
   const [requestRide] = useRequestRideMutation();
 
   // Estimate fare
@@ -74,12 +89,12 @@ export default function RideRequestPage() {
       pickupLocation: {
         type: "Point",
         coordinates: [pickupCoords[1], pickupCoords[0]], // [lng, lat]
-        address: `Lat: ${pickupCoords[0]}, Lng: ${pickupCoords[1]}`,
+        address: pickupAddress ?? `Lat: ${pickupCoords[0]}, Lng: ${pickupCoords[1]}`,
       },
       destination: {
         type: "Point",
         coordinates: [destinationCoords[1], destinationCoords[0]],
-        address: `Lat: ${destinationCoords[0]}, Lng: ${destinationCoords[1]}`,
+        address: destinationAddress ?? `Lat: ${destinationCoords[0]}, Lng: ${destinationCoords[1]}`,
       },
       paymentMethod,
       fare,
@@ -94,13 +109,18 @@ export default function RideRequestPage() {
       console.log("Ride Requested:", res);
       toast("Ride requested successfully!");
 
+      // capture created ride id to start polling for status
+      const created = res?.data ?? res;
+      const id = created?._id || created?.id || created?.ride?._id;
+      if (id) setRideId(String(id));
+
       setPickupCoords(null);
       setDestinationCoords(null);
       setFare(null);
       setPaymentMethod("CASH");
     } catch (err: any) {
       console.error(err);
-      toast("Failed to request ride");
+      toast(err?.data?.message || "Failed to request ride.");
     }
   };
 
@@ -118,8 +138,59 @@ export default function RideRequestPage() {
     return null;
   }
 
+  // Reverse geocode pickup and destination coords to human-readable addresses
+  useEffect(() => {
+    let cancelled = false;
+    const fetchAddress = async (coords: [number, number] | null, setter: (val: string | null) => void) => {
+      if (!coords) {
+        setter(null);
+        return;
+      }
+      try {
+        const res = await axios.get(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coords[0]}&lon=${coords[1]}`
+        );
+        if (cancelled) return;
+        setter(res.data?.display_name || `${coords[0].toFixed(5)}, ${coords[1].toFixed(5)}`);
+      } catch (err) {
+        console.error("Reverse geocode failed", err);
+        setter(`${coords[0].toFixed(5)}, ${coords[1].toFixed(5)}`);
+      }
+    };
+
+    fetchAddress(pickupCoords, setPickupAddress);
+    return () => {
+      cancelled = true;
+    };
+  }, [pickupCoords]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const fetchAddress = async (coords: [number, number] | null, setter: (val: string | null) => void) => {
+      if (!coords) {
+        setter(null);
+        return;
+      }
+      try {
+        const res = await axios.get(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coords[0]}&lon=${coords[1]}`
+        );
+        if (cancelled) return;
+        setter(res.data?.display_name || `${coords[0].toFixed(5)}, ${coords[1].toFixed(5)}`);
+      } catch (err) {
+        console.error("Reverse geocode failed", err);
+        setter(`${coords[0].toFixed(5)}, ${coords[1].toFixed(5)}`);
+      }
+    };
+
+    fetchAddress(destinationCoords, setDestinationAddress);
+    return () => {
+      cancelled = true;
+    };
+  }, [destinationCoords]);
+
   return (
-    <Card className="w-full mx-auto shadow-lg relative max-w-4xl">
+    <Card className="w-full mx-auto shadow-lg relative container">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">Request a Ride</CardTitle>
       </CardHeader>
@@ -146,6 +217,65 @@ export default function RideRequestPage() {
                 />
               </MapContainer>
             </div>
+            {/* Ride status box (updates via polling) */}
+            {currentRide && (
+              <div className="mt-4 p-3 border rounded-lg bg-muted">
+                <div className="flex items-center justify-between">
+                  <div className="font-medium">Ride Status</div>
+                  <div>
+                    <Badge variant={currentRide.rideStatus === "IN_TRANSIT" ? "secondary" : "default"}>{currentRide.rideStatus}</Badge>
+                  </div>
+                </div>
+                <div className="mt-2 text-sm text-muted-foreground">
+                  <div><strong>Pickup:</strong> {currentRide.pickupLocation?.address || "N/A"}</div>
+                  <div><strong>Destination:</strong> {currentRide.destination?.address || "N/A"}</div>
+                  <div><strong>Fare:</strong> ${currentRide.fare || 0}</div>
+                </div>
+
+                {currentRide.rideStatus === "COMPLETED" && (
+                  <div className="mt-3">
+                    {currentRide.riderFeedback ? (
+                      <div className="text-sm">
+                        <div><strong>Your rating:</strong> {currentRide.riderFeedback.rating}</div>
+                        <div><strong>Your comment:</strong> {currentRide.riderFeedback.feedback || "-"}</div>
+                      </div>
+                    ) : (
+                      <form
+                        onSubmit={async (e) => {
+                          e.preventDefault();
+                          try {
+                            await giveRiderFeedback({ rideId: currentRide._id, feedback: { rating: Number((e.target as any).rating.value), feedback: (e.target as any).comment.value } }).unwrap();
+                            toast.success("Feedback submitted");
+                          } catch (err: any) {
+                            console.error(err);
+                            toast.error(err?.data?.message || "Failed to submit feedback");
+                          }
+                        }}
+                        className="space-y-2"
+                      >
+                        <div>
+                          <Label className="mb-1 block">Rating</Label>
+                          <select name="rating" className="w-full p-2 border rounded" defaultValue={5}>
+                            <option value={5}>5</option>
+                            <option value={4}>4</option>
+                            <option value={3}>3</option>
+                            <option value={2}>2</option>
+                            <option value={1}>1</option>
+                          </select>
+                        </div>
+                        <div>
+                          <Label className="mb-1 block">Comment</Label>
+                          <textarea name="comment" className="w-full p-2 border rounded" rows={3} placeholder="Write a quick review..." />
+                        </div>
+                        <div className="flex gap-2">
+                          <Button type="submit" size="sm" disabled={isSubmittingFeedback}>{isSubmittingFeedback ? 'Submitting...' : 'Submit Feedback'}</Button>
+                        </div>
+                      </form>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* SOS Button */}
             <Suspense fallback={null}>
@@ -158,16 +288,33 @@ export default function RideRequestPage() {
               <div className="text-sm text-muted-foreground">
                 <div>
                   <strong>Pickup:</strong>{' '}
-                  {pickupCoords ? `${pickupCoords[0].toFixed(5)}, ${pickupCoords[1].toFixed(5)}` : 'Click on map'}
+                  {pickupAddress
+                    ? pickupAddress
+                    : pickupCoords
+                    ? `${pickupCoords[0].toFixed(5)}, ${pickupCoords[1].toFixed(5)}`
+                    : 'Click on map'}
                 </div>
                 <div>
                   <strong>Destination:</strong>{' '}
-                  {destinationCoords ? `${destinationCoords[0].toFixed(5)}, ${destinationCoords[1].toFixed(5)}` : 'Click on map'}
+                  {destinationAddress
+                    ? destinationAddress
+                    : destinationCoords
+                    ? `${destinationCoords[0].toFixed(5)}, ${destinationCoords[1].toFixed(5)}`
+                    : 'Click on map'}
                 </div>
               </div>
 
               <div className="flex gap-2">
-                <Button size="sm" variant="ghost" onClick={() => { setPickupCoords(null); setDestinationCoords(null); }}>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => {
+                    setPickupCoords(null);
+                    setDestinationCoords(null);
+                    setPickupAddress(null);
+                    setDestinationAddress(null);
+                  }}
+                >
                   Clear
                 </Button>
                 <Button size="sm" variant="secondary" onClick={estimateFare}>

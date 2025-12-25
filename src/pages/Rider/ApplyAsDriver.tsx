@@ -106,9 +106,11 @@ export function ApplyAsDriver() {
   };
 
   return (
+ 
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="secondary">Apply as Driver</Button>
+       
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

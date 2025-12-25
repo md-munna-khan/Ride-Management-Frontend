@@ -9,7 +9,7 @@ export function HeroSection() {
   const handleApplyDriver = () => navigate("/rider/apply");
 
   return (
-    <section className="relative min-h-[78vh] flex items-center justify-center bg-gradient-to-br from-primary/6 to-accent/6 overflow-hidden">
+    <section className="relative min-h-[78vh] flex items-center justify-center bg-gradient-to-br from-primary/6 to-accent/6 overflow-hidden py-8">
       {/* subtle decorative shapes */}
       <svg className="absolute -left-20 -top-20 opacity-10" width="420" height="420" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="210" cy="210" r="210" fill="url(#g)" />

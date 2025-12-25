@@ -1,6 +1,7 @@
 // import RideDetailsPage from "@/pages/Rider/RideDetailsPage";
 
-import { ApplyAsDriver } from "@/pages/Rider/ApplyAsDriver";
+
+import BenefiteOfDriving from "@/pages/Rider/BenefiteOfDriving";
 import RideRequestPage from "@/pages/Rider/RideRequestPage";
 import RiderHistoryPage from "@/pages/Rider/RiderHistoryPage";
 import RiderProfilePage from "@/pages/Rider/RiderProfilePage";
@@ -41,7 +42,7 @@ export const riderSidebarItems: SidebarItem[] = [
       {
         title: "Apply As Driver",
         url: "/rider/apply",
-        component: ApplyAsDriver,
+        component: BenefiteOfDriving,
       },
     ],
   },

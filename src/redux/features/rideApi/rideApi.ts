@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from "@/redux/baseApi";
 
 export const rideApi = baseApi.injectEndpoints({
@@ -66,6 +67,16 @@ export const rideApi = baseApi.injectEndpoints({
       providesTags: ["RIDE"],
     }),
 
+    // Submit rider feedback for a completed ride
+    giveRiderFeedback: builder.mutation({
+      query: ({ rideId, feedback }: { rideId: string; feedback: any }) => ({
+        url: `/rides/${rideId}/feedback`,
+        method: "POST",
+        data: feedback,
+      }),
+      invalidatesTags: ["RIDE"],
+    }),
+
     // change Password
     changePassword: builder.mutation({
       query: (data) => ({
@@ -107,6 +118,7 @@ export const {
   useApplyAsDriverMutation,
   useGetRidesOversightQuery,
   useRequestRideMutation,
+  useGiveRiderFeedbackMutation,
   useGetMyRidesQuery,
   useGetRideHistoryQuery,
   useGetRideDetailsQuery,

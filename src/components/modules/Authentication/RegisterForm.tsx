@@ -14,10 +14,12 @@ import { Input } from "@/components/ui/input";
 import config from "@/config";
 import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Password from "@/components/ui/Password";
+import SingleImageUploader from "@/components/SingleImageUploader";
 import { useRegisterMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
 
@@ -30,11 +32,18 @@ const passwordSchema = z
 
 const registerSchema = z
   .object({
-    name: z.string().min(3, { message: "Name is too short" }).max(50),
+    name: z.string().min(2, { message: "Name must be at least 2 characters" }).max(50),
     email: z.string().email({ message: "Invalid email address" }),
     password: passwordSchema,
-     confirmPassword: z.string(),
-    role: z.enum(["RIDER", "DRIVER"])
+    confirmPassword: z.string(),
+    phone: z
+      .string()
+      .regex(/^(?:\+8801\d{9}|01\d{9})$/, {
+        message:
+          "Phone number must be valid for Bangladesh. Format: +8801XXXXXXXXX or 01XXXXXXXXX",
+      })
+      .optional(),
+    role: z.enum(["RIDER", "DRIVER"]),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -47,6 +56,7 @@ export function RegisterForm({
 }: React.HTMLAttributes<HTMLDivElement>) {
   const [register] = useRegisterMutation();
   const navigate = useNavigate();
+  const [picture, setPicture] = useState<File | null>(null);
 
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -55,20 +65,23 @@ export function RegisterForm({
       email: "",
       password: "",
       confirmPassword: "",
+      phone: "",
       role: "RIDER", // Default role
     },
   });
 
   const onSubmit = async (data: z.infer<typeof registerSchema>) => {
-    const userInfo = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      role: data.role, // Role compatible with backend enum
-    };
-
     try {
-      const res: any = await register(userInfo).unwrap();
+      // build FormData to send file + fields (backend expects multer single file)
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+      formData.append("role", data.role);
+      if (data.phone) formData.append("phone", data.phone);
+      if (picture) formData.append("file", picture);
+
+      const res: any = await register(formData).unwrap();
       console.log(res)
 
       // Backend returns user object + JWT token
@@ -167,7 +180,22 @@ export function RegisterForm({
               )}
             />
 
-            {/* ✅ Role Selection */}
+            {/* Phone */}
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Phone (optional)</FormLabel>
+                  <FormControl>
+                    <Input placeholder="+8801XXXXXXXXX or 01XXXXXXXXX" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Role Selection */}
             {/* <FormField
               control={form.control}
               name="role"
@@ -187,6 +215,18 @@ export function RegisterForm({
                 </FormItem>
               )}
             /> */}
+
+            {/* Profile Photo */}
+            <div>
+              <FormLabel>Profile Photo (optional)</FormLabel>
+              <SingleImageUploader onChange={(file) => setPicture(file)} />
+              {picture && (
+                <div className="mt-2 flex items-center justify-between gap-3">
+                  <div className="text-sm">{picture.name} • {(picture.size/1024).toFixed(1)} KB</div>
+                  <Button variant="ghost" size="sm" onClick={() => setPicture(null)}>Remove</Button>
+                </div>
+              )}
+            </div>
 
             <Button type="submit" className="w-full">
               Register

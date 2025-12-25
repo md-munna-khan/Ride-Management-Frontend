@@ -71,7 +71,7 @@ const RideHistory = () => {
   };
 
   return (
-    <div className="p-6 max-w-5xl mx-auto">
+    <div className="p-6 container mx-auto">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-3xl font-bold">Ride History</h2>
         <p className="text-sm text-muted-foreground">Overview of your completed and past rides</p>

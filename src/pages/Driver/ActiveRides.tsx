@@ -14,7 +14,7 @@ import {
   usePickUpRideMutation,
   useMarkInTransitMutation,
   useCompleteRideMutation,
-  useUpdateRidingStatusMutation,
+  // useUpdateRidingStatusMutation,
   useCancelRideMutation,
 } from "@/redux/features/driverApi/driverApi";
 // import { useMap } from "react-leaflet";
@@ -27,14 +27,6 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 const MapComponent = lazy(() => import("../MapComponent"));
 const SOSButton = lazy(() => import("../SOSButton"));
 
-// Auto-center map on coords change
-// function RecenterMap({ coords }: { coords: [number, number] }) {
-//   const map = useMap();
-//   useEffect(() => {
-//     map.setView(coords, map.getZoom(), { animate: true });
-//   }, [coords, map]);
-//   return null;
-// }
 
 export default function ActiveRides() {
   const { data: driverProfile, refetch } = useGetDriverProfileQuery({});
@@ -43,7 +35,7 @@ export default function ActiveRides() {
 
   const [updateOnlineStatus] = useUpdateOnlineStatusMutation();
   const [updateLocation] = useUpdateLocationMutation();
-  const [updateRidingStatus] = useUpdateRidingStatusMutation();
+  // const [updateRidingStatus] = useUpdateRidingStatusMutation();
   const [acceptRide] = useAcceptRideMutation();
   const [rejectRide] = useRejectRideMutation();
   const [pickUpRide] = usePickUpRideMutation();
@@ -130,12 +122,13 @@ export default function ActiveRides() {
 };
 
 
-  const ridingStatusOptions: ('idle' | 'waiting_for_pickup' | 'in_transit' | 'unavailable')[] = ["idle","waiting_for_pickup","in_transit","unavailable"];
+  // const ridingStatusOptions: ('idle' | 'waiting_for_pickup' | 'in_transit' | 'unavailable')[] = ["idle","waiting_for_pickup","in_transit","unavailable"];
 
   const renderRideCard = (ride: any) => {
     const actions = nextActions[ride.rideStatus] || [];
     return (
-      <Card key={ride._id} className="mb-4">
+      <Card key={ride._id} >
+        
         <CardContent className="space-y-2">
           <div className="flex justify-between">
             <span><strong>Pickup:</strong> {ride.pickupLocation?.address || "N/A"}</span>
@@ -143,7 +136,7 @@ export default function ActiveRides() {
           </div>
           <div><strong>Destination:</strong> {ride.destination?.address || "N/A"}</div>
           <div><strong>Fare:</strong> ${ride.fare || 0}</div>
-          <div><strong>Riding Status:</strong> {ride.driver?.ridingStatus || "idle"}</div>
+          {/* <div><strong>Riding Status:</strong> {ride.driver?.ridingStatus || "idle"}</div> */}
 
           <div className="flex flex-wrap gap-2 mt-2">
             {actions.map(action => (
@@ -154,7 +147,7 @@ export default function ActiveRides() {
           </div>
 
           <div className="flex flex-wrap gap-2 mt-2">
-            {ridingStatusOptions.map(status => (
+            {/* {ridingStatusOptions.map(status => (
               <Button key={status} size="sm" variant={status === "idle" ? "destructive" : "default"}
                 onClick={async () => {
                   try {
@@ -170,7 +163,7 @@ export default function ActiveRides() {
               >
                 {status}
               </Button>
-            ))}
+            ))} */}
           </div>
         </CardContent>
       </Card>
@@ -178,7 +171,7 @@ export default function ActiveRides() {
   };
 
   return (
-    <div className="space-y-6 p-4 max-w-6xl mx-auto">
+    <div className="space-y-6 p-4 container mx-auto">
       {/* Header & quick stats */}
       <div className="flex items-center justify-between gap-4">
         <div>

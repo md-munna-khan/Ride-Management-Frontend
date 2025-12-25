@@ -59,7 +59,7 @@ console.log(data)
 
   if (loadingUser) return <div className="text-center mt-6"><LoadingSpinner/></div>;
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <div className="max-w-6xl mx-auto p-6">
       <div className="flex flex-col md:flex-row gap-6">
         <Card className="flex-1">
           <CardContent>

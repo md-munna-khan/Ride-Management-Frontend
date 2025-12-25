@@ -12,7 +12,7 @@ import { CTASection } from "@/components/modules/HomePage/CTASection";
 
 export default function Homepage() {
   return (
-    <div>
+    <div className="">
       <HeroSection />
       <FeaturesHighlights />
       <HowItWorks />

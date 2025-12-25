@@ -71,7 +71,7 @@ const RideHistoryPage = () => {
     return <p className="text-center text-red-500">Failed to load rides.</p>;
 
   return (
-    <div className="p-4 sm:p-6 mx-auto space-y-6 max-w-6xl">
+    <div className="p-4 sm:p-6 mx-auto space-y-6 container">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl sm:text-3xl font-extrabold">Ride History</h2>
         <p className="text-sm text-muted-foreground">Review your recent rides and details</p>
