@@ -34,7 +34,7 @@ export default function Register() {
 
       <div className="relative hidden md:flex items-center justify-center bg-muted/10 p-8">
         <div className="max-w-sm text-center">
-          <img src="/modern-city-skyline-with-cars-and-people.png" alt="Register illustration" className="mx-auto mb-6 rounded-md shadow-sm object-cover w-full h-48" />
+          <img src="/drive.jpg" alt="Register illustration" className="mx-auto mb-6 rounded-md shadow-sm object-cover w-full h-48" />
           <h3 className="text-xl font-bold mb-2">Get moving with confidence</h3>
           <p className="text-muted-foreground">Simple signup, verified drivers, and flexible ride options for every need.</p>
         </div>

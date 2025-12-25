@@ -121,7 +121,7 @@ const UpdatePassword: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-md mx-auto p-6 shadow-md rounded space-y-6 bg-white"
+      className="container mx-auto p-6 shadow-md rounded space-y-6 bg-default"
     >
       <h3 className="text-lg  font-semibold">Change Password</h3>
 

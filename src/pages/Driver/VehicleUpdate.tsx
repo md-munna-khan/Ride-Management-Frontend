@@ -54,7 +54,7 @@ export default function VehicleUpdate() {
       </p>
     );
   return (
-    <Card className="max-w-md mx-auto mt-6 shadow-md">
+    <Card className="container  mx-auto mt-6 shadow-md">
       <CardContent>
         <h2 className="text-xl font-bold mb-4 text-center">Vehicle Information</h2>
 

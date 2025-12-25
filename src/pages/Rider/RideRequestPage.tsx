@@ -190,7 +190,7 @@ console.log(giveRiderFeedback)
   }, [destinationCoords]);
 
   return (
-    <Card className="w-full mx-auto shadow-lg relative container">
+    <Card className="w-full mx-auto shadow-lg relative container z-0">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">Request a Ride</CardTitle>
       </CardHeader>
@@ -200,11 +200,12 @@ console.log(giveRiderFeedback)
           {/* Map Section */}
           <div>
             <Label className="mb-2 block">Select Pickup & Destination</Label>
-            <div className="overflow-hidden rounded-lg shadow-sm border">
+            <div className="overflow-hidden rounded-lg shadow-sm border relative z-0 max-w-full">
               <MapContainer
                 center={[23.777524, 90.428047]}
                 zoom={13}
-                style={{ height: 360, width: "100%" }}
+                className="w-full h-64 sm:h-96 block z-0"
+                style={{ maxWidth: '100%' }}
               >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 {pickupCoords && <Marker position={pickupCoords} />}
@@ -216,6 +217,12 @@ console.log(giveRiderFeedback)
                   }}
                 />
               </MapContainer>
+              {/* SOS Button overlay on map */}
+              <Suspense fallback={null}>
+                <div className="absolute top-2 right-2 z-50">
+                  <SOSButton />
+                </div>
+              </Suspense>
             </div>
             {/* Ride status box (updates via polling) */}
             {currentRide && (
@@ -277,12 +284,7 @@ console.log(giveRiderFeedback)
               </div>
             )}
 
-            {/* SOS Button */}
-            <Suspense fallback={null}>
-              <div className="absolute top-6 right-6 z-50">
-                <SOSButton />
-              </div>
-            </Suspense>
+            {/* (SOS moved into map wrapper to avoid overlapping on small screens) */}
 
             <div className="mt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div className="text-sm text-muted-foreground">

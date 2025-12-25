@@ -35,14 +35,14 @@ export default function BenefiteOfDriving() {
   ];
 
   return (
-    <section className="bg-gray-50 py-20">
+    <section className="py-20">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+          <h2 className="text-3xl md:text-4xl font-bold ">
             Benefits of Driving
           </h2>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-4 text-gray-300 max-w-2xl mx-auto">
             Learning to drive is more than a skill — it empowers independence,
             saves time, and enhances your lifestyle.
           </p>
@@ -53,13 +53,13 @@ export default function BenefiteOfDriving() {
           {benefits.map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className=" rounded-2xl p-6 text-center shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="text-5xl mb-4">{item.icon}</div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              <h3 className="text-xl font-semibold  mb-2">
                 {item.title}
               </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <p className="text-gray-300 text-sm leading-relaxed">
                 {item.desc}
               </p>
             </div>
@@ -67,12 +67,12 @@ export default function BenefiteOfDriving() {
         </div>
 
         {/* CTA Section */}
-        <div className="mt-20 bg-white rounded-3xl shadow-lg p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-20  rounded-3xl shadow-lg p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <h3 className="text-2xl font-bold text-gray-800">
+            <h3 className="text-2xl font-bold ">
               Ready to Start Your Driving Journey?
             </h3>
-            <p className="mt-2 text-gray-600 max-w-xl">
+            <p className="mt-2 text-gray-300 max-w-xl">
               Apply as a driver today and take control of your future with
               flexible opportunities and reliable income.
             </p>

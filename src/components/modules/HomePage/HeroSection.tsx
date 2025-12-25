@@ -46,7 +46,7 @@ export function HeroSection() {
           
           </div>
 
-          <div className="flex items-center gap-6 text-sm text-muted-foreground">
+          <div className="flex items-center gap-6 text-sm ">
             <div className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> Available in <span className="text-foreground font-medium">50+ cities</span></div>
             <div className="flex items-center gap-2"><Clock className="h-4 w-4 text-primary" /> <span className="text-foreground font-medium">24/7 support</span></div>
             <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary" /> <span className="text-foreground font-medium">Top safety standards</span></div>
@@ -55,7 +55,7 @@ export function HeroSection() {
 
         <div className="flex-1 max-w-lg w-full">
           <div className="rounded-2xl bg-gradient-to-br backdrop-blur px-6 py-6 shadow-xl border ">
-            <img src="/public/friendly-driver-man.png" alt="Hero Illustration" className="w-full h-64 object-cover rounded-lg shadow-md" />
+            <img src="/riding.jpg" alt="Hero Illustration" className="w-full h-64 object-cover rounded-lg shadow-md" />
             <div className="mt-4 grid grid-cols-2 gap-3">
               <div className="p-3  rounded-lg flex items-center gap-3">
                 <Car className="h-5 w-5 text-primary" />

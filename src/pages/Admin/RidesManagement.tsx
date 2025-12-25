@@ -91,7 +91,7 @@ export const RidesManagement: React.FC = () => {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full border border-gray-200">
-              <thead className="bg-gray-50">
+              <thead className="">
                 <tr>
                   <th className="border px-4 py-2 text-left">Ride ID</th>
                   <th className="border px-4 py-2 text-left">Driver</th>

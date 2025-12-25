@@ -9,6 +9,7 @@ import { FeaturesHighlights } from "@/components/modules/HomePage/FeaturesHighli
 import { SafetyAndSecurity } from "@/components/modules/HomePage/SafetyAndSecurity";
 
 import { CTASection } from "@/components/modules/HomePage/CTASection";
+import Categories from "@/components/modules/HomePage/Categories";
 
 export default function Homepage() {
   return (
@@ -17,6 +18,7 @@ export default function Homepage() {
       <FeaturesHighlights />
       <HowItWorks />
       <Services />
+      <Categories/>
       <SafetyAndSecurity />
       <Testimonials />
      

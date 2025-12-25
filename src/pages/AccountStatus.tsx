@@ -20,7 +20,7 @@ export default function AccountStatus() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-6 bg-background text-foreground">
-      <div className="max-w-md w-full text-center p-10 rounded-2xl shadow-lg bg-white">
+      <div className="max-w-md w-full text-center p-10 rounded-2xl shadow-lg ">
         <h1 className="text-3xl font-bold mb-4">
           {status === "BLOCKED"
             ? "Account Blocked"

@@ -42,14 +42,14 @@ const SOSButton: React.FC = () => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 z-50 px-5 py-3 bg-red-600 text-white rounded-full shadow-lg hover:bg-red-700 transition"
+        className="fixed bottom-6 right-6 z-50 px-5 py-3 bg-red-600 text-primary rounded-full shadow-lg hover:bg-red-700 transition"
       >
         SOS
       </button>
 
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-80 relative">
+          <div className=" p-6 rounded-lg shadow-lg w-80 relative">
             <h2 className="text-xl font-bold mb-4 text-red-600">Emergency Contacts</h2>
             <p className="mb-2"><strong>Phone/WhatsApp:</strong> {phone}</p>
             <p className="mb-4"><strong>Email:</strong> {email}</p>
@@ -57,7 +57,7 @@ const SOSButton: React.FC = () => {
             <div className="flex gap-4">
               <button
                 onClick={handleSOS}
-                className="flex-1 bg-green-500 text-white py-2 rounded hover:bg-green-600 transition"
+                className="flex-1 bg-green-500  py-2 rounded hover:bg-green-600 transition"
               >
                 WhatsApp & Email
               </button>
