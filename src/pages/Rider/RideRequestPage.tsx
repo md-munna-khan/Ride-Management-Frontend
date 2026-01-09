@@ -219,7 +219,7 @@ console.log(giveRiderFeedback)
               </MapContainer>
               {/* SOS Button overlay on map */}
               <Suspense fallback={null}>
-                <div className="absolute top-2 right-2 z-50">
+                <div className="absolute   top-2 right-2 z-50">
                   <SOSButton />
                 </div>
               </Suspense>
@@ -233,7 +233,7 @@ console.log(giveRiderFeedback)
                     <Badge variant={currentRide.rideStatus === "IN_TRANSIT" ? "secondary" : "default"}>{currentRide.rideStatus}</Badge>
                   </div>
                 </div>
-                <div className="mt-2 text-sm text-muted-foreground">
+                <div className="mt-2 text-sm">
                   <div><strong>Pickup:</strong> {currentRide.pickupLocation?.address || "N/A"}</div>
                   <div><strong>Destination:</strong> {currentRide.destination?.address || "N/A"}</div>
                   <div><strong>Fare:</strong> ${currentRide.fare || 0}</div>
@@ -284,10 +284,10 @@ console.log(giveRiderFeedback)
               </div>
             )}
 
-            {/* (SOS moved into map wrapper to avoid overlapping on small screens) */}
+         
 
             <div className="mt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm">
                 <div>
                   <strong>Pickup:</strong>{' '}
                   {pickupAddress

@@ -36,7 +36,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* We create a SidebarGroup for each parent. */}
         {data.navMain.map((item) => (
           <SidebarGroup key={item.title}>
-            <SidebarGroupLabel className="uppercase tracking-wider text-xs text-muted-foreground">{item.title}</SidebarGroupLabel>
+            <SidebarGroupLabel className="uppercase tracking-wider text-xs">{item.title}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 {item.items.map((sub) => {

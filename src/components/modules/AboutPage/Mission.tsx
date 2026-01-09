@@ -30,7 +30,7 @@ export function Mission() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Our Mission & Values</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl max-w-3xl mx-auto">
             To transform urban mobility by connecting communities through safe, reliable, and accessible transportation
             solutions that empower both riders and drivers.
           </p>
@@ -43,7 +43,7 @@ export function Mission() {
                 <value.icon className="w-8 h-8 text-primary" />
               </div>
               <h3 className="text-xl font-semibold text-foreground mb-3">{value.title}</h3>
-              <p className="text-muted-foreground">{value.description}</p>
+              <p className="">{value.description}</p>
             </Card>
           ))}
         </div>
@@ -51,7 +51,7 @@ export function Mission() {
         <div className="mt-16 bg-primary/5 rounded-2xl p-8 md:p-12">
           <div className="text-center">
             <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Our Vision for the Future</h3>
-            <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
+            <p className="text-lg max-w-4xl mx-auto">
               We envision a world where transportation is seamless, sustainable, and accessible to all. Through
               continuous innovation in autonomous vehicles, electric mobility, and smart city integration, we're
               building the foundation for tomorrow's transportation ecosystem. Our goal is to reduce traffic congestion,

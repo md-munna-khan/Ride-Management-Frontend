@@ -87,8 +87,6 @@ export function RegisterForm({
       // Backend returns user object + JWT token
   const user = res?.data;
     if (!user) throw new Error("Invalid server response");
-// const token = res?.token || res?.data?.token;
-// if (!user || !token) throw new Error("Invalid server response");
 
 
       // Blocked user handling
@@ -111,7 +109,7 @@ export function RegisterForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Register your account</h1>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm">
           Enter your details to create an account
         </p>
       </div>
@@ -195,27 +193,7 @@ export function RegisterForm({
               )}
             />
 
-            {/* Role Selection */}
-            {/* <FormField
-              control={form.control}
-              name="role"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Role</FormLabel>
-                  <FormControl>
-                    <select
-                      {...field}
-                      className="w-full rounded-md border p-2 bg-background text-foreground"
-                    >
-                      <option value="RIDER">Rider</option>
-                      <option value="DRIVER">Driver</option>
-                    </select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
-
+            
             {/* Profile Photo */}
             <div>
               <FormLabel>Profile Photo (optional)</FormLabel>
@@ -235,7 +213,7 @@ export function RegisterForm({
         </Form>
 
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-          <span className="relative z-10 bg-background px-2 text-muted-foreground">
+          <span className="relative z-10 bg-background px-2">
             Or continue with
           </span>
         </div>
@@ -252,7 +230,7 @@ export function RegisterForm({
 
       <div className="text-center text-sm">
         Already have an account?{" "}
-        <Link to="/login" className="underline underline-offset-4">
+        <Link to="/login" className="underline underline-offset-4   text-primary">
           Login
         </Link>
       </div>

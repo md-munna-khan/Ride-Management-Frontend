@@ -88,8 +88,8 @@ const RiderProfilePage: React.FC = () => {
             </div>
             <div>
               <h2 className="text-2xl font-bold">{data?.data?.name || 'Your Profile'}</h2>
-              <p className="text-sm text-muted-foreground">{data?.data?.email || 'No email'}</p>
-              <p className="text-xs text-muted-foreground">{data?.data?.role ? `Role: ${data.data.role}` : ''} {data?.data?.createdAt ? ` • Member since ${new Date(data.data.createdAt).toLocaleDateString()}` : ''}</p>
+              <p className="text-sm">{data?.data?.email || 'No email'}</p>
+              <p className="text-xs">{data?.data?.role ? `Role: ${data.data.role}` : ''} {data?.data?.createdAt ? ` • Member since ${new Date(data.data.createdAt).toLocaleDateString()}` : ''}</p>
             </div>
           </div>
 
@@ -98,7 +98,7 @@ const RiderProfilePage: React.FC = () => {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-10">
           <div className="mb-2">
             <SingleImageUploader onChange={(f) => { setPictureFile(f); if (f) setPreviewUrl(URL.createObjectURL(f)); }} />
           </div>

@@ -24,7 +24,7 @@ export function HowItWorks() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">How It Works</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg max-w-2xl mx-auto">
             Getting a ride is simple — three steps to be on your way.
           </p>
         </div>
@@ -43,7 +43,7 @@ export function HowItWorks() {
                   <div>
                     <div className="text-sm text-primary font-bold mb-1">Step {index + 1}</div>
                     <h3 className="text-xl font-semibold text-foreground mb-2">{step.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+                    <p className=" leading-relaxed">{step.description}</p>
                   </div>
                 </div>
               </div>

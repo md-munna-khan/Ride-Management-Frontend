@@ -12,7 +12,7 @@ export function SafetyAndSecurity() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-8">
           <h3 className="text-xl font-bold">Safety & Security</h3>
-          <p className="text-muted-foreground max-w-xl mx-auto">Your safety is our priority — we invest in features that protect riders and drivers.</p>
+          <p className=" max-w-xl mx-auto">Your safety is our priority — we invest in features that protect riders and drivers.</p>
         </div>
 
         <div className="flex flex-col md:flex-row gap-6">
@@ -22,7 +22,7 @@ export function SafetyAndSecurity() {
                 <it.icon className="h-5 w-5 text-primary" />
               </div>
               <h4 className="font-semibold mb-1">{it.title}</h4>
-              <p className="text-sm text-muted-foreground">{it.desc}</p>
+              <p className="text-sm">{it.desc}</p>
             </div>
           ))}
         </div>

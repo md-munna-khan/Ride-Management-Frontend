@@ -38,7 +38,7 @@ export function Services() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">Our Services</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg max-w-2xl mx-auto">
             Choose from services designed for every need — daily commutes, groups, premium travel and deliveries.
           </p>
         </div>
@@ -51,13 +51,13 @@ export function Services() {
                   <div className="w-12 h-12 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg flex items-center justify-center">
                     <service.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <div className="text-sm text-muted-foreground">{service.price}</div>
+                  <div className="text-sm">{service.price}</div>
                 </div>
                 <h3 className="text-xl font-semibold text-foreground mb-2">{service.title}</h3>
-                <p className="text-muted-foreground mb-4">{service.description}</p>
+                <p className=" mb-4">{service.description}</p>
                 <ul className="space-y-2 mb-2">
                   {service.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="text-sm text-muted-foreground flex items-center">
+                    <li key={featureIndex} className="text-sm flex items-center">
                       <div className="w-2 h-2 bg-primary rounded-full mr-3" />
                       {feature}
                     </li>

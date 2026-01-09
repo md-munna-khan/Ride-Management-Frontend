@@ -17,21 +17,15 @@ export default function Login() {
 
         <div className="flex-1 flex items-center justify-center">
           <div className="w-full max-w-md bg-card border border-border rounded-2xl p-8 shadow-lg">
-            <div className="mb-4 text-center">
-              <h2 className="text-2xl font-bold">Welcome back</h2>
-              <p className="text-sm text-muted-foreground">Sign in to continue to your dashboard</p>
-            </div>
+        
 
             <LoginForm />
 
-            <div className="mt-4 text-center text-sm text-muted-foreground">
-              <span>Don't have an account? </span>
-              <Link to="/register" className="text-primary font-medium">Create one</Link>
-            </div>
+         
           </div>
         </div>
 
-        <div className="hidden md:block text-center text-xs text-muted-foreground mt-4">
+        <div className="hidden md:block text-center text-xs mt-4">
           By continuing you agree to our <Link to="/terms" className="underline">Terms</Link> and <Link to="/privacy" className="underline">Privacy Policy</Link>.
         </div>
       </div>
@@ -40,7 +34,7 @@ export default function Login() {
         <div className="max-w-sm text-center">
           <img src="/ridesharing.jpg" alt="Ride illustration" className="mx-auto mb-6 rounded-md shadow-sm object-cover w-full h-48" />
           <h3 className="text-xl font-bold mb-2">Safe rides, every time</h3>
-          <p className="text-muted-foreground">Fast matching, verified drivers, and 24/7 support to keep you moving.</p>
+          <p className="">Fast matching, verified drivers, and 24/7 support to keep you moving.</p>
         </div>
       </div>
     </div>

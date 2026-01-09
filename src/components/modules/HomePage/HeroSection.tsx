@@ -32,7 +32,7 @@ export function HeroSection() {
             Iconic Rides. <span className="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">Memorable Journeys</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-muted-foreground mb-6 max-w-2xl">
+          <p className="text-lg md:text-xl mb-6 max-w-2xl">
             Seamlessly connect with reliable drivers, enjoy transparent fares, and travel with confidence — every time.
           </p>
 
@@ -60,14 +60,14 @@ export function HeroSection() {
               <div className="p-3  rounded-lg flex items-center gap-3">
                 <Car className="h-5 w-5 text-primary" />
                 <div>
-                  <div className="text-sm text-muted-foreground">Avg. wait</div>
+                  <div className="text-sm">Avg. wait</div>
                   <div className="font-semibold">3-5 min</div>
                 </div>
               </div>
               <div className="p-3  rounded-lg flex items-center gap-3">
                 <ShieldCheck className="h-5 w-5 text-primary" />
                 <div>
-                  <div className="text-sm text-muted-foreground">Safety Rating</div>
+                  <div className="text-sm">Safety Rating</div>
                   <div className="font-semibold">4.9/5</div>
                 </div>
               </div>

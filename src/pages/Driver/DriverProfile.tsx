@@ -84,8 +84,8 @@ const DriverProfile: React.FC = () => {
               </div>
               <div>
                 <h2 className="text-2xl font-semibold">{data?.data?.name || 'Your Name'}</h2>
-                <p className="text-sm text-muted-foreground">{data?.data?.email || 'No email'}</p>
-                <p className="text-xs text-muted-foreground">{data?.data?.vehicle ? `${data.data.vehicle.vehicleType} • ${data.data.vehicle.vehicleNumber}` : 'No vehicle information'}</p>
+                <p className="text-sm">{data?.data?.email || 'No email'}</p>
+                <p className="text-xs">{data?.data?.vehicle ? `${data.data.vehicle.vehicleType} • ${data.data.vehicle.vehicleNumber}` : 'No vehicle information'}</p>
               </div>
             </div>
 

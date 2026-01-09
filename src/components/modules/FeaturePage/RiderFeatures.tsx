@@ -59,7 +59,7 @@ export function RiderFeatures() {
             For Riders
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Seamless Ride Experience</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg max-w-2xl mx-auto">
             Everything you need for safe, convenient, and affordable transportation at your fingertips.
           </p>
         </div>
@@ -72,7 +72,7 @@ export function RiderFeatures() {
                   <feature.icon className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <p className="">{feature.description}</p>
               </CardContent>
             </Card>
           ))}

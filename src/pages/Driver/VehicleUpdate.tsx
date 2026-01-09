@@ -58,7 +58,7 @@ export default function VehicleUpdate() {
       <CardContent>
         <h2 className="text-xl font-bold mb-4 text-center">Vehicle Information</h2>
 
-        <div className="text-sm text-muted-foreground mb-4">Keep your vehicle details current so riders know what to expect.</div>
+        <div className="text-sm mb-4">Keep your vehicle details current so riders know what to expect.</div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Vehicle Number */}

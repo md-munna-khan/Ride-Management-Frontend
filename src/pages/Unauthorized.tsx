@@ -7,7 +7,7 @@ export default function Unauthorized() {
     <div className="min-h-screen flex flex-col items-center justify-center bg-muted p-6">
       <div className=" shadow-lg rounded-lg p-10 flex flex-col items-center gap-6 text-center">
         <h1 className="text-3xl font-bold text-destructive">🚫 Unauthorized</h1>
-        <p className="text-muted-foreground text-lg">
+        <p className=" text-lg">
           You do not have permission to access this page.
         </p>
         <Button asChild size="lg">

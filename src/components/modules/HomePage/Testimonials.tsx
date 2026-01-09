@@ -42,7 +42,7 @@ export function Testimonials() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">What Our Users Say</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg max-w-2xl mx-auto">
             Real stories from riders and drivers who make our community great.
           </p>
         </div>
@@ -59,7 +59,7 @@ export function Testimonials() {
                   />
                   <div className="flex-1">
                     <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                    <p className="text-sm">{testimonial.role}</p>
                   </div>
                   <Quote className="h-6 w-6 text-primary/30" />
                 </div>
@@ -70,7 +70,7 @@ export function Testimonials() {
                   ))}
                 </div>
 
-                <p className="text-muted-foreground leading-relaxed italic">“{testimonial.content}”</p>
+                <p className=" leading-relaxed italic">“{testimonial.content}”</p>
               </CardContent>
             </Card>
           ))}

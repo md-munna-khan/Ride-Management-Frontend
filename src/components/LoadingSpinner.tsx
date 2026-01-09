@@ -7,7 +7,7 @@ const LoadingSpinner = ({ label = 'Loading...' }: { label?: string }) => (
       <Spinner className="w-8 h-8 text-primary" />
       <div className="flex flex-col">
         <span className="font-medium text-sm">{label}</span>
-        <span className="text-xs text-muted-foreground">Please wait a moment</span>
+        <span className="text-xs">Please wait a moment</span>
       </div>
     </div>
   </div>

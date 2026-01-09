@@ -176,16 +176,16 @@ export default function ActiveRides() {
       <div className="flex items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-extrabold">Active Rides</h1>
-          <p className="text-sm text-muted-foreground">Manage current rides and respond to requests.</p>
+          <p className="text-sm">Manage current rides and respond to requests.</p>
         </div>
 
         <div className="flex items-center gap-3">
           <div className="text-sm text-center">
-            <div className="text-xs text-muted-foreground">Requested</div>
+            <div className="text-xs">Requested</div>
             <div className="font-semibold text-lg">{requestedRides.length}</div>
           </div>
           <div className="text-sm text-center">
-            <div className="text-xs text-muted-foreground">Active</div>
+            <div className="text-xs">Active</div>
             <div className="font-semibold text-lg">{activeRides.length}</div>
           </div>
           <Button onClick={handleToggleStatus} variant={driverProfile?.data?.onlineStatus === "Active" ? "destructive" : "secondary"}>
@@ -203,23 +203,23 @@ export default function ActiveRides() {
             </div>
             <div>
               <div className="font-semibold">{driverProfile?.data?.name || 'Driver'}</div>
-              <div className="text-sm text-muted-foreground">{driverProfile?.data?.vehicle?.vehicleType || 'Vehicle not set'} • {driverProfile?.data?.vehicle?.vehicleNumber || ''}</div>
+              <div className="text-sm">{driverProfile?.data?.vehicle?.vehicleType || 'Vehicle not set'} • {driverProfile?.data?.vehicle?.vehicleNumber || ''}</div>
             </div>
           </div>
-          <div className="text-sm text-muted-foreground">Online Status: <span className={driverProfile?.data?.onlineStatus === 'Active' ? 'text-green-600' : 'text-red-600'}>{driverProfile?.data?.onlineStatus || 'Offline'}</span></div>
+          <div className="text-sm">Online Status: <span className={driverProfile?.data?.onlineStatus === 'Active' ? 'text-green-600' : 'text-red-600'}>{driverProfile?.data?.onlineStatus || 'Offline'}</span></div>
         </CardContent>
       </Card>
 
       {/* Requested Rides */}
       <div>
         <h2 className="text-lg font-semibold">Requested Rides</h2>
-        {requestedLoading ? <div className="py-8"><LoadingSpinner label="Loading requests..."/></div> : requestedRides.length === 0 ? <p className="text-muted-foreground">No requested rides at the moment.</p> : requestedRides.map(renderRideCard)}
+        {requestedLoading ? <div className="py-8"><LoadingSpinner label="Loading requests..."/></div> : requestedRides.length === 0 ? <p className="">No requested rides at the moment.</p> : requestedRides.map(renderRideCard)}
       </div>
 
       {/* Active Rides */}
       <div>
         <h2 className="text-lg font-semibold">Active Rides</h2>
-        {activeLoading ? <div className="py-8"><LoadingSpinner label="Loading active rides..."/></div> : activeRides.length === 0 ? <p className="text-muted-foreground">No active rides at the moment.</p> : activeRides.map(renderRideCard)}
+        {activeLoading ? <div className="py-8"><LoadingSpinner label="Loading active rides..."/></div> : activeRides.length === 0 ? <p className="">No active rides at the moment.</p> : activeRides.map(renderRideCard)}
       </div>
 
       {/* Live Map */}
@@ -237,7 +237,7 @@ export default function ActiveRides() {
             </Suspense>
           </div>
         ) : (
-          <p className="text-muted-foreground">Map will appear once location permission is granted.</p>
+          <p className="">Map will appear once location permission is granted.</p>
         )}
       </div>
     </div>

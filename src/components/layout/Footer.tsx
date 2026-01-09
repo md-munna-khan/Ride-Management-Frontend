@@ -21,7 +21,7 @@ export function Footer() {
               </span>
             </div>
 
-            <p className="text-muted-foreground mb-6 max-w-md">
+            <p className=" mb-6 max-w-md">
               Connecting riders and drivers seamlessly. Experience reliable,
               safe, and affordable transportation at your fingertips.
             </p>
@@ -37,7 +37,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
               >
-                <Linkedin className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
+                <Linkedin className="h-5 w-5 hover:text-primary transition-colors" />
               </a>
 
               {/* GitHub */}
@@ -47,7 +47,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 aria-label="GitHub"
               >
-                <Github className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
+                <Github className="h-5 w-5 hover:text-primary transition-colors" />
               </a>
 
               {/* WhatsApp */}
@@ -57,7 +57,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
               >
-                <MessageCircle className="h-5 w-5 text-muted-foreground hover:text-green-500 transition-colors" />
+                <MessageCircle className="h-5 w-5 hover:text-green-500 transition-colors" />
               </a>
             </div>
           </div>
@@ -65,26 +65,26 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-foreground mb-4">Company</h4>
             <ul className="space-y-2">
-              <li><a href="/about" className="text-muted-foreground hover:text-foreground">About Us</a></li>
-              <li><a href="/features" className="text-muted-foreground hover:text-foreground">Features</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">Press</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">Blog</a></li>
+              <li><a href="/about" className=" hover:text-foreground">About Us</a></li>
+              <li><a href="/features" className=" hover:text-foreground">Features</a></li>
+              <li><a href="#" className=" hover:text-foreground">Press</a></li>
+              <li><a href="#" className=" hover:text-foreground">Blog</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-semibold text-foreground mb-4">Support</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">Help Center</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">Safety</a></li>
-              <li><a href="/contact" className="text-muted-foreground hover:text-foreground">Contact Us</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">Terms of Service</a></li>
+              <li><a href="#" className=" hover:text-foreground">Help Center</a></li>
+              <li><a href="#" className=" hover:text-foreground">Safety</a></li>
+              <li><a href="/contact" className=" hover:text-foreground">Contact Us</a></li>
+              <li><a href="#" className=" hover:text-foreground">Terms of Service</a></li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-border mt-8 pt-8 text-center">
-          <p className="text-muted-foreground">
+          <p className="">
             © 2024 RideFlow. All rights reserved.
           </p>
         </div>

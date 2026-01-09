@@ -73,28 +73,28 @@ const Earnings = () => {
     <div className="p-6 space-y-6 container mx-auto">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-extrabold">Earnings Dashboard</h1>
-        <div className="text-sm text-muted-foreground">Summary of your completed rides and earnings</div>
+        <div className="text-sm">Summary of your completed rides and earnings</div>
       </div>
 
       {/* Top Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card className="shadow-md p-4 rounded-2xl">
           <CardContent>
-            <h2 className="text-sm text-muted-foreground">Total Earnings</h2>
+            <h2 className="text-sm">Total Earnings</h2>
             <p className="text-2xl font-bold text-green-600">${Number(totalEarnings || 0).toFixed(2)}</p>
           </CardContent>
         </Card>
 
         <Card className="shadow-md p-4 rounded-2xl">
           <CardContent>
-            <h2 className="text-sm text-muted-foreground">Total Rides</h2>
+            <h2 className="text-sm">Total Rides</h2>
             <p className="text-2xl font-bold text-blue-600">{rideCount}</p>
           </CardContent>
         </Card>
 
         <Card className="shadow-md p-4 rounded-2xl">
           <CardContent>
-            <h2 className="text-sm text-muted-foreground">Avg per Ride</h2>
+            <h2 className="text-sm">Avg per Ride</h2>
             <p className="text-2xl font-bold text-indigo-600">${rideCount ? (Number(totalEarnings || 0) / rideCount).toFixed(2) : '0.00'}</p>
           </CardContent>
         </Card>

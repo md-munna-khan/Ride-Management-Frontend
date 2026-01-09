@@ -13,7 +13,7 @@ export function FeaturesHighlights() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-bold">Why choose us</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">Built for speed, safety and simplicity — everything a modern rider needs.</p>
+          <p className=" max-w-2xl mx-auto">Built for speed, safety and simplicity — everything a modern rider needs.</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -23,7 +23,7 @@ export function FeaturesHighlights() {
                 <item.icon className="h-6 w-6 text-primary" />
               </div>
               <h4 className="font-semibold mb-2">{item.title}</h4>
-              <p className="text-sm text-muted-foreground">{item.desc}</p>
+              <p className="text-sm">{item.desc}</p>
             </div>
           ))}
         </div>

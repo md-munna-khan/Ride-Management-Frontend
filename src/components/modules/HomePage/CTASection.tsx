@@ -8,7 +8,7 @@ export function CTASection() {
       <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
           <h3 className="text-2xl font-bold">Ready to ride?</h3>
-          <p className="text-muted-foreground">Book your next trip in seconds. Drivers available now.</p>
+          <p className="">Book your next trip in seconds. Drivers available now.</p>
         </div>
         <div className="flex items-center gap-4">
           <Button size="lg" onClick={() => navigate('/rider/request')}>Book a Ride</Button>

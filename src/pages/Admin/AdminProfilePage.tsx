@@ -84,11 +84,11 @@ const AdminProfilePage: React.FC = () => {
     : "A";
 
   return (
-    <section className="max-w-5xl mx-auto px-4 py-10">
+    <section className="container mx-auto px-4 py-10">
       <Card className="shadow-xl rounded-2xl">
         <CardHeader>
           <h2 className="text-2xl font-bold">Admin Profile</h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm">
             Manage your personal information and security
           </p>
         </CardHeader>
@@ -108,7 +108,7 @@ const AdminProfilePage: React.FC = () => {
               )}
             </div>
 
-            <div className="mt-4">
+            <div className="mt-4 w-full">
               <SingleImageUploader
                 onChange={(file) => {
                   setPictureFile(file);

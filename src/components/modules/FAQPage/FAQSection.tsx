@@ -193,7 +193,7 @@ export function FAQSection() {
         {/* Search and Filter */}
         <div className="mb-8 space-y-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4" />
             <Input
               placeholder="Search frequently asked questions..."
               value={searchTerm}
@@ -221,7 +221,7 @@ export function FAQSection() {
           {filteredFAQs.length === 0 ? (
             <Card>
               <CardContent className="p-8 text-center">
-                <p className="text-muted-foreground">
+                <p className="">
                   No questions found matching your search. Try different keywords or browse all categories.
                 </p>
               </CardContent>
@@ -242,9 +242,9 @@ export function FAQSection() {
                         <h3 className="font-semibold text-foreground">{faq.question}</h3>
                       </div>
                       {expandedItems.includes(faq.id) ? (
-                        <ChevronUp className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                        <ChevronUp className="h-5 w-5 flex-shrink-0" />
                       ) : (
-                        <ChevronDown className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                        <ChevronDown className="h-5 w-5 flex-shrink-0" />
                       )}
                     </div>
                   </button>
@@ -252,7 +252,7 @@ export function FAQSection() {
                   {expandedItems.includes(faq.id) && (
                     <div className="px-6 pb-6">
                       <div className="pt-4 border-t border-border">
-                        <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+                        <p className=" leading-relaxed">{faq.answer}</p>
                       </div>
                     </div>
                   )}
@@ -267,7 +267,7 @@ export function FAQSection() {
           <Card>
             <CardContent className="p-8">
               <h3 className="text-xl font-semibold text-foreground mb-2">Still have questions?</h3>
-              <p className="text-muted-foreground mb-4">Our support team is here to help you 24/7</p>
+              <p className=" mb-4">Our support team is here to help you 24/7</p>
               <Button asChild>
                 <a href="/contact">Contact Support</a>
               </Button>

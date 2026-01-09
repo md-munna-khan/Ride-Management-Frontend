@@ -115,7 +115,7 @@ export function ContactForm() {
         <CardContent className="p-8 text-center">
           <CheckCircle className="h-16 w-16 text-primary mx-auto mb-4" />
           <h3 className="text-2xl font-semibold text-foreground mb-2">Message Sent Successfully!</h3>
-          <p className="text-muted-foreground">Thank you for contacting us. We'll get back to you within 24 hours.</p>
+          <p className="">Thank you for contacting us. We'll get back to you within 24 hours.</p>
         </CardContent>
       </Card>
     )

@@ -6,7 +6,7 @@ export function CompanyBackground() {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">About RideConnect</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl max-w-2xl mx-auto">
             Revolutionizing urban transportation through innovative technology and exceptional service
           </p>
         </div>
@@ -14,7 +14,7 @@ export function CompanyBackground() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl font-bold text-foreground mb-6">Our Story</h2>
-            <div className="space-y-4 text-muted-foreground">
+            <div className="space-y-4">
               <p>
                 Founded in 2020, RideConnect emerged from a simple vision: to make transportation accessible, reliable,
                 and safe for everyone. What started as a small team of passionate engineers has grown into a leading
@@ -37,19 +37,19 @@ export function CompanyBackground() {
             <div className="space-y-6">
               <div className="text-center">
                 <div className="text-3xl font-bold text-primary mb-2">10M+</div>
-                <div className="text-sm text-muted-foreground">Rides Completed</div>
+                <div className="text-sm">Rides Completed</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-primary mb-2">50+</div>
-                <div className="text-sm text-muted-foreground">Cities Served</div>
+                <div className="text-sm">Cities Served</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-primary mb-2">25K+</div>
-                <div className="text-sm text-muted-foreground">Active Drivers</div>
+                <div className="text-sm">Active Drivers</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-primary mb-2">4.8★</div>
-                <div className="text-sm text-muted-foreground">Average Rating</div>
+                <div className="text-sm">Average Rating</div>
               </div>
             </div>
           </Card>

@@ -97,7 +97,7 @@ useEffect(() => {
               <p className="mb-1.5 text-sm font-medium">
                 Drop your image here or click to browse
               </p>
-              <p className="text-muted-foreground text-xs">
+              <p className=" text-xs">
                 Max size: {maxSizeMB}MB
               </p>
             </div>

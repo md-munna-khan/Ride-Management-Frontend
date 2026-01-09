@@ -118,14 +118,14 @@ export function ApplyAsDriver() {
         </DialogHeader>
         {/* User summary + instructions */}
         <div className="px-4">
-          <p className="text-sm text-muted-foreground mb-2">Please provide your vehicle details and upload a clear copy of your driving license. Applications are reviewed within 48 hours.</p>
+          <p className="text-sm mb-2">Please provide your vehicle details and upload a clear copy of your driving license. Applications are reviewed within 48 hours.</p>
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-lg font-semibold text-slate-700">
               {user?.data?.name ? user.data.name.split(' ').map((n: string) => n[0]).slice(0,2).join('') : 'U'}
             </div>
             <div className="text-sm">
               <div className="font-medium">{user?.data?.name || 'Unknown User'}</div>
-              <div className="text-muted-foreground text-xs">{user?.data?.email || 'No email'}</div>
+              <div className=" text-xs">{user?.data?.email || 'No email'}</div>
             </div>
           </div>
         </div>
@@ -184,12 +184,12 @@ export function ApplyAsDriver() {
                   {drivingLicense.type.startsWith('image/') ? (
                     <img src={URL.createObjectURL(drivingLicense)} alt="license preview" className="w-full h-full object-cover" />
                   ) : (
-                    <div className="text-xs text-muted-foreground px-2">{drivingLicense.name}</div>
+                    <div className="text-xs px-2">{drivingLicense.name}</div>
                   )}
                 </div>
                 <div className="flex-1 text-sm">
                   <div className="font-medium">{drivingLicense.name}</div>
-                  <div className="text-xs text-muted-foreground">{(drivingLicense.size / 1024).toFixed(1)} KB</div>
+                  <div className="text-xs">{(drivingLicense.size / 1024).toFixed(1)} KB</div>
                 </div>
                 <div>
                   <Button variant="ghost" size="sm" onClick={() => setDrivingLicense(null)}>Remove</Button>

@@ -74,7 +74,7 @@ const RideHistory = () => {
     <div className="p-6 container mx-auto">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-3xl font-bold">Ride History</h2>
-        <p className="text-sm text-muted-foreground">Overview of your completed and past rides</p>
+        <p className="text-sm">Overview of your completed and past rides</p>
       </div>
 
       {/* Area chart: rides per day */}
@@ -82,7 +82,7 @@ const RideHistory = () => {
         <CardContent>
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-lg font-medium">Rides Over Time</h3>
-            <p className="text-sm text-muted-foreground">Daily ride count</p>
+            <p className="text-sm">Daily ride count</p>
           </div>
           <div style={{ width: '100%', height: 200 }}>
             <ResponsiveContainer>
@@ -134,9 +134,9 @@ const RideHistory = () => {
             className="border rounded-xl shadow-sm p-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:shadow-lg transition-shadow duration-200"
           >
             <div className="flex flex-col gap-1 max-w-xl">
-              <p className="text-sm text-muted-foreground">Rider</p>
+              <p className="text-sm">Rider</p>
               <p className="font-semibold">{ride.riderId?.name || ride.riderId || 'N/A'}</p>
-              <p className="text-xs text-muted-foreground mt-2">Requested: {ride.timestamps?.requestedAt ? new Date(ride.timestamps.requestedAt).toLocaleString() : 'N/A'}</p>
+              <p className="text-xs mt-2">Requested: {ride.timestamps?.requestedAt ? new Date(ride.timestamps.requestedAt).toLocaleString() : 'N/A'}</p>
               <p className="text-sm mt-1">Destination: <span className="font-medium">{ride.destination?.address || 'N/A'}</span></p>
             </div>
 

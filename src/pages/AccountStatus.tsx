@@ -28,7 +28,7 @@ export default function AccountStatus() {
             ? "Account Suspended"
             : "Account Status"}
         </h1>
-        <p className="text-sm text-muted-foreground mb-6">{message}</p>
+        <p className="text-sm mb-6">{message}</p>
 
         <div className="flex flex-col gap-4">
           <Button

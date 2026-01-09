@@ -77,7 +77,7 @@ export function TeamProfiles() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Meet Our Leadership Team</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl max-w-3xl mx-auto">
             Passionate leaders with diverse backgrounds united by a common goal: revolutionizing transportation for
             everyone.
           </p>
@@ -96,7 +96,7 @@ export function TeamProfiles() {
               <div className="p-6">
                 <h3 className="text-xl font-bold text-foreground mb-1">{member.name}</h3>
                 <p className="text-primary font-medium mb-3">{member.role}</p>
-                <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{member.bio}</p>
+                <p className=" text-sm mb-4 leading-relaxed">{member.bio}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {member.expertise.map((skill, skillIndex) => (
                     <Badge key={skillIndex} variant="secondary" className="text-xs">
@@ -107,14 +107,14 @@ export function TeamProfiles() {
                 <div className="flex gap-3">
                   <a
                     href={member.social.linkedin}
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className=" hover:text-primary transition-colors"
                     aria-label={`${member.name} LinkedIn`}
                   >
                     <Linkedin className="w-5 h-5" />
                   </a>
                   <a
                     href={member.social.twitter}
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className=" hover:text-primary transition-colors"
                     aria-label={`${member.name} Twitter`}
                   >
                     <Twitter className="w-5 h-5" />
@@ -128,7 +128,7 @@ export function TeamProfiles() {
         <div className="mt-16 text-center">
           <Card className="p-8 bg-primary/5 border-primary/20">
             <h3 className="text-2xl font-bold text-foreground mb-4">Join Our Team</h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+            <p className=" mb-6 max-w-2xl mx-auto">
               We're always looking for talented individuals who share our passion for transforming transportation.
               Explore opportunities to make a real impact.
             </p>

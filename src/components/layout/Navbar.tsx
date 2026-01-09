@@ -47,7 +47,7 @@ const navigationLinks = [
 
 export default function Navbar() {
   const { data } = useUserInfoQuery(undefined);
-  console.log(data)
+
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
 
@@ -91,7 +91,7 @@ export default function Navbar() {
                         <NavigationMenuItem key={index}>
                           <NavigationMenuLink
                             asChild
-                            className=" hover:text-primary py-1.5  font-medium"
+                            className=" py-1.5  font-medium"
                           >
                             <Link to={link.href}>{link.label}</Link>
                           </NavigationMenuLink>
@@ -105,7 +105,7 @@ export default function Navbar() {
             </PopoverContent>
           </Popover>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-primary hover:text-primary/90">
+            <a href="#" className="text-primary ">
               <Logo />
             </a>
             <NavigationMenu className="max-md:hidden">
@@ -116,7 +116,7 @@ export default function Navbar() {
                       <NavigationMenuItem>
                         <NavigationMenuLink
                           asChild
-                          className="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                          className=" py-1.5 font-medium"
                         >
                           <Link to={link.href}>{link.label}</Link>
                         </NavigationMenuLink>
@@ -126,7 +126,7 @@ export default function Navbar() {
                       <NavigationMenuItem>
                         <NavigationMenuLink
                           asChild
-                          className="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                          className="  py-1.5 font-medium"
                         >
                           <Link to={link.href}>{link.label}</Link>
                         </NavigationMenuLink>
@@ -156,7 +156,7 @@ export default function Navbar() {
                       }
                       alt={data?.data?.name || data?.data?.email}
                     />
-                    <AvatarFallback className="bg-primary text-primary-foreground">
+                    <AvatarFallback className="bg-primary ">
                       {getUserInitials(data?.data?.email)}
                     </AvatarFallback>
                   </Avatar>
@@ -168,21 +168,16 @@ export default function Navbar() {
                     <p className="text-sm font-medium leading-none">
                       {data?.data?.name || "User"}
                     </p>
-                    <p className="text-xs leading-none text-muted-foreground">
+                    <p className="text-xs leading-none">
                       {data?.data?.email}
                     </p>
-                    <p className="text-xs leading-none text-muted-foreground capitalize">
+                    <p className="text-xs leading-none capitalize">
                       {data?.data?.role} Account
                     </p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                {/* <DropdownMenuItem asChild>
-                  <Link to="/profile" className="cursor-pointer">
-                    <User className="mr-2 h-4 w-4" />
-                    <span>Profile</span>
-                  </Link>
-                </DropdownMenuItem> */}
+                
 
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
@@ -195,7 +190,7 @@ export default function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button asChild className="text-sm">
+            <Button asChild className="text-sm text-white">
               <Link to="/login">Login</Link>
             </Button>
           )}

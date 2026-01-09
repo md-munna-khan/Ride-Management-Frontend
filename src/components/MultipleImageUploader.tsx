@@ -111,7 +111,7 @@ export default function MultipleImageUploader({
               <ImageIcon className="size-4 opacity-60" />
             </div>
             <p className="mb-1.5 text-sm font-medium">Drop your images here</p>
-            <p className="text-muted-foreground text-xs">
+            <p className=" text-xs">
               SVG, PNG, JPG or GIF (max. {maxSizeMB}MB)
             </p>
             <Button
