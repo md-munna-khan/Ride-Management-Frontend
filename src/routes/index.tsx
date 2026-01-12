@@ -27,6 +27,7 @@ import FAQ from "@/pages/home/FAQ";
 import AccountStatus from "@/pages/AccountStatus";
 import { riderSidebarItems } from "./riderSidebarItems";
 import { driverSidebarItems } from "./driverSidebarItems";
+import RideDetailsPage from "@/pages/Rider/RideDetailsPage";
 
 
 export const router = createBrowserRouter([
@@ -100,6 +101,10 @@ export const router = createBrowserRouter([
   },
 
   // Others
+   {
+    Component: RideDetailsPage,
+    path: "/rides/:rideId",
+  },
   {
     Component: Unauthorized,
     path: "/unauthorized",

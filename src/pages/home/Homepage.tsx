@@ -8,7 +8,7 @@ import { Testimonials } from "@/components/modules/HomePage/Testimonials";
 import { FeaturesHighlights } from "@/components/modules/HomePage/FeaturesHighlights";
 import { SafetyAndSecurity } from "@/components/modules/HomePage/SafetyAndSecurity";
 
-import { CTASection } from "@/components/modules/HomePage/CTASection";
+
 import Categories from "@/components/modules/HomePage/Categories";
 
 export default function Homepage() {
@@ -22,7 +22,7 @@ export default function Homepage() {
       <SafetyAndSecurity />
       <Testimonials />
      
-      <CTASection />
+  
     </div>
   );
 }

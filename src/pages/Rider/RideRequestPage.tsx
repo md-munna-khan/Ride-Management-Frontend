@@ -1,5 +1,4 @@
 
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useState, lazy, Suspense, useEffect } from "react";
@@ -32,6 +31,8 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 
+import { useNavigate } from "react-router";
+
 // ✅ Lazy load SOS button
 const SOSButton = lazy(() => import("../SOSButton"));
 
@@ -48,6 +49,8 @@ export default function RideRequestPage() {
   const [pickupCoords, setPickupCoords] = useState<[number, number] | null>(
     null
   );
+
+  const navigate = useNavigate();
   const [destinationCoords, setDestinationCoords] = useState<
     [number, number] | null
   >(null);
@@ -64,17 +67,21 @@ export default function RideRequestPage() {
   });
   const currentRide = rideDetails?.data ?? rideDetails ?? null;
   const [giveRiderFeedback, { isLoading: isSubmittingFeedback }] = useGiveRiderFeedbackMutation();
-console.log(giveRiderFeedback)
+
   const [requestRide] = useRequestRideMutation();
 
-  // Estimate fare
+   // Estimate fare
   const estimateFare = () => {
     if (pickupCoords && destinationCoords) {
-      setFare(Math.floor(Math.random() * 300) + 100); // demo calculation
-    } else {
-      toast("Please select pickup and destination points on the map.");
+      const randomfare = Math.floor(Math.random() * 300) + 100;
+      setFare(randomfare);
     }
   };
+  useEffect(() => {
+    if (pickupCoords && destinationCoords) {
+      estimateFare();
+    }
+  }, [pickupCoords, destinationCoords]);
 
   // Submit handler
   const handleSubmit = async (e: React.FormEvent) => {
@@ -118,6 +125,7 @@ console.log(giveRiderFeedback)
       setDestinationCoords(null);
       setFare(null);
       setPaymentMethod("CASH");
+       navigate(`/rides/${id}`);
     } catch (err: any) {
       console.error(err);
       toast(err?.data?.message || "Failed to request ride.");
@@ -315,13 +323,12 @@ console.log(giveRiderFeedback)
                     setDestinationCoords(null);
                     setPickupAddress(null);
                     setDestinationAddress(null);
+                    setFare(null);
                   }}
                 >
                   Clear
                 </Button>
-                <Button size="sm" variant="secondary" onClick={estimateFare}>
-                  Estimate Fare
-                </Button>
+              
               </div>
             </div>
           </div>

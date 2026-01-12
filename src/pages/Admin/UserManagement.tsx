@@ -1,13 +1,9 @@
 
-
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import LoadingSpinner from "@/components/LoadingSpinner";
 import {
-  useApproveDriverMutation,
   useBlockUnblockUserMutation,
   useGetAllUsersQuery,
-  useSuspendDriverMutation,
 } from "@/redux/features/adminApi/adminApi";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -37,8 +33,8 @@ const UserManagement: React.FC = () => {
   const { data, isLoading, refetch } = useGetAllUsersQuery(params);
 
   const [blockUnblockUser] = useBlockUnblockUserMutation();
-  const [approveDriver] = useApproveDriverMutation();
-  const [suspendDriver] = useSuspendDriverMutation();
+  // const [approveDriver] = useApproveDriverMutation();
+  // const [suspendDriver] = useSuspendDriverMutation();
 
   const handleBlockToggle = async (id: string, status: string) => {
     try {
@@ -51,25 +47,7 @@ const UserManagement: React.FC = () => {
     }
   };
 
-  const handleApproveDriver = async (driverId: string) => {
-    try {
-      await approveDriver(driverId);
-      toast.success("Driver approved successfully");
-      refetch();
-    } catch {
-      toast.error("Failed to approve driver");
-    }
-  };
 
-  const handleSuspendDriver = async (driverId: string) => {
-    try {
-      await suspendDriver(driverId);
-      toast.success("Driver suspended successfully");
-      refetch();
-    } catch {
-      toast.error("Failed to suspend driver");
-    }
-  };
 
   return (
     <Card className="p-6">
@@ -142,40 +120,12 @@ const UserManagement: React.FC = () => {
                         {user.status}
                       </Badge>
                     </td>
-                    {/* <td className="border px-4 py-2 flex flex-wrap gap-2">
-                      {user.role === "RIDER" && (
-                        <Button
-                          size="sm"
-                          variant={user.status === "BLOCKED" ? "secondary" : "destructive"}
-                          onClick={() => handleBlockToggle(user._id, user.status)}
-                        >
-                          {user.status === "BLOCKED" ? "UNBLOCK" : "BLOCK"}
-                        </Button>
-
-                      )}
-                    
-                    
-
-                      {user.role === "DRIVER" && (
-                        <>
-                          {user.status !== "Approved" && (
-                            <Button size="sm" variant="default" onClick={() => handleApproveDriver(user.driverId)}>
-                              Approve
-                            </Button>
-                          )}
-                          {user.status !== "Suspended" && (
-                            <Button size="sm" variant="destructive" onClick={() => handleSuspendDriver(user.driverId)}>
-                              Suspend
-                            </Button>
-                          )}
-                        </>
-                      )}
-                    </td> */}
+                   
 
 
                     <td className="border px-4 py-2 flex flex-wrap gap-2">
   {/* Block/Unblock for Riders */}
-  {user.role === "RIDER" && (
+  
     <Button
       size="sm"
       variant={user.status === "BLOCKED" ? "secondary" : "destructive"}
@@ -183,42 +133,8 @@ const UserManagement: React.FC = () => {
     >
       {user.status === "BLOCKED" ? "UNBLOCK" : "BLOCK"}
     </Button>
-  )}
 
-  {/* Approve Rider → Driver application */}
-  {user.driverStatus === "Pending" && user.driverId && (
-    <Button
-      size="sm"
-      variant="default"
-      onClick={() => handleApproveDriver(user.driverId)}
-    >
-      Approve
-    </Button>
-  )}
 
-  {/* DRIVER actions */}
-  {user.role === "DRIVER" && (
-    <>
-      {user.status !== "APPROVED" && (
-        <Button
-          size="sm"
-          variant="default"
-          onClick={() => handleApproveDriver(user.driverId)}
-        >
-          Approve
-        </Button>
-      )}
-      {user.status !== "SUSPENDED" && (
-        <Button
-          size="sm"
-          variant="destructive"
-          onClick={() => handleSuspendDriver(user.driverId)}
-        >
-          Suspend
-        </Button>
-      )}
-    </>
-  )}
 </td>
 
                   </tr>
@@ -233,3 +149,4 @@ const UserManagement: React.FC = () => {
 };
 
 export default UserManagement;
+

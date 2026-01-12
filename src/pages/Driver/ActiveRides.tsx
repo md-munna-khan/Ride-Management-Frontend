@@ -32,10 +32,11 @@ export default function ActiveRides() {
   const { data: driverProfile, refetch } = useGetDriverProfileQuery({});
   const { data: activeRidesData, isLoading: activeLoading } = useGetActiveRidesQuery({});
   const { data: requestedRidesData, isLoading: requestedLoading } = useGetRequestedRidesQuery({});
+  console.log(activeRidesData)
 
   const [updateOnlineStatus] = useUpdateOnlineStatusMutation();
   const [updateLocation] = useUpdateLocationMutation();
-  // const [updateRidingStatus] = useUpdateRidingStatusMutation();
+
   const [acceptRide] = useAcceptRideMutation();
   const [rejectRide] = useRejectRideMutation();
   const [pickUpRide] = usePickUpRideMutation();
@@ -101,6 +102,8 @@ export default function ActiveRides() {
 
 
   const handleRideAction = async (rideId: string, actionStatus: string, label: string) => {
+
+    console.log(rideId,actionStatus)
   try {
     toast.loading(`${label}...`);
     switch (actionStatus) {
@@ -116,7 +119,7 @@ export default function ActiveRides() {
     toast.success(`${label} successful`);
   } catch (err) {
     toast.dismiss();
-    toast.error(`Failed to ${label}`);
+    toast.error(`Failed to  ${label}`);
     console.error(err);
   }
 };
@@ -125,6 +128,7 @@ export default function ActiveRides() {
   // const ridingStatusOptions: ('idle' | 'waiting_for_pickup' | 'in_transit' | 'unavailable')[] = ["idle","waiting_for_pickup","in_transit","unavailable"];
 
   const renderRideCard = (ride: any) => {
+
     const actions = nextActions[ride.rideStatus] || [];
     return (
       <Card key={ride._id} >
@@ -147,23 +151,7 @@ export default function ActiveRides() {
           </div>
 
           <div className="flex flex-wrap gap-2 mt-2">
-            {/* {ridingStatusOptions.map(status => (
-              <Button key={status} size="sm" variant={status === "idle" ? "destructive" : "default"}
-                onClick={async () => {
-                  try {
-                    if (!driverProfile?.data?._id) return toast.error("Driver ID missing");
-                    await updateRidingStatus({ driverId: driverProfile.data._id, ridingStatus: status }).unwrap();
-                    await refetch();
-                    toast.success(`Riding status updated to ${status}`);
-                  } catch (err) {
-                    toast.error("Failed to update riding status");
-                    console.error(err);
-                  }
-                }}
-              >
-                {status}
-              </Button>
-            ))} */}
+           
           </div>
         </CardContent>
       </Card>
